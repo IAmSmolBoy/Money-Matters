@@ -1,0 +1,50 @@
+/* Header class represents navbar as well */
+.header
+{
+  background: black;
+  display: flex!important;
+  justify-content: space-around;
+  flex-basis: auto;
+  border-bottom: var(--border);
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.5 rem 7%;
+}
+
+/* logo on the navbar */
+.header .logo img
+{
+  height: 6rem;
+}
+
+/* navbar size */
+.header .navbar a
+{
+  margin: 0 1rem;
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+/* Navbar hover in primary color */
+.header .navbar a:hover
+{
+  color: var(--primary-color);
+  border-bottom: .1rem solid var(--primary-color);
+  padding-bottom: .5rem;
+}
+
+/* Icons will have the mouse pointer icon when hovered */
+.header .icons div
+{
+  color: #fff;
+  cursor: pointer;
+  font-size: 2.5rem;
+  margin-left: 2rem;
+}
+
+/* Icons will glow in primary color when hovered over */
+.header .icons div:hover
+{
+  color: var(--primary-color);
+}
