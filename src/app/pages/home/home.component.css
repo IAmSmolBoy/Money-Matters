@@ -1,4 +1,4 @@
-
+/* Home page background picture */
 .bg
 {
   min-height: 100vh;
@@ -45,5 +45,7 @@
 
 .btn:hover
 {
+  border-bottom: .1rem solid var(--primary-color);
   letter-spacing: .2rem;
+  color: white;
 }
