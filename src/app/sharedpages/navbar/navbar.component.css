@@ -58,11 +58,14 @@
   color: var(--primary-color);
 }
 
+/* the bootstrap icon hamburg sign */
+/* may have to delete this if using stock bootstrap collapsed hamburg sign */
 #menuBtn
 {
   display: none;
 }
 
+/* Media resize -> if the web window is of a certain width, these will be applied */
 @media (max-width:991px)
 {
 

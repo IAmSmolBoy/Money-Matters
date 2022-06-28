@@ -11,6 +11,8 @@ body
 {
   height: 100vh;
 }
+
+/* this sets the overall container appreance and sizing */
 .container
 {
   background-color: #fff;
@@ -25,6 +27,7 @@ body
   box-shadow: 20px 30px 25px rgba(0, 0, 0, 0.15);
 }
 
+/* GET IN TOUCH title */
 h1
 {
   color: #1c093c;
@@ -32,6 +35,7 @@ h1
   text-align: center;
 }
 
+/* paragraph appearance, position, margin, size */
 p
 {
   position: relative;
@@ -43,6 +47,7 @@ p
   font-weight: 400;
 }
 
+/* overall form width, position, margins */
 form
 {
   width: 100%;
@@ -50,6 +55,7 @@ form
   margin: 30px auto 0 auto;
 }
 
+/* this enforces the row classes in the feedback form  */
 .row
 {
   width: 100%;
@@ -59,12 +65,14 @@ form
   margin-bottom: 20px;
 }
 
+/* This changes the appearance of said label for each label above the input fields */
 label
 {
   color: #1c093c;
   font-size: 14px;
 }
 
+/* This changes the overall appearance of the input text box field */
 textarea,
 input
 {
@@ -76,6 +84,7 @@ input
   margin-top: 5px;
 }
 
+/* text box field will remain the same width when the page resizes */
 textarea
 {
   resize: none;
@@ -88,7 +97,7 @@ input:focus
   outline: none;
   border-color: var(--primary-color);
 }
-
+/* This is the submit form button */
 button
 {
   border: none;
@@ -96,7 +105,7 @@ button
   background: whitesmoke;
   border-radius: 4px;
 }
-
+/* Hovering over the submit form button will play this effect */
 button:hover
 {
   border-bottom: .1rem solid var(--primary-color);
