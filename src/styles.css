@@ -1,1 +1,51 @@
-/* You can add global styles to this file, and also import other style files */
+/* :root represents the top level element of HTML document */
+:root
+{
+  --primary-color:#d3ad7f;
+  --black:#13131a;
+  --bg:#010103;
+  --border: .1rem solid rgba(255,255,255,.3)
+}
+
+/* To target the whole website */
+*
+{
+  font-family: Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  text-transform: capitalize;
+  transition: .2s linear;
+}
+
+html
+{
+  font-size:70%;
+  overflow-x: hidden;
+  scroll-padding-top: 9rem;
+  scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar
+{
+  width: .8rem;
+}
+
+html::-webkit-scrollbar-track
+{
+  background: transparent;
+}
+
+html::-webkit-scrollbar-thumb
+{
+  background: #fff;
+  border-radius: .5rem;
+}
+
+body
+{
+  background: var(--bg)
+}
