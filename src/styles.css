@@ -29,36 +29,23 @@ html
   scroll-behavior: smooth;
 }
 
-/* webkit to make the website feel better for user experience */
 html::-webkit-scrollbar
 {
   width: .8rem;
 }
+
 html::-webkit-scrollbar-track
 {
   background: transparent;
 }
+
 html::-webkit-scrollbar-thumb
 {
   background: #fff;
   border-radius: .5rem;
 }
 
-/* sets the whole web application to dark mode */
 body
 {
   background: var(--bg)
 }
-
-
-/* overall website media resize */
-@media(max-width:991px)
-{
-  html{
-    font-size: 55%;
-  }
-  .header{
-    padding: 1.5rem 2rem;
-  }
-}
-

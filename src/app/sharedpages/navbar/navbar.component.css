@@ -6,89 +6,45 @@
   justify-content: space-around;
   flex-basis: auto;
   border-bottom: var(--border);
-  position:absolute;
-  top:0; left: 0; right: 0;
-  z-index: 900;
-  padding: 1.2rem 8%;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.5 rem 7%;
 }
 
 /* logo on the navbar */
-.imglogo
+.header .logo img
 {
-  width: 130px;
-  height: 130px;
-  background-repeat: no-repeat;
-  position:absolute;
-  flex: auto;
-  justify-content: flex-start;
-  background-position-x: right;
-  right: 130%;
-  overflow: hidden;
+  height: 6rem;
 }
 
 /* navbar size */
-.navbar .navbar-nav a
+.header .navbar a
 {
   margin: 0 1rem;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   color: #fff;
 }
 
 /* Navbar hover in primary color */
-.navbar .navbar-nav a:hover
+.header .navbar a:hover
 {
   color: var(--primary-color);
   border-bottom: .1rem solid var(--primary-color);
   padding-bottom: .5rem;
 }
 
-
 /* Icons will have the mouse pointer icon when hovered */
-.icons div
+.header .icons div
 {
   color: #fff;
   cursor: pointer;
   font-size: 2.5rem;
-  margin-left: 4rem;
+  margin-left: 2rem;
 }
 
 /* Icons will glow in primary color when hovered over */
 .header .icons div:hover
 {
   color: var(--primary-color);
-}
-
-/* the bootstrap icon hamburg sign */
-/* may have to delete this if using stock bootstrap collapsed hamburg sign */
-#menuBtn
-{
-  display: none;
-}
-
-/* Media resize -> if the web window is of a certain width, these will be applied */
-@media (max-width:991px)
-{
-
-  .header .navbar.active{
-    right: 0;
-  }
-  .imglogo
-  {
-    display: none;
-  }
-  .header .navbar
-  {
-    position: absolute;
-    top: 100%; right: 0%;
-    background: whitesmoke;
-    width: 30rem;
-  }
-  .header .navbar a
-  {
-    color: var(--black);
-    display: block;
-    margin: 1.5rem;
-    padding: .5rem;
-    font-size: 2rem;
-  }
 }
