@@ -1,11 +1,16 @@
 .footer
 {
+  overflow: hidden;
   background: var(--black);
   text-align: center;
+  position:absolute;
+  top: 100%;
+  padding: 20px 10px;
 }
 
 .footer .links
 {
+  overflow: hidden;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -18,7 +23,7 @@
   padding: .7rem 2rem;
   color: #fff;
   border: var(--border);
-  font-size: 2rem;
+  font-size: 1.3rem;
 }
 
 .footer .links a:hover
@@ -28,7 +33,7 @@
 
 .footer .credit
 {
-  font-size: 2rem;
+  font-size: 1.7rem;
   color: #fff;
   font-weight: lighter;
   padding: 1.5rem;
