@@ -32,6 +32,8 @@
   margin: 0 1rem;
   font-size: 1.4rem;
   color: #fff;
+  padding-bottom: .5rem;
+  border-bottom: .1rem solid transparent;
 }
 
 /* Navbar hover in primary color */
@@ -39,7 +41,6 @@
 {
   color: var(--primary-color);
   border-bottom: .1rem solid var(--primary-color);
-  padding-bottom: .5rem;
 }
 
 
