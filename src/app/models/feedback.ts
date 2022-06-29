@@ -7,10 +7,10 @@ export class Feedback {
     email: string
     subject: string
     description: string
-    contactNumber?: string
+    contactNumber: string
 
-    constructor(name: string, email: string, subject: string, description: string, contactNumber?: string) {
-        this.id = feedbackList.length === 0 ? 1 : feedbackList[feedbackList.length - 1].id + 1
+    constructor(id: number, name: string, email: string, subject: string, description: string, contactNumber: string) {
+        this.id = id
         this.name = name 
         this.email = email 
         this.subject = subject 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { transactionList } from './models/mock-transaction';
-import { Transaction } from './models/transaction';
+import { transactionList } from '../models/mock-transaction';
+import { Transaction } from '../models/transaction';
 
 @Injectable({
   providedIn: 'root'
