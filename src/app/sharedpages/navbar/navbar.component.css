@@ -2,28 +2,39 @@
 .header
 {
   background: black;
-  display: flex!important;
+  display: flex !important;
   justify-content: space-around;
   flex-basis: auto;
   border-bottom: var(--border);
-  position:absolute;
-  top:0; left: 0; right: 0;
-  z-index: 900;
-  padding: 1.2rem 8%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.navbar {
+  margin: 1.2rem auto;
+}
+
+.navbar-nav {
+  margin: 0 auto;
 }
 
 /* logo on the navbar */
+.img-fluid {
+  height: 4.3rem;
+  margin: auto 0;
+}
+
 .imglogo
 {
-  width: 130px;
-  height: 130px;
-  background-repeat: no-repeat;
-  position:absolute;
-  flex: auto;
-  justify-content: flex-start;
-  background-position-x: right;
-  right: 130%;
-  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  height: 100%;
 }
 
 /* navbar size */
@@ -81,7 +92,7 @@
   {
     position: absolute;
     top: 100%; right: 0%;
-    background: whitesmoke;
+    background: var(--primary-color);
     width: 30rem;
   }
   .header .navbar a
