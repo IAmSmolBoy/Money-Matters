@@ -1,114 +1,25 @@
 <body>
-  <div class="container">
-    <div class="subforum">
-        <div class="subforum-title">
-            <h1>General Questions & Answers</h1>
-        </div>
-        <div class="subforum-row">
-            <div class="subforum-icon subforum-column center">
-              <i class="bi bi-chat-left-dots-fill"></i>
+    <div class="container">
+        <div *ngFor="let subForumItem of forumList | keyvalue" class="subforum">
+            <div class="subforum-title">
+                <h1>{{subForumItem.key}}</h1>
             </div>
-            <div class="subforum-description subforum-column">
-                <a [routerLink]="['/forumpage']">Question ssdadjsdh</a>
-                <p>Description Content: i dont care about your questions, next</p>
-            </div>
-            <div class="subforum-stats subforum-column center">
-                <span>24 Posts | 12 Topics</span>
-            </div>
-            <div class="subforum-info subforum-column">
-                <b><a routerLink="">Last post</a></b> by <a routerLink="">Administrator</a>
-                <br>on <small>2 Jul 2022</small>
-            </div>
-        </div>
-      </div>
-      <div class="subforum">
-        <div class="subforum-title">
-            <h1>General Feedback & Concerns</h1>
-        </div>
-        <div class="subforum-row">
-            <div class="subforum-icon subforum-column center">
-              <i class="bi bi-chat-left-dots-fill"></i>
-            </div>
-            <div class="subforum-description subforum-column">
-                <h4><a routerLink="">I am going mental</a></h4>
-                <p>Description Content: Concerns regarding mental health while coding this</p>
-            </div>
-            <div class="subforum-stats subforum-column center">
-                <span>15 Posts | 126 Topics</span>
-            </div>
-            <div class="subforum-info subforum-column">
-                <b><a routerLink="">Last post</a></b> by <a routerLink="">Idiot</a>
-                <br>on <small>2 Jul 2022</small>
+            <div *ngFor="let forumItem of subForumItem.value; let i = index">
+                <hr *ngIf="i !== 0" class="subforum-devider">
+                <div class="subforum-row">
+                    <div class="subforum-icon subforum-column center">
+                        <i class="bi bi-chat-left-dots-fill"></i>
+                    </div>
+                    <div class="subforum-description subforum-column">
+                        <a *ngIf="!forumItem.feedback" [routerLink]="['/forumpage']">{{forumItem.subject}}</a>
+                        <a *ngIf="forumItem.feedback" [routerLink]="">{{forumItem.subject}}</a>
+                        <p>Description Content: {{forumItem.description}}</p>
+                    </div>
+                    <div class="subforum-stats subforum-column center">
+                        <span>24 Posts | 12 Topics</span>
+                    </div>
+                </div>
             </div>
         </div>
-        <hr class="subforum-devider">
-        <div class="subforum-row">
-            <div class="subforum-icon subforum-column center">
-              <i class="bi bi-chat-left-dots-fill"></i>
-            </div>
-            <div class="subforum-description subforum-column">
-                <h4><a routerLink="">Yo mama so fat she breaks your code</a></h4>
-                <p>Description Content: Yo mama so fat she breaks your code</p>
-            </div>
-            <div class="subforum-stats subforum-column center">
-                <span>24 Posts | 12 Topics</span>
-            </div>
-            <div class="subforum-info subforum-column">
-                <b><a routerLink="">Last post</a></b> by <a routerLink="">JustAUser</a>
-                <br>on <small>2 Jul 2022</small>
-            </div>
-        </div>
-        <hr class="subforum-devider">
-        <div class="subforum-row">
-            <div class="subforum-icon subforum-column center">
-              <i class="bi bi-chat-left-dots-fill"></i>
-            </div>
-            <div class="subforum-description subforum-column">
-                <h4><a routerLink="">Description Title</a></h4>
-                <p>Description Content: i am out of jokes.</p>
-            </div>
-            <div class="subforum-stats subforum-column center">
-                <span>24 Posts | 12 Topics</span>
-            </div>
-            <div class="subforum-info subforum-column">
-                <b><a routerLink="">Last post</a></b> by <a routerLink="">JustAUser</a>
-                <br>on <small>2 Jul 2022</small>
-            </div>
-        </div>
-        <hr class="subforum-devider">
-        <div class="subforum-row">
-            <div class="subforum-icon subforum-column center">
-              <i class="bi bi-chat-left-dots-fill"></i>
-            </div>
-            <div class="subforum-description subforum-column">
-                <h4><a routerLink="">Description Title</a></h4>
-                <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
-            </div>
-            <div class="subforum-stats subforum-column center">
-                <span>24 Posts | 12 Topics</span>
-            </div>
-            <div class="subforum-info subforum-column">
-                <b><a routerLink="">Last post</a></b> by <a routerLink="">JustAUser</a>
-                <br>on <small>2 Jul 2022</small>
-            </div>
-        </div>
-        <hr class="subforum-devider">
-        <div class="subforum-row">
-            <div class="subforum-icon subforum-column center">
-              <i class="bi bi-chat-left-dots-fill"></i>
-            </div>
-            <div class="subforum-description subforum-column">
-                <h4><a routerLink="">Description Title</a></h4>
-                <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
-            </div>
-            <div class="subforum-stats subforum-column center">
-                <span>24 Posts | 12 Topics</span>
-            </div>
-            <div class="subforum-info subforum-column">
-                <b><a routerLink="">Last post</a></b> by <a routerLink="">JustAUser</a>
-                <br>on <small>2 Jul 2022</small>
-            </div>
-        </div>
-    </div>
     </div>
 </body>

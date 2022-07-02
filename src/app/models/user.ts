@@ -6,12 +6,14 @@ export class User {
     username: string
     email: string
     password: string
+    role: string
 
-    constructor(username: string, email: string, password: string) {
-        this.id = userList.length === 0 ? 1 : userList[userList.length - 1].id + 1
+    constructor(id: number, username: string, email: string, password: string, role: string) {
+        this.id = id
         this.username = username 
         this.email = email 
-        this.password = password 
+        this.password = password
+        this.role = role
     }
 
 }
