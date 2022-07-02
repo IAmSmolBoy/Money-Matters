@@ -1,106 +1,155 @@
-/* Header class represents navbar as well */
-.header
+li
 {
-  background: black;
-  display: flex !important;
-  justify-content: space-around;
-  flex-basis: auto;
-  border-bottom: var(--border);
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  white-space: nowrap;
-}
-
-.navbar {
-  margin: 1.2rem auto;
-}
-
-.navbar-nav {
-  margin: 0 auto;
-}
-
-/* logo on the navbar */
-.img-fluid {
-  height: 4.3rem;
-  margin: auto 0;
-}
-
-.imglogo
-{
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: flex;
-  height: 100%;
-}
-
-/* navbar size */
-.navbar .navbar-nav a
-{
-  margin: 0 1rem;
-  font-size: 1.4rem;
   color: #fff;
-  padding-bottom: .5rem;
-  border-bottom: .1rem solid transparent;
+  cursor: pointer;
 }
 
-/* Navbar hover in primary color */
-.navbar .navbar-nav a:hover
+li:hover
 {
   color: var(--primary-color);
   border-bottom: .1rem solid var(--primary-color);
 }
 
 
-/* Icons will have the mouse pointer icon when hovered */
-.icons div
+.img-fluid
 {
-  color: #fff;
+  height: 4.3rem;
+  margin: auto 0;
+}
+
+.navbar
+{
+  background: black;
+  display: flex;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  right: 0;
+  flex-basis: auto;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  padding: 1rem;
+  font-size: 1.7rem;
+  padding-bottom: .5rem;
+  border-bottom: var(--border);
+  white-space: nowrap;
+  margin: 0 1rem;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  margin: 1.2rem auto;
+  padding: 0;
+}
+
+.navbar-nav > li {
+  margin: 0 1rem;
+  overflow: hidden;
+}
+
+.menu-button-container
+{
+  display: none;
+  height: 100%;
+  width: 30px;
   cursor: pointer;
-  font-size: 2.5rem;
-  margin-left: 4rem;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* Icons will glow in primary color when hovered over */
-.header .icons div:hover
-{
-  color: var(--primary-color);
-}
-
-/* the bootstrap icon hamburg sign */
-/* may have to delete this if using stock bootstrap collapsed hamburg sign */
-#menuBtn
+#menu-toggle
 {
   display: none;
 }
 
-/* Media resize -> if the web window is of a certain width, these will be applied */
-@media (max-width:991px)
-{
+.menu-button,
+.menu-button::before,
+.menu-button::after {
+  display: block;
+  background-color: var(--primary-color);
+  position: absolute;
+  height: 4px;
+  width: 27px;
+  transition: 400ms cubic-bezier(0.23, 1, 0.32, 1);
+  border-radius: 2px;
 
-  .header .navbar.active{
-    right: 0;
+}
+
+.menu-button::before
+{
+  content: '';
+  margin-top: -8px;
+}
+
+.menu-button::after
+{
+  content: '';
+  margin-top: 8px;
+}
+
+#menu-toggle:checked + .menu-button-container .menu-button::before {
+  margin-top: 0px;
+  background: var(--primary-color);
+  transform: rotate(405deg);
+}
+
+#menu-toggle:checked + .menu-button-container .menu-button {
+  background: rgba(255, 255, 255, 0);
+}
+
+#menu-toggle:checked + .menu-button-container .menu-button::after {
+  margin-top: 0px;
+  background: var(--primary-color);
+  transform: rotate(-405deg);
+}
+
+@media (max-width: 1000px) {
+  .menu-button-container {
+    display: flex;
   }
-  .imglogo
-  {
-    display: none;
-  }
-  .header .navbar
-  {
+  .navbar-nav {
     position: absolute;
-    top: 100%; right: 0%;
-    background: var(--primary-color);
-    width: 30rem;
+    top: 0;
+    margin-top: 80px;
+    right: 0;
+    flex-direction: column;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
   }
-  .header .navbar a
-  {
-    color: var(--black);
-    display: block;
-    margin: 1.5rem;
-    padding: .5rem;
-    font-size: 2rem;
+  #menu-toggle ~ .navbar-nav li {
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    transition: 400ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  #menu-toggle:checked ~ .navbar-nav li {
+    border: 1px solid var(--bg);
+    height: 4.5em;
+    padding: 1.5em;
+    transition: 380ms cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 999;
+  }
+  .navbar-nav > li {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0.7em 0;
+    width: 100%;
+    color: white;
+    background-color: var(--bg);;
+  }
+  .navbar-nav > li:hover{
+    color: var(--primary-color);
+    font-weight: bolder;
+  }
+  .navbar-nav > li:not(:last-child) {
+    border-bottom: 1px solid var(--bg);
   }
 }
