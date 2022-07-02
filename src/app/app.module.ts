@@ -7,6 +7,9 @@ import { FooterComponent } from './sharedpages/footer/footer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FeedbackComponent } from './pages/feedback/feedback.component';
 import { ReportComponent } from './pages/report/report.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { LoginComponent } from './pages/login/login.component';
+import { ForgotpasswordComponent } from './pages/forgotpassword/forgotpassword.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +17,10 @@ import { ReportComponent } from './pages/report/report.component';
     NavbarComponent,
     FooterComponent,
     FeedbackComponent,
-    ReportComponent
+    ReportComponent,
+    RegisterComponent,
+    LoginComponent,
+    ForgotpasswordComponent
   ],
   imports: [
     BrowserModule,
