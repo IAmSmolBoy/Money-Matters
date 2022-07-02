@@ -94,7 +94,7 @@ textarea:focus, input:focus
   border-color: var(--primary-color);
 }
 /* This is the submit form button */
-button
+.submit
 {
   border: none;
   padding: 10px 20px;
@@ -108,3 +108,4 @@ button:hover
   background: var(--primary-color);
   color: white;
 }
+

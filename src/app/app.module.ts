@@ -12,6 +12,8 @@ import { ReportComponent } from './pages/report/report.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ForgotpasswordComponent } from './pages/forgotpassword/forgotpassword.component';
+import { ForumComponent } from './pages/forum/forum.component';
+import { ForumPageComponent } from './pages/forum-page/forum-page.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { ForgotpasswordComponent } from './pages/forgotpassword/forgotpassword.c
     ReportComponent,
     RegisterComponent,
     LoginComponent,
-    ForgotpasswordComponent
+    ForgotpasswordComponent,
+    ForumComponent,
+    ForumPageComponent
   ],
   imports: [
     BrowserModule,
