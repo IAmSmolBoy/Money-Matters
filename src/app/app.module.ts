@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './sharedpages/navbar/navbar.component';
 import { FooterComponent } from './sharedpages/footer/footer.component';
@@ -26,6 +28,8 @@ import { ForgotpasswordComponent } from './pages/forgotpassword/forgotpassword.c
     BrowserModule,
     AppRoutingModule,
     NgbModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

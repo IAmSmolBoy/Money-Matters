@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Feedback } from './models/feedback';
-import { feedbackList } from './models/mock-feedback';
+import { Feedback } from '../models/feedback';
+import { feedbackList } from '../models/mock-feedback';
 
 @Injectable({
   providedIn: 'root'
