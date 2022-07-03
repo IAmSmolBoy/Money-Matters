@@ -39,7 +39,7 @@ h1{
 
 .subforum-row{
   display: grid;
-  grid-template-columns: 7% 80% 13%;
+  grid-template-columns: 7% 60% 13% 20%;
 }
 
 .subforum-column{

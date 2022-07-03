@@ -9,6 +9,10 @@ export class UserService {
 
   constructor() { }
 
+  generateId = (): number => userList.length === 0 ? 1 : userList[userList.length].id + 1
+
+  getUser = (userId: number): User => userList.filter(user => user.id === userId)[0]
+
   getAllUsers = (): User[] => userList
 
   addUser = (newUser: User) => userList.push(newUser)

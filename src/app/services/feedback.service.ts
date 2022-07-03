@@ -9,6 +9,9 @@ export class FeedbackService {
 
   constructor() { }
 
+  getFeedbackInfo = (feedbackId: number): Feedback | null => !feedbackList.some(feedback => feedback.id === feedbackId) ? null :
+  feedbackList.filter(feedback => feedback.id === feedbackId)[0]
+
   getAllFeedbacks = (): Feedback[] => feedbackList
 
   addFeedback = (newFeedback: Feedback) => feedbackList.push(newFeedback)

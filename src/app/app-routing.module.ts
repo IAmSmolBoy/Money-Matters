@@ -7,17 +7,19 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ReportComponent } from './pages/report/report.component';
+import { ViewProfileComponent } from './pages/view-profile/view-profile.component';
 
 
 // Single Page Routing goes here, Add more paths if needed.
 const routes: Routes = [
-  {path:'', component:HomeComponent},
-  {path:'feedback', component:FeedbackComponent},
-  {path:'report', component:ReportComponent},
-  {path:'login',component:LoginComponent},
-  {path:'register', component:RegisterComponent},
-  {path:'forum', component:ForumComponent},
-  {path:'forumpage',component:ForumPageComponent}
+  {path: '', component: HomeComponent},
+  {path: 'feedback', component: FeedbackComponent},
+  {path: 'report', component: ReportComponent},
+  {path: 'login',component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'forum', component: ForumComponent},
+  {path: 'viewcomments/:id',component: ForumPageComponent},
+  {path: 'viewprofile/:id',component: ViewProfileComponent},
 ];
 
 @NgModule({

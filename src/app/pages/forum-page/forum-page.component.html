@@ -1,56 +1,52 @@
 <body>
-  <div class="container">
-    <div class="topic-container">
-      <!--Original thread-->
-      <div class="head">
-          <div class="authors">Author</div>
-          <div class="content">Topic: random topic (Read 1325 Times)</div>
-      </div>
-      <div class="body">
-        <div class="authors">
-            <div class="username"><a href="">Username</a></div>
-            <div>Role</div>
-            <img src="https://cdn.pixabay.com/photo/2022/06/20/16/54/cat-7274205_960_720.jpg" alt="">
-            <div>Posts: <u>45</u></div>
-            <div>Points: <u>4586</u></div>
+    <div class="container">
+        <!--Original thread-->
+        <div class="topic-container">
+            <h1 class="text">
+                {{feedbackInfo !== null ? feedbackInfo!.subject : "Title"}}
+            </h1>
+            <div class="head">
+                <div class="username">
+                    Asked By <a class="usernameLink"
+                        [routerLink]="['/viewprofile', authorInfo !== null ? authorInfo!.id : -1]">{{authorInfo !== null
+                        ? authorInfo!.username : "Username"}}</a>
+                    {{authorInfo !== null ? authorInfo!.role : "Role"}}
+                </div>
+            </div>
+            <hr class="whiteLine">
+            <div class="body feedbackSection">
+                <h1 class="sectionHeader">Description</h1>
+                <h3 class="text">
+                    {{feedbackInfo !== null ? feedbackInfo!.description : "Description"}}
+                </h3>
+            </div>
         </div>
-        <div class="content">
-            Just a random content of a random topic.
-            <br>To see how it looks like.
-            <br><br>
-            Nothing more and nothing less.
-            <br>
-            <hr>
-            Regards username
-            <br>
-        </div>
-    </div>
-    </div>
+        <hr class="whiteLine">
 
-  <!--Comments Section-->
-  <div class="comments-container">
-      <div class="body">
-          <div class="authors">
-              <div class="username"><a href="">Hong Rui</a></div>
-              <div>Owner</div>
-              <img src="https://cdn.pixabay.com/photo/2022/06/20/16/54/cat-7274205_960_720.jpg" alt="">
-              <div>Posts: <u>6969</u></div>
-              <div>Points: <u>100000</u></div>
-          </div>
-          <div class="content">
-              I AM GLAD YOU LIKE MY APP!
-              <br>Share with your friends
-              <br><br>
-              Thanks for supporting
-              <br>
-              <br>
-          </div>
-      </div>
-  </div>
-  <!--Reply Area-->
-  <div class="comment-area hide" id="reply-area">
-      <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-      <input type="submit" value="submit">
-  </div>
-  </div>
+        <!--Comments Section-->
+        <h1 class="sectionHeader">Comments</h1>
+        <h4 class="sectionHeader">{{feedbackComments.length}} comments added</h4>
+        <div class="comments-container">
+            <div *ngFor="let comment of feedbackComments; let i = index" class="body">
+                <div class="authors">
+                    <div class="username"><a class="usernameLink"
+                        [routerLink]="['/viewprofile', commentUsers[i].id]">
+                        {{commentUsers[i].username}}
+                    </a></div>
+                    <div>{{commentUsers[i].role}}</div>
+                </div>
+                <div class="content">
+                    {{comment.content}}
+                </div>
+            </div>
+        </div>
+        <hr class="whiteLine">
+
+        <!--Reply Area-->
+        <h1 class="sectionHeader">Add your comment here</h1>
+        <div class="comment-area hide" id="reply-area">
+            <textarea name="reply" id="" placeholder="reply here ... "></textarea>
+            <input type="submit" value="submit">
+        </div>
+    </div>
 </body>

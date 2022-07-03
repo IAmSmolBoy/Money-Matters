@@ -11,12 +11,15 @@
                         <i class="bi bi-chat-left-dots-fill"></i>
                     </div>
                     <div class="subforum-description subforum-column">
-                        <a *ngIf="!forumItem.feedback" [routerLink]="['/forumpage']">{{forumItem.subject}}</a>
-                        <a *ngIf="forumItem.feedback" [routerLink]="">{{forumItem.subject}}</a>
+                        <a [routerLink]="['/viewcomments', forumItem.id]">{{forumItem.subject}}</a>
                         <p>Description Content: {{forumItem.description}}</p>
                     </div>
                     <div class="subforum-stats subforum-column center">
                         <span>24 Posts | 12 Topics</span>
+                    </div>
+                    <div class="subforum-info subforum-column">
+                        <b><a [routerLink]="">Last post</a></b> by <a [routerLink]="">Administrator</a>
+                        <br>on <small>2 Jul 2022</small>
                     </div>
                 </div>
             </div>

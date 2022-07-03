@@ -2,42 +2,72 @@
 /*            detail.html                      */
 /* ########################################### */
 
-.head{
+.head {
   margin: 0px auto;
   display: flex;
-  background-color: #2C2C2C;
+  color: white;
+  /* background-color: #2C2C2C; */
   padding: 20px;
   font-weight: bold;
   font-size: 15px;
 }
 
-.authors{
+.container {
+  margin: calc(80px + 2.7rem) auto 0 auto;
+  width: 50vw;
+}
+
+.authors {
   flex: 20%;
 }
 
-.content{
+.content {
   flex: 80%;
 }
 
-.body{
+.whiteLine {
+  background: white;
+}
+
+.body {
+  color: white;
   display: flex;
-  background-color: var(--primary-color);
+  /* background-color: var(--primary-color); */
   padding: 10px;
   margin-top: 5px;
 }
 
-.body .authors .username{
+.content {
+  width: max-content;
+  height: max-content;
+  margin: auto;
+}
+
+.usernameLink, .text, .sectionHeader {
+  color: white;
+  text-decoration: none;
+}
+
+.usernameLink:hover {
+  text-decoration: underline;
+}
+
+.body .authors .username {
   font-size: 20px;
 }
 
-.body .authors img{
+.feedbackSection {
+  flex-direction: column;
+}
+
+.body .authors img {
   max-width: 50px;
   max-height: 80px;
 }
 
-.body .content .comment button{
-  border:none;
-  padding:10px;
+.body .content .comment button {
+  border: none;
+  padding: 10px;
   font-weight: bolder;
   box-shadow: 4px 6px #fff;
   cursor: pointer;
@@ -45,7 +75,7 @@
 }
 
 /* comment section */
-.comment-area{
+.comment-area {
   margin-bottom:50px;
 }
 
@@ -56,13 +86,13 @@
   margin-block: 10px;
 }
 
-.comment-area input{
+.comment-area input {
   float: right;
   padding: 10px;
   border-radius: 10px;
   cursor: pointer;
 }
 
-.comment-area input:hover{
+.comment-area input:hover {
   border: solid 1px #000000;
 }
