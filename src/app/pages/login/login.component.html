@@ -1,1 +1,23 @@
-<p>login works!</p>
+<main id="background-container">
+
+  <div class="form-container" id="form-container-1">
+    <form class="">
+      <div class="logintitle">
+        <h1>Log In</h1>
+      </div>
+      <div class="form-block">
+        <label>Username</label>
+        <input type="text" placeholder="Username">
+      </div>
+      <div class="form-block">
+        <label>Password</label>
+        <input type="password" placeholder="Password">
+      </div>
+      <div class="row justify-content-center">
+        <button class="loginbtn" routerLink="">Login</button>
+      </div>
+      <br>
+        <a class= "registertitle"  [routerLink]="['/register']">Sign up now!</a>
+    </form>
+  </div>
+</main>

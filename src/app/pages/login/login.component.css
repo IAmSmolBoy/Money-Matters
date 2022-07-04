@@ -1,0 +1,125 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+}
+
+#background-container {
+  background-image: url("../../../assets/images/homeimg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  justify-content: center;
+}
+
+#form-container-1 {
+  position: relative;
+  width: 400px;
+  height: 388px;
+  align-self: center;
+  text-align: center;
+  background-color: rgba(255,255,255,0.2);
+  border-radius: 20px;
+  padding: 40px 40px;
+
+  display: flex;
+  justify-content: center;
+
+  /**/
+  backdrop-filter: blur(0px);
+  overflow: hidden;
+
+  /* Before animation */
+  opacity: 0.5;
+  top: -700px;
+
+  animation: 1.3s formInAnim cubic-bezier(.03,1.08,.71,.95) forwards;
+  animation-delay: 1s;
+}
+@keyframes formInAnim {
+  0% {
+    opacity: .2;
+    top: -700px;
+    backdrop-filter: blur(0px);
+  }
+
+  100% {
+    opacity: 2;
+    top: 0;
+    backdrop-filter: blur(30px) ;
+  }
+}
+#form-container-1 .form-block {
+  margin: 17px 0;
+}
+#form-container-1 .form-block label {
+  font-family: "Consolas", monospace;
+  display: block;
+  padding-left: 8px;
+  margin-bottom: 12px;
+  font-size: 2em;
+  color: #f2e9e4;
+  text-align: left;
+}
+#form-container-1 .form-block input {
+  font-size: 1.2em;
+  padding:  8px ;
+  width: 269px;
+  height: 35px;
+  border: none;
+  border: 0px solid rgba(0,0,0,0.5);
+  border-radius: 14px;
+  background-color: rgba(255,255,255,0.2);
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  transition: 0.1s all ease-in-out;
+}
+
+#form-container-1 > form input:focus {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  outline: none;
+}
+
+::placeholder{
+  color: #d6d6d6;
+  font-size: 13px;
+}
+
+.logintitle{
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: #ffcb77;
+}
+
+.loginbtn{
+  cursor: pointer;
+  width:135px;
+  height:45px;
+  margin-top:9px;
+  text-align: center;
+  border:none;
+  outline:none;
+  background: black;
+  color:white;
+  font-weight:900;
+  letter-spacing:4px;
+  text-shadow: 0px 2px 0px rgba(0,0,0,0.6);
+  transition: all 0.2s ease-in-out;
+}
+
+.loginbtn:hover{
+  transform: scale(0.95);
+}
+
+.registertitle{
+  margin-top:13px;
+  font-size: 13px;
+  font-weight: bold;
+  color: black;
+}
+
+.registertitle:hover{
+  color: var(--primary-color);
+}
