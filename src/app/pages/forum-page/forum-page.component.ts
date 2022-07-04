@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FeedbackComment } from 'src/app/models/comment';
 import { Feedback } from 'src/app/models/feedback';
 import { User } from 'src/app/models/user';
+import { ReloadService } from 'src/app/reload.service';
 import { CommentService } from 'src/app/services/comment.service';
 import { FeedbackService } from 'src/app/services/feedback.service';
 import { UserService } from 'src/app/services/user.service';
@@ -18,14 +20,15 @@ export class ForumPageComponent implements OnInit {
     private route: ActivatedRoute,
     private fs: FeedbackService,
     private us: UserService,
-    private cs: CommentService
+    private cs: CommentService,
+    private fb: FormBuilder,
   ) { }
 
   feedbackId: number = -1;
   feedbackInfo: Feedback | null = null;
   authorInfo: User | null = null;
   feedbackComments: FeedbackComment[] = [];
-  commentUsers: User[] = []
+  commentUsers: (User | null)[] = []
 
   ngOnInit(): void {
     this.feedbackId = parseInt(this.route.snapshot.paramMap.get("id") || "-1");
@@ -35,6 +38,23 @@ export class ForumPageComponent implements OnInit {
       this.feedbackComments = this.cs.getComments(this.feedbackId)
       this.commentUsers = this.feedbackComments.map(comment => this.us.getUser(comment.userId))
     }
+  }
+
+  commentForm = this.fb.group({
+    commentContent: ["", [Validators.required]]
+  })
+
+  commentFormSubmit() {
+    const newComment = new FeedbackComment(
+      this.cs.generateId(),
+      1, 
+      this.feedbackId,
+      this.commentForm.value.commentContent
+    )
+    this.cs.addComment(newComment)
+    this.feedbackComments.push(newComment)
+    this.commentUsers.push(this.us.getUser(1))
+    this.commentForm.reset()
   }
 
 }

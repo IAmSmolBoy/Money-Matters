@@ -31,10 +31,12 @@ export class FeedbackComponent implements OnInit {
     this.feedbackService.addFeedback(
       new Feedback(
         feedbacks.length == 0 ? 1 : feedbacks[feedbacks.length - 1].id + 1,
-        formVal.name,
-        formVal.email,
+        // formVal.name,
+        // formVal.email,
         formVal.subject,
         formVal.description,
+        true,
+        parseInt(sessionStorage.getItem("userId") || "1"),
         formVal.phoneNumber
       )
     )

@@ -12,7 +12,8 @@ import { ViewProfileComponent } from './pages/view-profile/view-profile.componen
 
 // Single Page Routing goes here, Add more paths if needed.
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: '', redirectTo: "home", pathMatch: "full"},
+  {path: 'home', component: HomeComponent},
   {path: 'feedback', component: FeedbackComponent},
   {path: 'report', component: ReportComponent},
   {path: 'login',component: LoginComponent},

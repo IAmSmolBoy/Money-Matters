@@ -1,11 +1,11 @@
 <body>
     <div class="container">
-        <div *ngFor="let subForumItem of forumList | keyvalue" class="subforum">
+        <div *ngFor="let subForumItem of forumList | keyvalue; let i = index" class="subforum">
             <div class="subforum-title">
                 <h1>{{subForumItem.key}}</h1>
             </div>
-            <div *ngFor="let forumItem of subForumItem.value; let i = index">
-                <hr *ngIf="i !== 0" class="subforum-devider">
+            <div *ngFor="let forumItem of subForumItem.value; let j = index">
+                <hr *ngIf="j !== 0" class="subforum-devider">
                 <div class="subforum-row">
                     <div class="subforum-icon subforum-column center">
                         <i class="bi bi-chat-left-dots-fill"></i>
@@ -15,14 +15,10 @@
                         <p>Description Content: {{forumItem.description}}</p>
                     </div>
                     <div class="subforum-stats subforum-column center">
-                        <span>24 Posts | 12 Topics</span>
-                    </div>
-                    <div class="subforum-info subforum-column">
-                        <b><a [routerLink]="">Last post</a></b> by <a [routerLink]="">Administrator</a>
-                        <br>on <small>2 Jul 2022</small>
+                        <span>{{commentNum[i][j].length}} comments</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</body>
+</body> 

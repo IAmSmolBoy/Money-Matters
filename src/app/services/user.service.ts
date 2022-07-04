@@ -11,7 +11,8 @@ export class UserService {
 
   generateId = (): number => userList.length === 0 ? 1 : userList[userList.length].id + 1
 
-  getUser = (userId: number): User => userList.filter(user => user.id === userId)[0]
+  getUser = (userId: number): User | null => userList.some(user => user.id === userId) ? 
+  userList.filter(user => user.id === userId)[0] : null
 
   getAllUsers = (): User[] => userList
 

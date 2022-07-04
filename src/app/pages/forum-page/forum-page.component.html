@@ -30,10 +30,10 @@
             <div *ngFor="let comment of feedbackComments; let i = index" class="body">
                 <div class="authors">
                     <div class="username"><a class="usernameLink"
-                        [routerLink]="['/viewprofile', commentUsers[i].id]">
-                        {{commentUsers[i].username}}
+                        [routerLink]="['/viewprofile', commentUsers[i]!.id]">
+                        {{commentUsers[i]!.username}}
                     </a></div>
-                    <div>{{commentUsers[i].role}}</div>
+                    <div>{{commentUsers[i]!.role}}</div>
                 </div>
                 <div class="content">
                     {{comment.content}}
@@ -45,8 +45,10 @@
         <!--Reply Area-->
         <h1 class="sectionHeader">Add your comment here</h1>
         <div class="comment-area hide" id="reply-area">
-            <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-            <input type="submit" value="submit">
+            <form [formGroup]="commentForm" (ngSubmit)="commentFormSubmit()" class="addCommentForm">
+                <textarea formControlName="commentContent" name="reply" placeholder="reply here ... "></textarea>
+                <input type="submit" value="submit">
+            </form>
         </div>
     </div>
 </body>
