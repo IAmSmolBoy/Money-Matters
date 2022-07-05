@@ -15,6 +15,7 @@ import { ForgotpasswordComponent } from './pages/forgotpassword/forgotpassword.c
 import { ForumComponent } from './pages/forum/forum.component';
 import { ForumPageComponent } from './pages/forum-page/forum-page.component';
 import { ViewProfileComponent } from './pages/view-profile/view-profile.component';
+import { ProfilepageComponent } from './pages/profilepage/profilepage.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ViewProfileComponent } from './pages/view-profile/view-profile.componen
     ForgotpasswordComponent,
     ForumComponent,
     ForumPageComponent,
-    ViewProfileComponent
+    ViewProfileComponent,
+    ProfilepageComponent
   ],
   imports: [
     BrowserModule,

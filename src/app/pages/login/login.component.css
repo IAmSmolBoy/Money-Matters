@@ -1,6 +1,7 @@
 body {
   font-family: sans-serif;
   margin: 0;
+
 }
 
 #background-container {
@@ -79,6 +80,7 @@ body {
 #form-container-1 > form input:focus {
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
   outline: none;
+
 }
 
 ::placeholder{
@@ -111,6 +113,7 @@ body {
 
 .loginbtn:hover{
   transform: scale(0.95);
+  background-color: var(--primary-color);
 }
 
 .registertitle{

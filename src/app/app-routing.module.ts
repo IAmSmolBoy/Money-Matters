@@ -5,6 +5,7 @@ import { ForumPageComponent } from './pages/forum-page/forum-page.component';
 import { ForumComponent } from './pages/forum/forum.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ProfilepageComponent } from './pages/profilepage/profilepage.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ReportComponent } from './pages/report/report.component';
 import { ViewProfileComponent } from './pages/view-profile/view-profile.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'report', component: ReportComponent},
   {path: 'login',component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'profilepage', component:ProfilepageComponent},
   {path: 'forum', component: ForumComponent},
   {path: 'viewcomments/:id',component: ForumPageComponent},
   {path: 'viewprofile/:id',component: ViewProfileComponent},

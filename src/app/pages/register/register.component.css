@@ -17,12 +17,12 @@ body {
 #form-container-1 {
   position: relative;
   width: 400px;
-  height: 555px;
+  height: 590px;
   align-self: center;
   text-align: center;
   background-color: rgba(255,255,255,0.2);
   border-radius: 20px;
-  padding: 18px 5px;
+  padding: 18px 3px;
 
   display: flex;
   justify-content: center;
@@ -93,6 +93,10 @@ body {
   color: #ffcb77;
 }
 
+.subregistertitle{
+  font-size: 13px;
+}
+
 .registerbtn{
   cursor: pointer;
   width:135px;
@@ -111,6 +115,7 @@ body {
 
 .registerbtn:hover{
   transform: scale(0.95);
+  background-color: var(--primary-color);
 }
 
 .logintitle{
