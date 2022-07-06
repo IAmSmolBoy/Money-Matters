@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './sharedpages/navbar/navbar.component';
 import { FooterComponent } from './sharedpages/footer/footer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FeedbackComponent } from './pages/feedback/feedback.component';
 import { ReportComponent } from './pages/report/report.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -22,7 +21,6 @@ import { ProfilepageComponent } from './pages/profilepage/profilepage.component'
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    FeedbackComponent,
     ReportComponent,
     RegisterComponent,
     LoginComponent,

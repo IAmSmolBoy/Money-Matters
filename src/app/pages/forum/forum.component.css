@@ -91,3 +91,74 @@ h1{
       background-image: linear-gradient(to right, rgba(190, 190, 190, 0), rgba(255, 255, 255, 0.75), rgba(190, 190, 190, 0));
   }
 }
+
+.feedbackFormContainer {
+  width: 70%;
+  min-width: 420px;
+  padding: 35px 50px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 20px 30px 25px rgba(0, 0, 0, 0.15);
+  margin: 0 auto;
+}
+.feedbackFormTitle {
+  color: #1c093c;
+  font-size: 30px;
+  text-align: center;
+}
+.feedbackFormDesc {
+  position: relative;
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  color: #606060;
+  font-size: 14px;
+  font-weight: 400;
+}
+.feedbackForm {
+  width: 100%;
+  position: relative;
+  margin: 30px auto 0 auto;
+}
+.row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+  grid-gap: 20px 30px ;
+  margin-bottom: 20px;
+}
+.inputLabels {
+  color: #1c093c;
+  font-size: 14px;
+}
+input {
+  color: #1c093c;
+  font-size: 14px;
+}
+.feedbackFormInputs {
+  width: 100%;
+  font-weight: 400;
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: 1.2px solid #c4cae0;
+  margin-top: 5px;
+}
+#issue {
+  resize: none;
+}
+.feedbackFormInputs:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+.submit
+{
+  border: none;
+  padding: 10px 20px;
+  background: whitesmoke;
+  border-radius: 4px;
+}
+.submit:hover
+{
+  background: var(--primary-color);
+  color: white;
+}

@@ -1,32 +1,37 @@
+<img id="bgImg" src="../../../assets/images/homeimg.jpg" alt="">
 <main id="background-container">
 
   <div class="form-container" id="form-container-1">
-    <form class="">
+    <form [formGroup]="registerForm">
       <div class="registertitle">
         <h1>Sign Up</h1>
         <a class="subregistertitle">You will sign in using these details</a>
       </div>
       <div class="form-block">
         <label>E-Mail</label>
-        <input type="email" placeholder="Email Address">
+        <input formControlName="email" type="email" placeholder="Email Address">
+        <!-- <p class="loginErrorMsg" *ngIf="registerForm.hasError('required')">You are required to enter your email</p> -->
       </div>
       <div class="form-block">
         <label>Username</label>
-        <input type="text" placeholder="Username">
+        <input formControlName="username" type="text" placeholder="Username">
       </div>
-      <div class="form-block">
-        <label>Password</label>
-        <input type="password" placeholder="Password">
-      </div>
-      <div class="form-block">
-        <label>Confirm Password</label>
-        <input type="password" placeholder="Password">
+      <div formGroupName="passwords" class="passwords">
+        <div class="form-block">
+          <label>Password</label>
+          <input formControlName="pass1" type="password" placeholder="Password">
+        </div>
+        <div class="form-block">
+          <label>Confirm Password</label>
+          <input formControlName="pass2" type="password" placeholder="Password">
+        </div>
       </div>
       <div class="row justify-content-center">
-        <button class="registerbtn" routerLink="">Register</button>
+        <input class="registerbtn" type="text" value="Register">
       </div>
       <br>
-        <a class= "logintitle"  [routerLink]="['/login']">Already have an account? Click here.</a>
+      <p class="signUpText">Already have an account? <a class= "signUpText logintitle" [routerLink]="['/login']">Click here.</a></p>
+        
     </form>
   </div>
 </main>
