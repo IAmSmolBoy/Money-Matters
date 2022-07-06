@@ -8,6 +8,7 @@ import { ProfilepageComponent } from './pages/profilepage/profilepage.component'
 import { RegisterComponent } from './pages/register/register.component';
 import { ReportComponent } from './pages/report/report.component';
 import { ViewProfileComponent } from './pages/view-profile/view-profile.component';
+import { BackgroundPageComponent } from './sharedpages/background-page/background-page.component';
 
 
 // Single Page Routing goes here, Add more paths if needed.
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'forum', component: ForumComponent},
   {path: 'viewcomments/:id',component: ForumPageComponent},
   {path: 'viewprofile/:id',component: ViewProfileComponent},
+  {path:'backgroundpage',component:BackgroundPageComponent}
 ];
 
 @NgModule({

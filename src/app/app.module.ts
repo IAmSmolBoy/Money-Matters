@@ -15,6 +15,7 @@ import { ForumComponent } from './pages/forum/forum.component';
 import { ForumPageComponent } from './pages/forum-page/forum-page.component';
 import { ViewProfileComponent } from './pages/view-profile/view-profile.component';
 import { ProfilepageComponent } from './pages/profilepage/profilepage.component';
+import { BackgroundPageComponent } from './sharedpages/background-page/background-page.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ProfilepageComponent } from './pages/profilepage/profilepage.component'
     ForumComponent,
     ForumPageComponent,
     ViewProfileComponent,
-    ProfilepageComponent
+    ProfilepageComponent,
+    BackgroundPageComponent
   ],
   imports: [
     BrowserModule,

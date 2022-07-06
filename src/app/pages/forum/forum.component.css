@@ -28,6 +28,7 @@ h1{
   margin: 30px auto auto auto;
   padding: 50px;
   width: 100%;
+  position: relative;
 }
 
 .subforum{
@@ -94,9 +95,12 @@ h1{
 
 .feedbackFormContainer {
   width: 70%;
+  height: 60%;
   min-width: 420px;
   padding: 35px 50px;
+  padding-bottom: 10%;
   background: white;
+  position: relative;
   border-radius: 10px;
   box-shadow: 20px 30px 25px rgba(0, 0, 0, 0.15);
   margin: 0 auto;
