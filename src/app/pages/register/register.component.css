@@ -31,10 +31,9 @@ body {
   height: max-content;
   align-self: center;
   text-align: center;
-  background-color: rgba(255,255,255,0.2);
+  background-color: rgba(255,255,255,0.1);
   border-radius: 20px;
   padding: 18px 3px;
-  z-index: 999;
   display: flex;
   justify-content: center;
 
@@ -43,7 +42,7 @@ body {
   overflow: hidden;
 
   /* Before animation */
-  opacity: 0.5;
+  opacity: 0;
   top: -700px;
 
   animation: 1.3s formInAnim cubic-bezier(.03,1.08,.71,.95) forwards;
@@ -56,7 +55,7 @@ body {
   }
 
   100% {
-    opacity: 2;
+    opacity: 0.9;
     top: 0;
     backdrop-filter: blur(30px) ;
   }
@@ -74,10 +73,12 @@ body {
   text-align: left;
 }
 #form-container-1 .form-block input {
+  text-transform: none;
   font-size: 1.2em;
   padding:  8px ;
   width: 269px;
   height: max-content;
+  color: white;
   border: none;
   border: 0px solid rgba(0,0,0,0.5);
   border-radius: 14px;

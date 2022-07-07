@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FeedbackComment } from 'src/app/models/comment';
 import { Feedback } from 'src/app/models/feedback';
 import { User } from 'src/app/models/user';
-import { ReloadService } from 'src/app/reload.service';
+import { ReloadService } from 'src/app/services/reload.service';
 import { CommentService } from 'src/app/services/comment.service';
 import { FeedbackService } from 'src/app/services/feedback.service';
 import { UserService } from 'src/app/services/user.service';
@@ -34,9 +34,9 @@ export class ForumPageComponent implements OnInit {
     this.feedbackId = parseInt(this.route.snapshot.paramMap.get("id") || "-1");
     this.feedbackInfo = this.fs.getFeedbackInfo(this.feedbackId);
     if (this.feedbackInfo !== null) {
-      this.authorInfo = this.us.getUser(this.feedbackInfo.userId)
+      this.authorInfo = this.us.getUserById(this.feedbackInfo.userId)
       this.feedbackComments = this.cs.getComments(this.feedbackId)
-      this.commentUsers = this.feedbackComments.map(comment => this.us.getUser(comment.userId))
+      this.commentUsers = this.feedbackComments.map(comment => this.us.getUserById(comment.userId))
     }
   }
 
@@ -53,7 +53,7 @@ export class ForumPageComponent implements OnInit {
     )
     this.cs.addComment(newComment)
     this.feedbackComments.push(newComment)
-    this.commentUsers.push(this.us.getUser(1))
+    this.commentUsers.push(this.us.getUserById(1))
     this.commentForm.reset()
   }
 

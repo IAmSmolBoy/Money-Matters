@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PassMatchValidator } from 'src/app/custom-validators/passMatchValidator.validator';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +11,7 @@ import { PassMatchValidator } from 'src/app/custom-validators/passMatchValidator
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private us: UserService) { }
 
   ngOnInit(): void {
   }
@@ -22,5 +24,17 @@ export class RegisterComponent implements OnInit {
       pass2: ["", [Validators.required]],
     }, { validators: [PassMatchValidator()] })
   })
+
+  register(): void {
+    const registerVals = this.registerForm.value
+    this.us.addUser(new User(
+      this.us.generateId(),
+      registerVals.username,
+      registerVals.email,
+      registerVals.passwords.pass1,
+      "User"
+    ))
+    console.log(this.us.getAllUsers())
+  }
 
 }

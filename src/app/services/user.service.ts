@@ -9,10 +9,13 @@ export class UserService {
 
   constructor() { }
 
-  generateId = (): number => userList.length === 0 ? 1 : userList[userList.length].id + 1
+  generateId = (): number => userList.length === 0 ? 1 : userList[userList.length - 1].id + 1
 
-  getUser = (userId: number): User | null => userList.some(user => user.id === userId) ? 
+  getUserById = (userId: number): User | null => userList.some(user => user.id === userId) ? 
   userList.filter(user => user.id === userId)[0] : null
+
+  getUserByUsername = (username: string): User | null => userList.some(user => user.username === username) ? 
+  userList.filter(user => user.username === username)[0] : null
 
   getAllUsers = (): User[] => userList
 

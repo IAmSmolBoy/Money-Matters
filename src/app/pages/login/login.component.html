@@ -3,21 +3,22 @@
   
   <div class="form-container" id="form-container-1">
     
-    <form class="">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="logintitle">
         <h1>Log In</h1>
       </div>
       <div class="form-block">
         <label>Username</label>
-        <input type="text" placeholder="Username">
+        <input formControlName="username" type="text" placeholder="Username">
       </div>
       <div class="form-block">
         <label>Password</label>
-        <input type="password" placeholder="Password">
+        <input formControlName="password" type="password" placeholder="Password">
       </div>
       <div class="row justify-content-center">
-        <button class="loginbtn" routerLink="">Login</button>
+        <input [disabled]="!loginForm.valid" class="loginbtn" type="submit" value="Login">
       </div>
+      <p *ngIf="incorrectDetails" class="errorText">Incorrect username and password</p>
       <br>
       <p class="signUpText">No Account? <a class="signUpText registertitle" [routerLink]="['/register']">Sign up now!</a></p>
     </form>

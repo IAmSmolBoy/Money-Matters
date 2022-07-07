@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user';
+import { ReloadService } from 'src/app/services/reload.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +11,23 @@ import { Component, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
 
   isCollapsed = true;
-  constructor() { }
+  constructor(private reload: ReloadService, private us: UserService) {
+
+  }
+
+  signedIn: boolean = false
+  user: User | null = null
 
   ngOnInit(): void {
+    this.reload.subscription.subscribe((e) => {
+      this.signedIn = sessionStorage.getItem("userId") !== null
+      this.user = this.us.getUserById(parseInt(sessionStorage.getItem("userId") || ""))
+    })
+  }
+
+  signOut(): void {
+    sessionStorage.removeItem("userId")
+    this.signedIn = false
   }
 
 }

@@ -24,8 +24,6 @@ export class BackgroundPageComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-    console.log(this.snowflakes)
-  }
+  ngOnInit(): void {}
 
 }

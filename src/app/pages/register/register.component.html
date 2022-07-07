@@ -2,7 +2,7 @@
 <main id="background-container">
 
   <div class="form-container" id="form-container-1">
-    <form [formGroup]="registerForm">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
       <div class="registertitle">
         <h1>Sign Up</h1>
         <a class="subregistertitle">You will sign in using these details</a>
@@ -10,7 +10,6 @@
       <div class="form-block">
         <label>E-Mail</label>
         <input formControlName="email" type="email" placeholder="Email Address">
-        <!-- <p class="loginErrorMsg" *ngIf="registerForm.hasError('required')">You are required to enter your email</p> -->
       </div>
       <div class="form-block">
         <label>Username</label>
@@ -27,11 +26,10 @@
         </div>
       </div>
       <div class="row justify-content-center">
-        <input class="registerbtn" type="text" value="Register">
+        <input [disabled]="!registerForm.valid" class="registerbtn" type="submit" value="Register">
       </div>
       <br>
       <p class="signUpText">Already have an account? <a class= "signUpText logintitle" [routerLink]="['/login']">Click here.</a></p>
-        
     </form>
   </div>
 </main>
