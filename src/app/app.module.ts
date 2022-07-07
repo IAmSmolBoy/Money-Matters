@@ -16,6 +16,7 @@ import { ForumPageComponent } from './pages/forum-page/forum-page.component';
 import { ViewProfileComponent } from './pages/view-profile/view-profile.component';
 import { ProfilepageComponent } from './pages/profilepage/profilepage.component';
 import { BackgroundPageComponent } from './sharedpages/background-page/background-page.component';
+import { BgEffectComponent } from './sharedpages/bg-effect/bg-effect.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { BackgroundPageComponent } from './sharedpages/background-page/backgroun
     ForumPageComponent,
     ViewProfileComponent,
     ProfilepageComponent,
-    BackgroundPageComponent
+    BackgroundPageComponent,
+    BgEffectComponent,
   ],
   imports: [
     BrowserModule,

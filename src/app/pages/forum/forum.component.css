@@ -1,13 +1,6 @@
 *{
   box-sizing: border-box;
-}
-
-body{
-  font-size: 14px;
-  font-family: 'Titillium Web', sans-serif;
-  background-color:rgb(0,0,0);
   color:#FEFEFE;
-  height: 100vh;
 }
 
 a{
@@ -98,7 +91,6 @@ h1{
   height: 60%;
   min-width: 420px;
   padding: 35px 50px;
-  padding-bottom: 10%;
   background: white;
   position: relative;
   border-radius: 10px;
@@ -158,8 +150,9 @@ input {
 {
   border: none;
   padding: 10px 20px;
-  background: whitesmoke;
+  background: lightgray;
   border-radius: 4px;
+  color: black
 }
 .submit:hover
 {
