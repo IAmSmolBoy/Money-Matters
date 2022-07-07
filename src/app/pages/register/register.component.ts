@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PassMatchValidator } from 'src/app/custom-validators/passMatchValidator.validator';
 import { User } from 'src/app/models/user';
+import { ReloadService } from 'src/app/services/reload.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private us: UserService) { }
+  constructor(private fb: FormBuilder, private us: UserService, private reload: ReloadService) { }
 
   ngOnInit(): void {
   }
@@ -34,7 +35,7 @@ export class RegisterComponent implements OnInit {
       registerVals.passwords.pass1,
       "User"
     ))
-    console.log(this.us.getAllUsers())
+    this.reload.subscription.next(null)
   }
 
 }

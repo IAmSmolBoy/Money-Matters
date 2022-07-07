@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ReloadService } from 'src/app/services/reload.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   incorrectDetails: boolean = false
   
-  constructor(private fb: FormBuilder, private us: UserService, private router: Router) { }
+  constructor(private fb: FormBuilder, private us: UserService, private router: Router, private reload: ReloadService) { }
 
   ngOnInit(): void {
   }
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(["/"])
     }
     else this.incorrectDetails = true
+    this.reload.subscription.next(null)
   }
 
 }
