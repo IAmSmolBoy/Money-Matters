@@ -11,8 +11,7 @@ export class CommentService {
 
   generateId = (): number => commentList.length !== 0 ? commentList[commentList.length - 1].id + 1 : 11
 
-  getComments = (feedbackId: number): FeedbackComment[] => !commentList.some(comment => comment.feedbackId === feedbackId) ? [] :
-  commentList.filter(comment => comment.feedbackId === feedbackId)
+  getComments = (feedbackId: number): FeedbackComment[] => commentList.filter(comment => comment.feedbackId === feedbackId)
 
   getAllComments = (): FeedbackComment[] => commentList
 

@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-interface snowfalkeInfo {
-  depth: number;
-  left: number;
-  speed: number;
-}
-
 @Component({
   selector: 'app-background-page',
   templateUrl: './background-page.component.html',
@@ -14,7 +8,7 @@ interface snowfalkeInfo {
 })
 export class BackgroundPageComponent implements OnInit {
 
-  snowflakes = Array(200).fill(0).map(e => {
+  snowflakes = Array(100).fill(0).map(e => {
     return {
       depth: Math.round(Math.random() * 4 + 1),
       left: Math.round(Math.random() * 100),

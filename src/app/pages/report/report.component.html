@@ -1,55 +1,77 @@
 <div class="container-page">
     <!-- COLUMN 1 -->
-    <div id="budget-container">
+  <div class="column" id="column1">
+    <div id="budget-container" class="containers green-border">
       <form>
         <label>Enter Your Budget</label>
-        <input type="number" id="budgetInput" placeholder="What is your budget for the month?"/>
-        <button type="button" id="calcBtn">Add Budget</button>
+        <input class="inputs green-outline green-border" type="number" id="budgetInput" placeholder="What is your budget for the month?"/>
+        <button class="green-border btns" type="button" id="calcBtn">Set Budget Goal</button>
         <div id="budget-error-message"></div>
       </form>
     </div>
 
-    <!-- COLUMN 3 -->
-    <div id="expenseEntry-container">
+    <div id="expenseEntry-container" class="containers red-border">
       <form>
-        <label>Expense Item Name</label>
-        <input type="text " id="expenseInput" placeholder="E.g: McSpicy Set"/>
+        <label>Expenses</label>
+        <input class="inputs red-outline red-border" type="text " id="expenseInput" placeholder="E.g: McSpicy Set"/>
         <label>Enter Your Expense Amount</label>
-        <input type="number" id="expenseAmountInput" placeholder="How much is the item?"/>
-        <button type="button" id="expenseBtn">Add Expense</button>
+        <input class="inputs red-outline red-border" type="number" id="expenseAmountInput" placeholder="How much is the item?"/>
+        <button class="red-border btns" type="button" id="expenseBtn">Add Expense</button>
         <div id="expense-error-message"></div>
       </form>
     </div>
 
-    <!-- COLUMN 2 -->
-    <div id="balanceDisplay-container">
-      <div id="budgetTotalAmount">
-        <h2>Budget</h2>
-        <i class="fa fa-bullseye balance"></i>
-        <h3 id="budgetMoney" class="moneyOutput text-green">$0</h3>
-      </div>
-
-      <div id="expensesTotalAmount">
-        <h2>Expenses</h2>
-        <i class="fa fa-credit-card-alt expense" aria-hidden="true"></i>
-        <h3 id="expensesMoney" class="moneyOutput text-red">$0</h3>
-      </div>
-
-      <div id="balanceTotalAmount">
-        <h2>Balance</h2>
-        <i class="fa fa-dollar balance" aria-hidden="true"></i>
-        <h3 id="balanceMoney" class="moneyOutput text-green">$0</h3>
-      </div>
+    <div id="earningEntry-container" class="containers green-border">
+      <form>
+        <label>Earnings</label>
+        <input class="inputs green-outline green-border" type="text " id="expenseInput" placeholder="E.g: McSpicy Set"/>
+        <label>Enter Your Expense Amount</label>
+        <input class="inputs green-outline green-border" type="number" id="expenseAmountInput" placeholder="How much is the item?"/>
+        <button class="green-border btns" type="button" id="expenseBtn">Add Earning</button>
+        <div id="expense-error-message"></div>
+      </form>
     </div>
+  </div>
 
-    <!-- COLUMN 4 -->
-    <div id="expenses-container">
-      <table id="table-list">
-        <tr>
-          <th>Expense Item Name</th>
-          <th>Expense Cost</th>
-          <th></th>
-        </tr>
-      </table>
+    <!-- COLUMN 2 -->
+    <div class="column" id="column2">
+      <div class="mt-auto mb-auto" id="balanceDisplay-container">
+        <div class="ml-auto mr-auto" id="budgetTotalAmount">
+          <h2>Budget</h2>
+          <i class="fa fa-bullseye balance"></i>
+          <h3 id="budgetMoney" class="moneyOutput text-green">$0</h3>
+        </div>
+  
+        <div class="ml-auto mr-auto" id="expensesTotalAmount">
+          <h2>Expenses</h2>
+          <i class="fa fa-credit-card-alt expense" aria-hidden="true"></i>
+          <h3 id="expensesMoney" class="moneyOutput text-red">$0</h3>
+        </div>
+  
+        <div class="ml-auto mr-auto" id="balanceTotalAmount">
+          <h2>Balance</h2>
+          <i class="fa fa-dollar balance" aria-hidden="true"></i>
+          <h3 id="balanceMoney" class="moneyOutput text-green">$0</h3>
+        </div>
+      </div>
+  
+      <div class="m-auto" id="expenses-container">
+        <table id="table-list">
+          <tr>
+            <th>number</th>
+            <th>category</th>
+            <th>amount</th>
+            <th>date</th>
+            <th>description</th>
+          </tr>
+          <tr *ngFor="let trans of transactionList; let i = index">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>

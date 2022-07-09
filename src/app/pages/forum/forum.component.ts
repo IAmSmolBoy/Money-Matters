@@ -24,17 +24,27 @@ export class ForumComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  forumList: {
-    "General Questions & Answers": Feedback[],
-    "General Feedback & Concerns": Feedback[]
-  } = {
-    "General Questions & Answers": this.fs.getAllFeedbacks().filter(e => e.feedback === true),
-    "General Feedback & Concerns": this.fs.getAllFeedbacks().filter(e => e.feedback === false)
+  signedIn: boolean = sessionStorage.getItem("userId") !== null
+
+  forumList: { [title: string]: Feedback[] } = {
+    "General Feedback & Concerns": this.fs.getAllFeedbacks().filter(e => e.feedback === true),
+    "General Questions & Answers": this.fs.getAllFeedbacks().filter(e => e.feedback === false)
   }
 
-  commentNum: FeedbackComment[][][] = [
-    this.forumList["General Feedback & Concerns"].map(feedback => this.cs.getComments(feedback.id)),
-    this.forumList["General Questions & Answers"].map(feedback => this.cs.getComments(feedback.id)),
+  commentNum: number[][] = [
+    this.forumList["General Feedback & Concerns"].map(feedback => this.cs.getComments(feedback.id).length),
+    this.forumList["General Questions & Answers"].map(feedback => this.cs.getComments(feedback.id).length),
+  ]
+
+  getUsernames = (section: string) => this.forumList[section]
+    .map(feedback => this.us.getUserById(feedback.userId) ?
+    this.us.getUserById(feedback.userId)!.username :
+    "Deleted User"
+  )
+
+  userList: string[][] = [
+    this.getUsernames("General Feedback & Concerns"),
+    this.getUsernames("General Questions & Answers"),
   ]
 
   feedbackSubmit() {

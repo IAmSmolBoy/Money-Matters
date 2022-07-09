@@ -10,17 +10,19 @@
                     <i class="bi bi-chat-left-dots-fill"></i>
                 </div>
                 <div class="subforum-description subforum-column">
-                    <a [routerLink]="['/viewcomments', forumItem.id]">{{forumItem.subject}}</a>
+                    <a class="forumTitle" [routerLink]="['/viewcomments', forumItem.id]">{{forumItem.subject}}</a>
+                    <p>{{i === 1 ? 'Question by: ' : 'Feedback by: '}}<a [routerLink]="['/profilepage', forumItem.userId]">{{userList[i][j]}}</a></p>
+                    
                     <p>Description: {{forumItem.description}}</p>
                 </div>
                 <div class="subforum-stats subforum-column center">
-                    <span>{{commentNum[i][j].length}} comments</span>
+                    <span>{{commentNum[i][j]}} comments</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="feedbackFormContainer">
+<div *ngIf="signedIn" class="feedbackFormContainer">
   <h1 class="feedbackFormTitle">GET IN TOUCH</h1>
   <p class="feedbackFormDesc">Have any questions or suggestions? Post it in this forum</p>
   <form class="feedbackForm" [formGroup]="form" (ngSubmit)="feedbackSubmit()">

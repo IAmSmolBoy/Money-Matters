@@ -13,7 +13,6 @@ import { LoginComponent } from './pages/login/login.component';
 import { ForgotpasswordComponent } from './pages/forgotpassword/forgotpassword.component';
 import { ForumComponent } from './pages/forum/forum.component';
 import { ForumPageComponent } from './pages/forum-page/forum-page.component';
-import { ViewProfileComponent } from './pages/view-profile/view-profile.component';
 import { ProfilepageComponent } from './pages/profilepage/profilepage.component';
 import { BackgroundPageComponent } from './sharedpages/background-page/background-page.component';
 import { BgEffectComponent } from './sharedpages/bg-effect/bg-effect.component';
@@ -29,7 +28,6 @@ import { BgEffectComponent } from './sharedpages/bg-effect/bg-effect.component';
     ForgotpasswordComponent,
     ForumComponent,
     ForumPageComponent,
-    ViewProfileComponent,
     ProfilepageComponent,
     BackgroundPageComponent,
     BgEffectComponent,

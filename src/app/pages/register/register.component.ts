@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PassMatchValidator } from 'src/app/custom-validators/passMatchValidator.validator';
 import { User } from 'src/app/models/user';
 import { ReloadService } from 'src/app/services/reload.service';
@@ -12,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private us: UserService, private reload: ReloadService) { }
+  constructor(private fb: FormBuilder, private us: UserService, private reload: ReloadService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -28,13 +29,16 @@ export class RegisterComponent implements OnInit {
 
   register(): void {
     const registerVals = this.registerForm.value
-    this.us.addUser(new User(
+    const newUser = new User(
       this.us.generateId(),
       registerVals.username,
       registerVals.email,
       registerVals.passwords.pass1,
       "User"
-    ))
+    )
+    this.us.addUser(newUser)
+    sessionStorage.setItem("userId", newUser.id.toString())
+    this.router.navigate(["/"])
     this.reload.subscription.next(null)
   }
 

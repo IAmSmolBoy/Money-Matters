@@ -18,7 +18,8 @@ h1{
 /*           Forums.html                       */
 /* ########################################### */
 .container{
-  margin: 30px auto auto auto;
+  min-height: calc(100vh - 267px);
+  margin-top: 80px;
   padding: 50px;
   width: 100%;
   position: relative;
@@ -49,6 +50,11 @@ h1{
 
 .subforum-description *{
   margin-block: 0;
+}
+
+.forumTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .center{
@@ -96,6 +102,7 @@ h1{
   border-radius: 10px;
   box-shadow: 20px 30px 25px rgba(0, 0, 0, 0.15);
   margin: 0 auto;
+  margin-bottom: 5%;
 }
 .feedbackFormTitle {
   color: #1c093c;
@@ -127,11 +134,9 @@ h1{
   color: #1c093c;
   font-size: 14px;
 }
-input {
+.feedbackFormInputs {
   color: #1c093c;
   font-size: 14px;
-}
-.feedbackFormInputs {
   width: 100%;
   font-weight: 400;
   padding: 8px 10px;

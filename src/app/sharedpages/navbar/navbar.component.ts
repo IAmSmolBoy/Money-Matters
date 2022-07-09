@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { ReloadService } from 'src/app/services/reload.service';
 import { UserService } from 'src/app/services/user.service';
@@ -11,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 export class NavbarComponent implements OnInit {
 
   isCollapsed = true;
-  constructor(private reload: ReloadService, private us: UserService) {
+  constructor(private reload: ReloadService, private us: UserService, private router: Router) {
 
   }
 
@@ -28,6 +29,7 @@ export class NavbarComponent implements OnInit {
   signOut(): void {
     sessionStorage.removeItem("userId")
     this.signedIn = false
+    this.router.navigate(["/"])
   }
 
 }

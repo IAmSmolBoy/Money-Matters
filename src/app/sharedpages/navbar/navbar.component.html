@@ -12,9 +12,9 @@
     </li>
     <li class="nav-link" routerLink="forum" routerLinkActive="active-link">Forums
     </li>
-    <li class="nav-link" routerLink="report" routerLinkActive="active-link">Transactions Report
+    <li *ngIf="signedIn" class="nav-link" routerLink="report" routerLinkActive="active-link">Transactions Report
     </li>
-    <li *ngIf="signedIn" class="nav-link" routerLink="profilepage" routerLinkActive="active-link">Account
+    <li *ngIf="signedIn" class="nav-link" [routerLink]="['/profilepage', user!.id]" routerLinkActive="active-link">Account
     </li>
     <li *ngIf="!signedIn" class="nav-link" routerLink="login" routerLinkActive="active-link">Sign In
     </li>

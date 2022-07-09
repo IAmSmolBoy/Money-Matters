@@ -9,8 +9,8 @@ export class Transaction {
     date: Date
     description?: string
 
-    constructor(userId: number, category: string, amount: number, date: Date, description? : string,) {
-        this.id = transactionList.length === 0 ? 1 : transactionList[transactionList.length].id + 1
+    constructor(id: number, userId: number, category: string, amount: number, date: Date, description? : string,) {
+        this.id = id
         this.userId = userId
         this.category = category
         this.amount = amount 
