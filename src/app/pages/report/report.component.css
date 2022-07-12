@@ -10,12 +10,13 @@ body {
     color: white;
   }
 
-  
+
   /* GRID SYSTEM */
-  
+
   .container-page{
     position: relative;
-    margin-top: 80px;
+    margin-top: 90px;
+    margin-bottom: 80px;
     display: flex;
     width: 100vw;
     height: calc(100vh - 267px)
@@ -31,7 +32,7 @@ body {
   .containers {
     margin: auto 0;
   }
-  
+
   #column1 {
     width: 38%;
   }
@@ -41,7 +42,7 @@ body {
   }
 
   /* BUDGET FORM */
-  
+
 .green-border {
   border-color: #82e166;
 }
@@ -52,7 +53,7 @@ body {
 
 .red-border {
   border-color: #ff686b;
-} 
+}
 
 .green-outline {
   outline: #ff686b;
@@ -81,7 +82,7 @@ body {
 .btns.red-border:active {
   background: rgb(97, 0, 0);
 }
-  
+
 .containers {
   border-width: 2px;
   border-style: solid;
@@ -105,12 +106,13 @@ body {
   border-radius: 5px;
   border-width: 1px;
   border-style: solid;
+  color: black;
 }
 
 .containers .inputs:focus {
   box-shadow: 0 0 5px 0px black;
 }
-  
+
 .containers button {
   display: block;
   padding: 0.5rem 0.75rem;
@@ -127,17 +129,17 @@ body {
   color: white;
   cursor: pointer;
 }
-  
+
   /* BALANCE DISPLAY SECTION */
-  
+
   #balanceDisplay-container {
     display: flex;
   }
-  
+
   #balanceDisplay-container > * {
     padding: 0.25rem;
   }
-  
+
   #balanceDisplay-container i {
     /* font awesome icons */
     font-size: 4rem;
@@ -146,27 +148,27 @@ body {
     text-align: center;
     margin: 20px 0;
   }
-  
+
   #balanceDisplay-container h2 {
     text-transform: uppercase;
     text-align: center;
     color: white;
     margin: 0;
   }
-  
+
   #balanceDisplay-container .moneyOutput {
     font-size: 2.25rem;
     text-align: center;
     margin: 0;
   }
-  
+
   .text-red {
     color: #ff686b;
   }
   .text-green {
     color: #82e166;
   }
-  
+
   /* EXPENSES DISPLAY */
   #expenses-container {
     border: 1px solid black;
@@ -181,25 +183,25 @@ body {
     width: 100%;
     padding: 0;
   }
-  
+
   #expenses-container h2 {
     font-size: 1.1rem;
   }
-  
+
   #table-list th {
     text-align: left;
     padding: 0.5rem;
     font-size: 1.1rem;
     border-bottom: 1px solid rgb(119, 119, 119);
   }
-  
+
   #table-list td {
     padding: 0.5rem;
     color: rgb(180, 0, 0);
     font-size: 1.4rem;
     border-bottom: 1px solid lightgray;
   }
-  
+
   .icons {
     text-align: right;
   }
@@ -209,19 +211,19 @@ body {
     padding: 0 0.2rem;
     cursor: pointer;
   }
-  
+
   #table-list i:hover {
     color: black;
   }
-  
+
   .editBtn {
     color: rgb(0, 53, 122);
   }
-  
+
   .removeBtn {
     color: rgb(180, 0, 0);
   }
-  
+
   /* ERROR MESSAGES */
   .error-active {
     margin-top: 10px;
@@ -230,7 +232,7 @@ body {
     background: rgb(255, 95, 95);
     color: white;
   }
-  
+
   /* MEDIA QUERY FOR RESPONSIVE DESIGN */
   @media screen and (max-width: 1100px) {
     #outter-container {
