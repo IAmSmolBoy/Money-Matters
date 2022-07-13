@@ -1,5 +1,5 @@
 .bg {
-   z-index: -2;
+   z-index: -3;
    position: fixed;
    right: 0;
    top: 80px;
@@ -9,7 +9,17 @@
    background-position: center;
    background-repeat: no-repeat;
    transform: scaleX(-1);
- }
+}
+div {
+   width: 100vw;
+   height: 100vh;
+   position: fixed;
+   top: 0;
+   left: 0;
+   opacity: 0.35;
+   background: black;
+   z-index: -2;
+}
 @keyframes snow-fall {
    from {
       top: -15%;

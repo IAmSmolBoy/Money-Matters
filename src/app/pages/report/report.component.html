@@ -11,8 +11,9 @@
     </div>
 
     <div id="expenseEntry-container" class="containers red-border">
+      <button class="categorySelector">Expenses</button>
+      <button class="categorySelector">Earnings</button>
       <form>
-        <label>Expenses</label>
         <input class="inputs red-outline red-border" type="text " id="expenseInput" placeholder="E.g: McSpicy Set"/>
         <label>Enter Your Expense Amount</label>
         <input class="inputs red-outline red-border" type="number" id="expenseAmountInput" placeholder="How much is the item?"/>
@@ -21,7 +22,7 @@
       </form>
     </div>
 
-    <div id="earningEntry-container" class="containers green-border">
+    <!-- <div id="earningEntry-container" class="containers green-border">
       <form>
         <label>Earnings</label>
         <input class="inputs green-outline green-border" type="text " id="expenseInput" placeholder="E.g: McSpicy Set"/>
@@ -30,7 +31,7 @@
         <button class="green-border btns" type="button" id="expenseBtn">Add Earning</button>
         <div id="expense-error-message"></div>
       </form>
-    </div>
+    </div> -->
   </div>
 
     <!-- COLUMN 2 -->
@@ -65,11 +66,11 @@
             <th>description</th>
           </tr>
           <tr *ngFor="let trans of transactionList; let i = index">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{i + 1}}</td>
+            <td>{{trans.category}}</td>
+            <td>{{trans.amount}}</td>
+            <td>{{trans.date.toDateString()}}</td>
+            <td>{{trans.description}}</td>
           </tr>
         </table>
       </div>
