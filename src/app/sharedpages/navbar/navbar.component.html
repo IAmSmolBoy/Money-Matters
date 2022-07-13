@@ -14,7 +14,7 @@
     </li>
     <li *ngIf="signedIn" class="nav-link" routerLink="report" routerLinkActive="active-link">Transactions Report
     </li>
-    <li *ngIf="signedIn" class="nav-link" [routerLink]="['/profilepage', user!.id]" routerLinkActive="active-link">Account
+    <li *ngIf="signedIn" class="nav-link accountName" [routerLink]="['/profilepage', user!.id]" routerLinkActive="active-link">{{user!.username}}
     </li>
     <li *ngIf="!signedIn" class="nav-link" routerLink="login" routerLinkActive="active-link">Sign In
     </li>
