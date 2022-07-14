@@ -15,7 +15,20 @@
       <button (click)="setTransactionType(false)" class="categorySelecter green-border-bottom">Earnings</button>
       <form>
         <label for="category"></label>
-        
+        <!-- Supposed Dropdown -->
+        <div class="module">
+          <div class="trigger">
+            <span><em>🖐</em> Visit Us</span>
+            <!-- Put your content here in this class, u can rename it but keep in mind the references in CSS -->
+            <ul class="objects">
+              <li><a routerLink="/">Hello</a></li>
+              <li><a routerLink="/">Hong Rui</a></li>
+              <li><a routerLink="/">Enjoy</a></li>
+              <li><a routerLink="/">This Dropdown</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- Dropdown ends here -->
         <label for="reason">Enter The Reason For this Transaction</label>
         <input class="inputs red-outline red-border" type="text" id="reason" placeholder="E.g: McSpicy Set"/>
         <label for="amount">Enter Your transaction Amount</label>
