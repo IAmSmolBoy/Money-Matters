@@ -29,13 +29,7 @@ export class RegisterComponent implements OnInit {
 
   register(): void {
     const registerVals = this.registerForm.value
-    const newUser = new User(
-      this.us.generateId(),
-      registerVals.username,
-      registerVals.email,
-      registerVals.passwords.pass1,
-      "User"
-    )
+    const newUser = new User(this.us.generateId(), registerVals.username, registerVals.email, registerVals.passwords.pass1, "User", 0)
     this.us.addUser(newUser)
     sessionStorage.setItem("userId", newUser.id.toString())
     this.router.navigate(["/"])

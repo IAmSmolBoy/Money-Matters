@@ -1,15 +1,12 @@
-body {
-    height: 100vh;
+.cardContainer {
+    margin-top: 80px;
+    min-height: calc(100vh - 267px);
     display: flex;
-    align-items: center;
-    justify-content: center;
 }
 .outer-div, .inner-div {
     height: 450px;
     max-width: 300px;
-    margin: 0 auto;
-    margin-top: 10%;
-    margin-bottom: 8%;
+    margin: auto;
     position: relative;
 }
 .outer-div {

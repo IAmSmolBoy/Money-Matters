@@ -46,12 +46,14 @@ html::-webkit-scrollbar-thumb
 }
 
 /* sets the whole web application to dark mode */
-body
+body, app-root
 {
   position: absolute;
   top: 0;
   width: 100vw;
   height: 100vh;
+}
+body {
   background: var(--bg)
 }
 

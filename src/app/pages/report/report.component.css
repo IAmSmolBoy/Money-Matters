@@ -1,47 +1,38 @@
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background: #f0f0f0;
-    min-height: 100vh;
-  }
-
-  * {
-    color: white;
-  }
+* {
+  color: white;
+}
 
 
-  /* GRID SYSTEM */
+/* GRID SYSTEM */
 
-  .container-page{
-    position: relative;
-    margin-top: 90px;
-    margin-bottom: 80px;
-    display: flex;
-    width: 100vw;
-    height: calc(100vh - 267px)
-  }
+.container-page{
+  position: relative;
+  margin-top: 80px;
+  display: flex;
+  width: 100vw;
+  height: calc(100vh - 267px)
+}
 
-  .column {
-    height: 100%;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-  }
+.column {
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
 
-  .containers {
-    margin: auto 0;
-  }
+.containers {
+  margin: auto 0;
+}
 
-  #column1 {
-    width: 38%;
-  }
+#column1 {
+  width: 38%;
+}
 
-  #column2 {
-    width: 55%;
-  }
+#column2 {
+  width: 55%;
+}
 
-  /* BUDGET FORM */
+/* BUDGET FORM */
 
 .green-border {
   border-color: #82e166;
@@ -51,11 +42,19 @@ body {
   outline: #82e166;
 }
 
+.green-border-bottom {
+  border-bottom-color: #82e166 !important;
+}
+
+.red-border-bottom {
+  border-bottom-color: #ff686b !important;
+}
+
 .red-border {
   border-color: #ff686b;
 }
 
-.green-outline {
+.red-outline {
   outline: #ff686b;
 }
 
@@ -113,151 +112,170 @@ body {
   box-shadow: 0 0 5px 0px black;
 }
 
-.containers button {
+.containers .btns {
   display: block;
   padding: 0.5rem 0.75rem;
   background: transparent;
   border-width: 1px;
   border-style: solid;
+  border-radius: 2.5px;
   margin-top: 35px;
   outline: none;
   font-size: 1rem;
-  transition: all 0.2s ease-in-out;
+  transition: 0.5s ease-in-out;
 }
 
-.containers button:hover {
-  color: white;
+.categorySelecter {
+  transition: .5s;
+  padding: 0.5rem 0.75rem;
+  margin-right: 1vw;
+  background: transparent;
+  border-bottom: 1px solid;
+  margin-bottom: 1vh;
+  font-size: 1.5rem;
+}
+
+.green-border.btns:hover {
+  background: #82e166;
+}
+
+.red-border.btns:hover {
+  background: #ff686b;
+}
+
+.containers .btns:hover {
+  color: black ;
   cursor: pointer;
 }
 
 #expenseEntry-container {
-  transition: 1s ease-in-out;
+  transition: .5s ease-in-out;
 }
 
-  /* BALANCE DISPLAY SECTION */
+/* BALANCE DISPLAY SECTION */
 
+#balanceDisplay-container {
+  display: flex;
+}
+
+#balanceDisplay-container > * {
+  padding: 0.25rem;
+}
+
+#balanceDisplay-container i {
+  /* font awesome icons */
+  font-size: 4rem;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin: 20px 0;
+}
+
+#balanceDisplay-container h2 {
+  text-transform: uppercase;
+  text-align: center;
+  color: white;
+  margin: 0;
+}
+
+#balanceDisplay-container .moneyOutput {
+  font-size: 2.25rem;
+  text-align: center;
+  margin: 0;
+}
+
+.text-red {
+  color: #ff686b;
+}
+.text-green {
+  color: #82e166;
+}
+
+/* EXPENSES DISPLAY */
+#expenses-container {
+  border: 1px solid black;
+  order: 4;
+  width: 100%;
+  height: 50%;
+  overflow-y: scroll;
+  background: black;
+  border: 1px solid #f0f0f0;
+}
+#table-list {
+  width: 100%;
+  padding: 0;
+}
+
+#expenses-container h2 {
+  font-size: 1.1rem;
+}
+
+#table-list th {
+  text-align: left;
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  border-bottom: 1px solid rgb(119, 119, 119);
+}
+
+#table-list td {
+  padding: 0.5rem;
+  color: #ff686b;
+  font-size: 1.4rem;
+  border-bottom: 1px solid lightgray;
+}
+
+.icons {
+  text-align: right;
+}
+#table-list i {
+  margin-bottom: 8px;
+  font-size: 1.5rem;
+  padding: 0 0.2rem;
+  cursor: pointer;
+}
+
+#table-list i:hover {
+  color: black;
+}
+
+.editBtn {
+  color: rgb(0, 53, 122);
+}
+
+.removeBtn {
+  color: rgb(180, 0, 0);
+}
+
+/* ERROR MESSAGES */
+.error-active {
+  margin-top: 10px;
+  padding: 1rem;
+  font-size: 1.1rem;
+  background: rgb(255, 95, 95);
+  color: white;
+}
+
+/* MEDIA QUERY FOR RESPONSIVE DESIGN */
+@media screen and (max-width: 1100px) {
+  #outter-container {
+    column-gap: 20px;
+  }
+}
+@media screen and (max-width: 760px) {
+  #outter-container {
+    grid-template-columns: 1fr;
+    row-gap: 30px;
+  }
+  #budget-container {
+    order: 1;
+  }
+  #expenseEntry-container {
+    order: 2;
+  }
   #balanceDisplay-container {
-    display: flex;
+    order: 3;
   }
-
-  #balanceDisplay-container > * {
-    padding: 0.25rem;
-  }
-
-  #balanceDisplay-container i {
-    /* font awesome icons */
-    font-size: 4rem;
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-    margin: 20px 0;
-  }
-
-  #balanceDisplay-container h2 {
-    text-transform: uppercase;
-    text-align: center;
-    color: white;
-    margin: 0;
-  }
-
-  #balanceDisplay-container .moneyOutput {
-    font-size: 2.25rem;
-    text-align: center;
-    margin: 0;
-  }
-
-  .text-red {
-    color: #ff686b;
-  }
-  .text-green {
-    color: #82e166;
-  }
-
-  /* EXPENSES DISPLAY */
   #expenses-container {
-    border: 1px solid black;
     order: 4;
-    width: 100%;
-    height: 50%;
-    overflow-y: scroll;
-    background: black;
-    border: 1px solid #f0f0f0;
   }
-  #table-list {
-    width: 100%;
-    padding: 0;
-  }
-
-  #expenses-container h2 {
-    font-size: 1.1rem;
-  }
-
-  #table-list th {
-    text-align: left;
-    padding: 0.5rem;
-    font-size: 1.1rem;
-    border-bottom: 1px solid rgb(119, 119, 119);
-  }
-
-  #table-list td {
-    padding: 0.5rem;
-    color: #ff686b;
-    font-size: 1.4rem;
-    border-bottom: 1px solid lightgray;
-  }
-
-  .icons {
-    text-align: right;
-  }
-  #table-list i {
-    margin-bottom: 8px;
-    font-size: 1.5rem;
-    padding: 0 0.2rem;
-    cursor: pointer;
-  }
-
-  #table-list i:hover {
-    color: black;
-  }
-
-  .editBtn {
-    color: rgb(0, 53, 122);
-  }
-
-  .removeBtn {
-    color: rgb(180, 0, 0);
-  }
-
-  /* ERROR MESSAGES */
-  .error-active {
-    margin-top: 10px;
-    padding: 1rem;
-    font-size: 1.1rem;
-    background: rgb(255, 95, 95);
-    color: white;
-  }
-
-  /* MEDIA QUERY FOR RESPONSIVE DESIGN */
-  @media screen and (max-width: 1100px) {
-    #outter-container {
-      column-gap: 20px;
-    }
-  }
-  @media screen and (max-width: 760px) {
-    #outter-container {
-      grid-template-columns: 1fr;
-      row-gap: 30px;
-    }
-    #budget-container {
-      order: 1;
-    }
-    #expenseEntry-container {
-      order: 2;
-    }
-    #balanceDisplay-container {
-      order: 3;
-    }
-    #expenses-container {
-      order: 4;
-    }
-  }
+}

@@ -2,36 +2,28 @@
     <!-- COLUMN 1 -->
   <div class="column" id="column1">
     <div id="budget-container" class="containers green-border">
-      <form>
+      <form [formGroup]="budgetForm" (ngSubmit)="budgetSubmit()">
         <label>Enter Your Budget</label>
-        <input class="inputs green-outline green-border" type="number" id="budgetInput" placeholder="What is your budget for the month?"/>
-        <button class="green-border btns" type="button" id="calcBtn">Set Budget Goal</button>
+        <input class="inputs green-outline green-border" min="0" type="number" formControlName="budget" id="budgetInput" placeholder="What is your budget for the month?"/>
+        <button class="green-border btns" type="submit" id="calcBtn">Set Budget Goal</button>
         <div id="budget-error-message"></div>
       </form>
     </div>
 
-    <div id="expenseEntry-container" class="containers red-border">
-      <button class="categorySelector">Expenses</button>
-      <button class="categorySelector">Earnings</button>
+    <div id="expenseEntry-container" class="containers" [ngClass]="{'red-border': transactionType === true, 'green-border' : transactionType === false }">
+      <button (click)="setTransactionType(true)" class="categorySelecter red-border-bottom">Expenses</button>
+      <button (click)="setTransactionType(false)" class="categorySelecter green-border-bottom">Earnings</button>
       <form>
-        <input class="inputs red-outline red-border" type="text " id="expenseInput" placeholder="E.g: McSpicy Set"/>
-        <label>Enter Your Expense Amount</label>
-        <input class="inputs red-outline red-border" type="number" id="expenseAmountInput" placeholder="How much is the item?"/>
-        <button class="red-border btns" type="button" id="expenseBtn">Add Expense</button>
+        <label for="category"></label>
+        
+        <label for="reason">Enter The Reason For this Transaction</label>
+        <input class="inputs red-outline red-border" type="text" id="reason" placeholder="E.g: McSpicy Set"/>
+        <label for="amount">Enter Your transaction Amount</label>
+        <input class="inputs red-outline red-border" type="number" id="amount" placeholder="How much is the item?"/>
+        <button [ngClass]="{'red-border': transactionType === true, 'green-border' : transactionType === false }" class="btns" type="submit" id="expenseBtn">Add Transaction</button>
         <div id="expense-error-message"></div>
       </form>
     </div>
-
-    <!-- <div id="earningEntry-container" class="containers green-border">
-      <form>
-        <label>Earnings</label>
-        <input class="inputs green-outline green-border" type="text " id="expenseInput" placeholder="E.g: McSpicy Set"/>
-        <label>Enter Your Expense Amount</label>
-        <input class="inputs green-outline green-border" type="number" id="expenseAmountInput" placeholder="How much is the item?"/>
-        <button class="green-border btns" type="button" id="expenseBtn">Add Earning</button>
-        <div id="expense-error-message"></div>
-      </form>
-    </div> -->
   </div>
 
     <!-- COLUMN 2 -->
@@ -40,7 +32,7 @@
         <div class="ml-auto mr-auto" id="budgetTotalAmount">
           <h2>Budget</h2>
           <i class="fa fa-bullseye balance"></i>
-          <h3 id="budgetMoney" class="moneyOutput text-green">$0</h3>
+          <h3 id="budgetMoney" class="moneyOutput text-green">${{user.budget}}</h3>
         </div>
   
         <div class="ml-auto mr-auto" id="expensesTotalAmount">
@@ -69,7 +61,7 @@
             <td>{{i + 1}}</td>
             <td>{{trans.category}}</td>
             <td>{{trans.amount}}</td>
-            <td>{{trans.date.toDateString()}}</td>
+            <td>{{trans.date.toDateString().split(" ").slice(1).join(" ")}}</td>
             <td>{{trans.description}}</td>
           </tr>
         </table>
