@@ -13,78 +13,106 @@
         </div>
         <div class="back">
           <div class="social-media-wrapper">
-            <a href="{{user.socials.facebook}}" class="social-icon"><i class="fa-brands fa-facebook-square"></i></a> 
-            <a href="{{user.socials.github}}" class="social-icon"><i class="fa-brands fa-github-square"></i></a>
-            <a href="{{user.socials.linkedIn}}" class="social-icon"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="{{user.socials.instagram}}" class="social-icon"><i class="fa-brands fa-instagram-square"></i></a>
-            <a href="" class="social-icon toggleeditprof"><i class="fa-solid fa-pen-to-square"></i></a>
+            <div class="row socials">
+              <a href="{{user.socials.facebook}}" class="social-icon"><i class="fa-brands fa-facebook-square"></i></a> 
+              <a href="{{user.socials.github}}" class="social-icon"><i class="fa-brands fa-github-square"></i></a>
+              <a href="{{user.socials.linkedIn}}" class="social-icon"><i class="fa-brands fa-linkedin"></i></a>
+              <a href="{{user.socials.instagram}}" class="social-icon"><i class="fa-brands fa-instagram-square"></i></a>
+            </div>
+            <button (click)="showEditForm = !showEditForm" type="button" class="social-icon toggleEditProf"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</button>
           </div>
           <a *ngIf="own" routerLink="editProfile" class="editOrif"></a>
         </div>
       </div>
   </div>
-  <div *ngIf="own" class="editProfFormContainer">
-    <form [formGroup]="editForm" (ngSubmit)="updateProfile">
-      <div class="wrapper" id="edithidden">
-        <div class="profile">
-          <div class="content">
-            <h1>Edit Profile</h1>
-            <form action="">
-              <!-- Photo -->
-              <fieldset>
-                <div class="grid-35">
-                  <label for="avatar">Your Photo</label>
-                </div>
-                <div class="grid-65">
-                  <span class="photo" title="Upload your Avatar!"></span>
-                  <input type="file" class="btn" />
-                </div>
-              </fieldset>
-              <!-- Username -->
-              <fieldset>
-                <div class="grid-35">
-                  <label for="username">Username</label>
-                </div>
-                <div class="grid-65">
-                  <input type="text" id="username" tabindex="1" />
-                </div>
-              </fieldset>
-              <!-- Password -->
-              <fieldset>
-                <div class="grid-35">
-                  <label for="password">Password</label>
-                </div>
-                <div class="grid-65">
-                  <input type="password" id="password" tabindex="2" />
-                </div>
-              </fieldset>              
-              <!-- Description about User -->
-              <fieldset>
-                <div class="grid-35">
-                  <label for="description">About you</label>
-                </div>
-                <div class="grid-65">
-                  <textarea name="" id="" cols="30" rows="auto" tabindex="3"></textarea>
-                </div>
-              </fieldset>
-              <!-- Email -->
-              <fieldset>
-                <div class="grid-35">
-                  <label for="email">Email Address</label>
-                </div>
-                <div class="grid-65">
-                  <input type="email" id="email" tabindex="4" />
-                </div>
-              </fieldset>
-              <fieldset>
-                <input type="button" class="Btn cancel" value="Cancel" />
-                <input type="submit" class="Btn" value="Save Changes" />
-              </fieldset>
-            </form>
+  <div *ngIf="own && showEditForm" class="editProfFormContainer">
+    <div class="profile">
+      <div class="content">
+        <h1>Edit Profile</h1>
+        <form [formGroup]="editForm" (ngSubmit)="updateProfile()">
+          <!-- Photo -->
+          <fieldset>
+            <div class="grid-35">
+              <label for="avatar">Your Photo</label>
+            </div>
+            <div class="grid-65">
+              <label for="pfp" class="pfpLabel">
+                <span class="photo" style="background-image: url({{pfp}})" title="Upload your Avatar!"></span>
+                <input id="pfp" style="display: none" type="file" (change)="onUploadImg($event)" accept="image/png, image/gif, image/jpeg"/>
+              </label>
+            </div>
+          </fieldset>
+          <!-- Username -->
+          <fieldset>
+            <div class="grid-35">
+              <label for="username">Username</label>
+            </div>
+            <div class="grid-65">
+              <input formControlName="username" type="text" id="username"/>
+            </div>
+          </fieldset>
+          <!-- Email -->
+          <fieldset>
+            <div class="grid-35">
+              <label for="email">Email Address</label>
+            </div>
+            <div class="grid-65">
+              <input formControlName="email" type="email" id="email"/>
+            </div>
+          </fieldset>
+          <!-- Password -->
+          <fieldset>
+            <div class="grid-35">
+              <label for="password">Password</label>
+            </div>
+            <div class="grid-65">
+              <input formControlName="password" type="password" id="password"/>
+            </div>
+          </fieldset>
+          <!-- Socials -->
+          <div [class]="{show: !hideSocials}" class="dropdownMenu">
+            <fieldset>
+              <div class="grid-35">
+                <label for="facebook">Facebook Link</label>
+              </div>
+              <div class="grid-65">
+                <input formControlName="fb" type="text" id="facebook"/>
+              </div>
+            </fieldset>
+            <fieldset>
+              <div class="grid-35">
+                <label for="github">Github Link</label>
+              </div>
+              <div class="grid-65">
+                <input formControlName="github" type="text" id="github"/>
+              </div>
+            </fieldset>
+            <fieldset>
+              <div class="grid-35">
+                <label for="linkedIn">LiinkedIn Link</label>
+              </div>
+              <div class="grid-65">
+                <input formControlName="linkedIn" type="text" id="linkedIn"/>
+              </div>
+            </fieldset>
+            <fieldset>
+              <div class="grid-35">
+                <label for="instagram">Instagram Link</label>
+              </div>
+              <div class="grid-65">
+                <input formControlName="ig" type="text" id="instagram"/>
+              </div>
+            </fieldset>
           </div>
-        </div>
+          <div class="menuBtnContainer">
+            <button (click)="hideSocials = !hideSocials" type="button" class="dropdownMenuBtn">{{hideSocials ? "Open" : "Close"}} Social Section <i [class]="{'fa-angle-down': hideSocials, 'fa-angle-up': !hideSocials}" class="fa-solid "></i></button>
+          </div>
+          <fieldset>
+            <input type="submit" class="Btn" value="Save Changes" />
+            <input type="button" class="Btn cancel" value="Cancel" />
+          </fieldset>
+        </form>
       </div>
-      
-    </form>
+    </div>
   </div>
 </div>

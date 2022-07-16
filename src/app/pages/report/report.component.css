@@ -164,6 +164,9 @@ textarea {
 
 #balanceDisplay-container {
   display: flex;
+  background: black;
+  border: white 1px solid;
+  padding: 1vh 0;
 }
 
 #balanceDisplay-container > * {

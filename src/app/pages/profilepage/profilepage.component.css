@@ -3,6 +3,9 @@
     min-height: calc(100vh - 267px);
     display: flex;
 }
+.cardContainer > div {
+    transition: .5s;
+}
 .outer-div, .inner-div {
     height: 450px;
     max-width: 300px;
@@ -71,9 +74,9 @@
     margin: 0 auto;
     border-radius: 50%;
     border: 5px solid #fff;
-    background: no-repeat;
     background-size: contain;
     overflow: hidden;
+    background: white;
 
 }
 .front_text {
@@ -142,10 +145,10 @@
 .social-media-wrapper .social-icon {
     position: relative;
     top: 20px;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 0 auto;
     opacity: 0;
     color: #fff;
+    width: max-content;
     transition: all 0.25s cubic-bezier(0.3, 0.7, 0.1, 1.9);
 }
 .social-media-wrapper .social-icon:nth-child(1) {
@@ -182,9 +185,21 @@
 .fa-solid:hover {
     top: -5px;
 }
+.row.socials {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+}
+.toggleEditProf {
+    font-size: 1.3rem;
+    background: transparent;
+}
 
 
 /* ----------------------- Edit Form STARTS HERE ----------------------- */
+.editProfFormContainer {
+    margin: auto;
+}
 
 .profile,.content{
     -webkit-transition: 0.5s ease;
@@ -200,10 +215,9 @@
     height: auto;
     width: 75%;
     margin: 20px auto;
-    background-color: #faf9f9;
-    border-top: 5px solid #c6ac8f;
+    background-color: black;
+    border: 1px solid #c6ac8f;
     border-radius: 5px 5px 5px 5px;
-    box-shadow: 0 2.5px 5px #ccc;
 }
 .content{
     min-height: 100%;
@@ -231,6 +245,7 @@ span.photo{
     background-size: 100%;
     border-radius: 100%;
     border: 2px solid #ddd;
+    cursor: pointer;
 }
 span.photo:after{
     content: " Add Picture ";
@@ -290,7 +305,41 @@ label[for="avatar"]{
 }
 
 /* ----------------------- Input view STARTS HERE ----------------------- */
-fieldset textarea, input{
+@keyframes growDown {
+    0% {
+        transform: scaleY(0);
+        display: none;
+    }
+    80% {
+        transform: scaleY(1.1);
+    }
+    100% {
+        transform: scaleY(1);
+        display: block;
+    }
+}
+.show {
+    display: block !important;
+    animation: growDown 300ms ease-in-out forwards;
+    transform-origin: top center;
+}
+.menuBtnContainer {
+    width: 100%;
+    display: flex;
+}
+.dropdownMenuBtn {
+    background: transparent;
+    margin: 0 auto;
+    font-size: 1.5rem;
+    color: white;
+}
+.dropdownMenu {
+    display: none;
+}
+label {
+    color: white;
+}
+input{
     font-size: 15px;
     color: #333;
     background-color: #f7f7f7;
@@ -302,17 +351,10 @@ fieldset textarea, input{
     border-radius: 2.5px;
     outline: 0;
     transition: 0.3s ease;
+    text-transform: none;
 }
-fieldset textarea{
-    min-height: 40px;
-    max-height: 60px;
-}
-fieldset textarea:hover,input:hover{
-    box-shadow: 0 0 0 1px var(--red-color);
+input:hover{
     background-color: #fff;
-}
-fieldset textarea:focus,input:focus{
-    box-shadow: 0 0 0 1px var(--red-color), inset 0 2px 5px -1px rgba(0,0,0,0.25);
 }
 .grid-35{
 width: 35%;
@@ -327,84 +369,14 @@ float: right;
 font-weight: 300;
 font-size: 17px;
 }
-#tabs-1 div,#tabs-2 div,#tabs-3 div{
-border-bottom: 1px solid #ddd;
-}
-
-/*Tabs Styles
-=========================*/
-#tabs {
-    width: 97.5%;
-    margin: 0 auto;
-    position: relative;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-#tabs-1,#tabs-2,#tabs-3{
-    width: 95%;
-    margin: 0 auto;
-    padding: 5px 10px;
-    line-height: 1.3em;
-    padding-bottom: 10px;
-    background-color: #f2ecee;
-    border-radius: 0 2.5px 2.5px 2.5px;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-} 
-#tabs ul{
-    margin: 0 auto;
-    padding: 0;
-}
-#tabs ul li{
-    display: inline-block;
-    margin: 0;
-    padding: 0 7px;
-    width: 65px;
-    text-align: center;
-    padding-bottom: 5px;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease; 
-    transition: all 0.5s ease;  
-}
-#tabs ul li a{
-    outline: 0;
-    text-decoration: none;
-    padding: 0 3px 0 0;
-    margin: 0;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-
-.ui-state-hover{
-    border-bottom: 2.5px solid #aaa;
-}
-.ui-state-active{
-    color: #38cc85;
-    border-bottom: 2.5px solid #39cb58;
-}
 
 /* CSS for the edit form */
 .content h1{
     text-align: center;
-    color: #555;
+    color: white;
     font-size: 40px;
     font-weight: 200;
     margin: 5px auto 15px auto;
-}
-
-select{
-    width: 80%;
-    padding: 7px 10px;
-    background-color: #f5f5f5;
-    border: 1px solid var(--red-color);
-    border-radius: 2.5px;
-    outline: 0;
-}
-select option{
-    padding: 5px;
 }
 fieldset{
     text-align: center;
@@ -415,52 +387,63 @@ fieldset{
 }
 fieldset:last-child{
     border-bottom: none;
+    display: flex;
 }
 input.Btn{
-    width: 48%;
+    width: 35%;
     float: left;
     display: block;
     margin: 40px auto;
-    margin-left: 1%;
-    padding: 15px 0;
+    padding: 1vh 0;
     font-size: 16px;
-    color: #fff;
+    color: black;
     cursor: pointer;
-    background-color: rgba(216, 154, 38, 0.65);
+    background-color: #d3ad7f;
     transition: 0.5s ease;
 }
 input.Btn:hover{
-    background-color: var(--red-color);
+    background-color: #eec584;
 }
 
 /*Media Queries
 =========================*/
 @media only screen and (min-width: 768px){ /*Desktop*/
-.profile{ 
-    width: 450px;
-}
-.search{
-    float: none;
-    /* top: 0; */
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-}
+    .profile{ 
+        width: 450px;
+    }
+    .search{
+        float: none;
+        /* top: 0; */
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
 }
 @media only screen and (max-width: 768px){ /*Tablet*/
-.profile{ 
-    width: 70%;
-}
-.search{
-    top: 0;
-    left: 0;
-    right: 0;
-    display: block;
-    margin: 0 auto;
-}
+    .profile{ 
+        width: 70%;
+    }
+    .search{
+        top: 0;
+        left: 0;
+        right: 0;
+        display: block;
+        margin: 0 auto;
+    }
+    .cardContainer {
+        display: flex;
+        flex-direction: column;
+    }
+    .editProfFormContainer {
+        width: 100%;
+    }
+    input.Btn {
+        width: max-content;
+        padding: 2.5vw;
+    }
 }
 @media only screen and (min-width: 320px) and (max-width: 520px){ /*Phone*/
-.profile{
-    width: 90%;
-}
+    .profile{
+        width: 90%;
+    }
 }

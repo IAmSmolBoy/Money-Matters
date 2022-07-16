@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { transactionList } from 'src/app/models/mock-transaction';
 import { Transaction } from 'src/app/models/transaction';
 import { User } from 'src/app/models/user';
 import { TransactionService } from 'src/app/services/transaction.service';
@@ -24,6 +25,11 @@ export class ReportComponent implements OnInit {
   budgetForm: FormGroup = this.fb.group({
     budget: [this.user.budget, [Validators.required, Validators.min(0)]]
   })
+  mapFunc = (trans: Transaction) => trans.amount
+  sum = (first: number, second: number) => first + second
+  expenses: number = transactionList.filter(trans => trans.amount < 0).map(this.mapFunc).reduce(this.sum)
+  earnings: number = transactionList.filter(trans => trans.amount > 0).map(this.mapFunc).reduce(this.sum)
+  total: number = transactionList.map(this.mapFunc).reduce(this.sum)
 
   //functions for budget, setting transaction type and category and delete transaction function
   setTransactionType = (transType: boolean) => this.transactionType = transType
@@ -91,6 +97,8 @@ export class ReportComponent implements OnInit {
       this.ts.addTransaction(newTransaction)
       this.transactionList.push(newTransaction)
     }
+    this.expenses = transactionList.filter(trans => trans.amount < 0).map(trans => trans.amount).reduce((total, trans) => total + trans)
+    this.earnings = transactionList.filter(trans => trans.amount > 0).map(trans => trans.amount).reduce((total, trans) => total + trans)
   }
   editTransaction(i: number): void {
     const datePipe = new DatePipe("en-SG")

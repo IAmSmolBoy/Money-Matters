@@ -54,16 +54,22 @@
           <h3 id="budgetMoney" class="moneyOutput text-green">${{user.budget}}</h3>
         </div>
   
-        <div class="ml-auto mr-auto" id="expensesTotalAmount">
-          <h2>Expenses</h2>
-          <i class="fa fa-credit-card-alt expense" aria-hidden="true"></i>
-          <h3 id="expensesMoney" class="moneyOutput text-red">$0</h3>
-        </div>
-  
         <div class="ml-auto mr-auto" id="balanceTotalAmount">
           <h2>Balance</h2>
           <i class="fa fa-dollar balance" aria-hidden="true"></i>
-          <h3 id="balanceMoney" class="moneyOutput text-green">$0</h3>
+          <h3 id="balanceMoney" class="moneyOutput text-green">${{earnings}}</h3>
+        </div>
+  
+        <div class="ml-auto mr-auto" id="expensesTotalAmount">
+          <h2>Expenses</h2>
+          <i class="fa fa-credit-card-alt expense" aria-hidden="true"></i>
+          <h3 id="expensesMoney" class="moneyOutput text-red">${{expenses}}</h3>
+        </div>
+  
+        <div class="ml-auto mr-auto" id="totalAmount">
+          <h2>total</h2>
+          <i [class]="{'text-red': total < 0, 'text-green': total > 0}" class="fa fa-credit-card-alt expense" aria-hidden="true"></i>
+          <h3 [class]="{'text-red': total < 0, 'text-green': total > 0}" id="totalMoney" class="moneyOutput">${{total}}</h3>
         </div>
       </div>
   

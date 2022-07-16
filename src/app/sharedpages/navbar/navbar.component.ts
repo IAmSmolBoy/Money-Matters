@@ -30,6 +30,7 @@ export class NavbarComponent implements OnInit {
     sessionStorage.removeItem("userId")
     this.signedIn = false
     this.router.navigate(["/"])
+    this.reload.subscription.next(null)
   }
 
 }
