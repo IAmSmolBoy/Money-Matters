@@ -10,30 +10,36 @@
       </form>
     </div>
 
-    <div id="expenseEntry-container" class="containers" [ngClass]="{'red-border': transactionType === true, 'green-border' : transactionType === false }">
+    <div id="expenseEntry-container" class="containers" [ngClass]="{'red-border': transactionType, 'green-border' : !transactionType}">
+      <h2 class="formTitle">{{transactionAction}} Transaction</h2>
       <button (click)="setTransactionType(true)" class="categorySelecter red-border-bottom">Expenses</button>
       <button (click)="setTransactionType(false)" class="categorySelecter green-border-bottom">Earnings</button>
-      <form>
-        <label for="category"></label>
-        <!-- Supposed Dropdown -->
+      <form [formGroup]="transactionForm" (ngSubmit)="transactionOnSubmit()">
+        <label for="category">Enter your category</label>
         <div class="module">
           <div class="trigger">
-            <span><em>🖐</em> Visit Us</span>
-            <!-- Put your content here in this class, u can rename it but keep in mind the references in CSS -->
+            <span>{{category}} <i class="fa-solid fa-caret-down"></i></span>
             <ul class="objects">
-              <li><a routerLink="/">Hello</a></li>
-              <li><a routerLink="/">Hong Rui</a></li>
-              <li><a routerLink="/">Enjoy</a></li>
-              <li><a routerLink="/">This Dropdown</a></li>
+              <li class="categories" *ngFor="let category of transactionType ? categoryList.Expense : categoryList.Earnt" (click)="setCategory(category)">{{category}}</li>
             </ul>
           </div>
         </div>
-        <!-- Dropdown ends here -->
-        <label for="reason">Enter The Reason For this Transaction</label>
-        <input class="inputs red-outline red-border" type="text" id="reason" placeholder="E.g: McSpicy Set"/>
+        <p *ngIf="category === 'Pick Your Category'" class="errorMsg">This is a required field</p>
+
         <label for="amount">Enter Your transaction Amount</label>
-        <input class="inputs red-outline red-border" type="number" id="amount" placeholder="How much is the item?"/>
-        <button [ngClass]="{'red-border': transactionType === true, 'green-border' : transactionType === false }" class="btns" type="submit" id="expenseBtn">Add Transaction</button>
+        <input class="inputs" min="0" type="number" formControlName="amount" id="amount" placeholder="How much is the item?"/>
+        <p *ngIf="transactionForm.get('amount')!.hasError('required')" class="errorMsg">This is a required field</p>
+        <p *ngIf="transactionForm.get('amount')!.hasError('min')" class="errorMsg">please enter a number greater than 0</p>
+
+        <label for="date">Enter Your transaction Date</label>
+        <input class="inputs" type="date" max="{{today | date:'yyyy-MM-dd'}}" formControlName="date" id="date"/>
+        <p *ngIf="transactionForm.get('date')!.hasError('required')" class="errorMsg">This is a required field</p>
+
+        <label for="description">Remarks(if any)</label>
+        <textarea formControlName="description" id="description" rows="3"></textarea>
+
+        <button [ngClass]="{'red-border': transactionType, 'green-border' : !transactionType}"
+        [disabled]="!transactionForm.valid" class="btns" type="submit" id="expenseBtn">{{transactionAction}} Transaction</button>
         <div id="expense-error-message"></div>
       </form>
     </div>
@@ -69,13 +75,18 @@
             <th>amount</th>
             <th>date</th>
             <th>description</th>
+            <th></th>
           </tr>
           <tr *ngFor="let trans of transactionList; let i = index">
-            <td>{{i + 1}}</td>
-            <td>{{trans.category}}</td>
-            <td>{{trans.amount}}</td>
-            <td>{{trans.date.toDateString().split(" ").slice(1).join(" ")}}</td>
-            <td>{{trans.description}}</td>
+            <td [ngClass]="{'editSelected': editSelected === i, 'text-green': trans.amount > 0, 'text-red': trans.amount < 0}">{{i + 1}}</td>
+            <td [ngClass]="{'editSelected': editSelected === i, 'text-green': trans.amount > 0, 'text-red': trans.amount < 0}">{{trans.category}}</td>
+            <td [ngClass]="{'editSelected': editSelected === i, 'text-green': trans.amount > 0, 'text-red': trans.amount < 0}">{{trans.amount}}</td>
+            <td [ngClass]="{'editSelected': editSelected === i, 'text-green': trans.amount > 0, 'text-red': trans.amount < 0}">{{trans.date.toDateString().split(" ").slice(1).join(" ")}}</td>
+            <td [ngClass]="{'editSelected': editSelected === i, 'text-green': trans.amount > 0, 'text-red': trans.amount < 0}">{{trans.description}}</td>
+            <td [ngClass]="{'editSelected': editSelected === i, 'text-green': trans.amount > 0, 'text-red': trans.amount < 0}" class="btnSec">
+              <button class="transactionBtns" (click)="editTransaction(i)"><i class="mb-auto mt-auto fa-solid fa-pen-to-square"></i></button>
+              <button class="transactionBtns" (click)="deleteTransaction(i)"><i class="mb-auto mt-auto fa-solid fa-trash-can"></i></button>
+            </td>
           </tr>
         </table>
       </div>

@@ -71,7 +71,7 @@
     margin: 0 auto;
     border-radius: 50%;
     border: 5px solid #fff;
-    background: url("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png") no-repeat;
+    background: no-repeat;
     background-size: contain;
     overflow: hidden;
 
@@ -98,6 +98,7 @@
     letter-spacing: 0.4px;
     font-weight: 400;
     font-family: "Montserrat", sans-serif;
+    text-transform: none;
 }
 .front_text .front-icons {
     position: relative;
