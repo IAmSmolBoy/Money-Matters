@@ -17,6 +17,7 @@ import { ProfilepageComponent } from './pages/profilepage/profilepage.component'
 import { BackgroundPageComponent } from './sharedpages/background-page/background-page.component';
 import { BgEffectComponent } from './sharedpages/bg-effect/bg-effect.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

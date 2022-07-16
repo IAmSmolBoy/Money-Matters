@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { ForumPageComponent } from './pages/forum-page/forum-page.component';
 import { ForumComponent } from './pages/forum/forum.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -18,6 +17,7 @@ const routes: Routes = [
   {path: 'profilepage/:id', component:ProfilepageComponent},
   {path: 'forum', component: ForumComponent},
   {path: 'viewcomments/:id',component: ForumPageComponent},
+
 ];
 
 @NgModule({
