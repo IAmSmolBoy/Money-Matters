@@ -23,7 +23,7 @@ export class ProfilepageComponent implements OnInit {
   //get user info, own is whether this is the user's own profile
   user: User = this.us.getUserById(parseInt(this.params.snapshot.paramMap.get("id") || "-1")) || new User(-1, "", "", "", "", -1)
   own: boolean = parseInt(sessionStorage.getItem("userId")|| "-1") === this.user.id
-  showEditForm: boolean = true
+  showEditForm: boolean = false
 
   //to support hover animation
   text: any
