@@ -379,11 +379,6 @@ textarea {
   transition: 350ms opacity 700ms;
 }
 
-.flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .fa-caret-down {
   color: #cccccc;
