@@ -2,9 +2,21 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var app = express();
+var MongoClient = require('mongodb').MongoClient
 
+var app = express();
 var router = express.Router();
+
+MongoClient.connect(process.env.MONGODB_URI, (err, client) => {
+  const db = client.db(dbName);
+  db.collection(table).find().toArray((err, artifact) => {
+        if (err) throw err
+        artifact.forEach((value) => {
+        console.log(value.scriptname)
+    })
+    client.close()
+  })
+})
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -19,22 +31,3 @@ router.get('*', function(req, res, next) {
 app.use('/', router);
 
 module.exports = app;
-// var MongoClient = require('mongodb').MongoClient
-
-// const url = "mongodb://localhost:27017/"
-
-// MongoClient.connect(url, (err, client) => {
-//   const db = client.db(dbName);
-//   db.collection(table).find().toArray((err, artifact) => {
-//         if (err) throw err
-//         artifact.forEach((value) => {
-//         console.log(value.scriptname)
-//     })
-//     client.close()
-//   })
-// })
-
-// const port = process.env.PORT || '8080';
-// app.listen(port, () => console.log(`API running on http://localhost:${port}`));
-
-// module.exports = app;
