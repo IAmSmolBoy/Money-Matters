@@ -1,28 +1,23 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { userList } from '../models/mock-user';
+import { Observable } from 'rxjs';
 import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  generateId = (): number => userList.length === 0 ? 1 : userList[userList.length - 1].id + 1
+  url: string = "/db/users"
 
-  getUserById = (userId: number): User | null => userList.some(user => user.id === userId) ? 
-  userList.filter(user => user.id === userId)[0] : null
+  getAllUsers = (): Observable<User[]> => this.http.get<User[]>(this.url)
+  getUserById = (id: string): Observable<User | null> => this.http.get<User | null>(`${this.url}/${id}`)
+  getUserByUsername = (username: string): Observable<User | null> => this.http.get<User | null>(`/db/userByUsername/${username}`)
+  addUser = (newUser: User) => this.http.post<any>(this.url, newUser)
+  updateUser = (id: string, newUser: User) => this.http.put(`${this.url}/${id}`, newUser)
+  deleteUser = (id: string) => this.http.delete(`${this.url}/${id}`)
 
-  getUserByUsername = (username: string): User | null => userList.some(user => user.username === username) ? 
-  userList.filter(user => user.username === username)[0] : null
-
-  getAllUsers = (): User[] => userList
-
-  addUser = (newUser: User) => userList.push(newUser)
-
-  updateUser = (oldUserIndex: number, newUser: User) => userList[oldUserIndex] = newUser
-
-  deleteUser = (delUserIndex: number) => userList.splice(delUserIndex, 1)
-  
 }

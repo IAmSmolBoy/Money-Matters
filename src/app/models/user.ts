@@ -6,7 +6,7 @@ interface Socials {
 
 export class User {
 
-    id: number
+    _id?: ObjectId | null
     username: string
     email: string
     password: string
@@ -15,8 +15,8 @@ export class User {
     pfp: string
     socials: Socials
 
-    constructor(id: number, username: string, email: string, password: string, role: string, budget: number, pfp?: string, socials?: Socials) {
-        this.id = id
+    constructor(username: string, email: string, password: string, role: string, budget: number, pfp?: string, socials?: Socials, id?: ObjectId | null) {
+        this._id = id
         this.username = username 
         this.email = email 
         this.password = password

@@ -1,5 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { transactionList } from '../models/mock-transaction';
+import { Observable } from 'rxjs';
 import { Transaction } from '../models/transaction';
 
 @Injectable({
@@ -7,18 +8,14 @@ import { Transaction } from '../models/transaction';
 })
 export class TransactionService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  generateId = (): number => transactionList.length !== 0 ? transactionList[transactionList.length - 1].id + 1 : 0
+  url: string = "/db/transactions"
 
-  getAllTransactions = (): Transaction[] => transactionList
-
-  getUserTransactions = (userId: number): Transaction[] => transactionList.filter(trans => trans.userId === userId)
-
-  addTransaction = (newTransaction: Transaction) => transactionList.push(newTransaction)
-
-  updateTransaction = (oldTransactionIndex: number, newTransaction: Transaction) => transactionList[oldTransactionIndex] = newTransaction
-
-  deleteTransaction = (delTransactionIndex: number) => transactionList.splice(delTransactionIndex, 1)
+  getAllTransactions = (): Observable<Transaction[]> => this.http.get<Transaction[]>(this.url)
+  getUserTransactions = (userId: string): Observable<Transaction[]> => this.http.get<Transaction[]>(`${this.url}ByUserId/${userId}`)
+  addTransaction = (newTransaction: Transaction) => this.http.post(this.url, newTransaction)
+  updateTransaction = (id: string, newTransaction: Transaction) => this.http.put(`${this.url}/${id}`, newTransaction)
+  deleteTransaction = (id: string) => this.http.delete(`${this.url}/${id}`)
 
 }

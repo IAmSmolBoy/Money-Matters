@@ -51,7 +51,7 @@
         <div class="ml-auto mr-auto" id="budgetTotalAmount">
           <h2>Budget</h2>
           <i class="fa fa-bullseye balance"></i>
-          <h3 id="budgetMoney" class="moneyOutput text-green">${{user.budget}}</h3>
+          <h3 id="budgetMoney" class="moneyOutput text-green">${{user?.budget ?? 0}}</h3>
         </div>
   
         <div class="ml-auto mr-auto" id="balanceTotalAmount">

@@ -4,10 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { FeedbackComment } from 'src/app/models/comment';
 import { Feedback } from 'src/app/models/feedback';
 import { User } from 'src/app/models/user';
-import { ReloadService } from 'src/app/services/reload.service';
 import { CommentService } from 'src/app/services/comment.service';
 import { FeedbackService } from 'src/app/services/feedback.service';
 import { UserService } from 'src/app/services/user.service';
+// import { ObjectId } from 'mongodb';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 
 @Component({
   selector: 'app-forum-page',
@@ -22,22 +23,35 @@ export class ForumPageComponent implements OnInit {
     private us: UserService,
     private cs: CommentService,
     private fb: FormBuilder,
+    private ua: UserAuthService
   ) { }
 
-  feedbackId: number = -1;
+  feedbackId: string | null = null;
   feedbackInfo: Feedback | null = null;
   authorInfo: User | null = null;
   feedbackComments: FeedbackComment[] = [];
   commentUsers: (User | null)[] = []
+  currUser: User | null = null
 
   ngOnInit(): void {
-    this.feedbackId = parseInt(this.route.snapshot.paramMap.get("id") || "-1");
-    this.feedbackInfo = this.fs.getFeedbackInfo(this.feedbackId);
-    if (this.feedbackInfo !== null) {
-      this.authorInfo = this.us.getUserById(this.feedbackInfo.userId)
-      this.feedbackComments = this.cs.getComments(this.feedbackId)
-      this.commentUsers = this.feedbackComments.map(comment => this.us.getUserById(comment.userId))
-    }
+    this.feedbackId = this.route.snapshot.paramMap.get("id") ?? "";
+    
+    this.fs.getFeedbackInfo(this.feedbackId ?? "").subscribe(feedback => {
+      this.feedbackInfo = feedback
+      if (this.feedbackInfo !== null) {
+        this.us.getUserById(this.feedbackInfo.userId?.toString() ?? "").subscribe(user => this.authorInfo = user)
+        this.cs.getComments(this.feedbackId ?? "").subscribe(comments => {
+          this.feedbackComments = comments ?? []
+          this.feedbackComments.forEach(
+            comment => this.us.getUserById(comment?.userId?.toString() ?? "").subscribe(
+              user => this.commentUsers.push(user)
+            )
+          )
+        })
+      }
+    });
+
+    this.ua.currUser.subscribe(user => this.currUser = user)
   }
 
   commentForm = this.fb.group({
@@ -45,16 +59,17 @@ export class ForumPageComponent implements OnInit {
   })
 
   commentFormSubmit() {
-    const newComment = new FeedbackComment(
-      this.cs.generateId(),
-      1, 
-      this.feedbackId,
-      this.commentForm.value.commentContent
-    )
-    this.cs.addComment(newComment)
-    this.feedbackComments.push(newComment)
-    this.commentUsers.push(this.us.getUserById(1))
-    this.commentForm.reset()
+    if (this.currUser && this.feedbackInfo) {
+      const newComment = new FeedbackComment(
+        this.feedbackInfo.id!,
+        this.commentForm.value.commentContent,
+        this.currUser?._id
+      )
+      this.cs.addComment(newComment)
+      this.feedbackComments.push(newComment)
+      this.commentUsers.push(this.currUser)
+      this.commentForm.reset()
+    }
   }
 
 }

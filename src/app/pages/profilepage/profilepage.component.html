@@ -3,23 +3,23 @@
       <div class="inner-div">
         <div class="front">
           <div class="front_bkg-photo"></div>
-          <img src="{{user.pfp}}" class="front_face-photo">
+          <img src="{{user?.pfp ?? ''}}" class="front_face-photo">
           <div class="front_text">
-            <h3 class="front_text-header">{{user.username}}</h3>
-            <p *ngIf="own" class="front_text-para"><i class="fa-solid fa-envelope"></i> {{user.email}}</p>
-            <p class="front_text-para"><i class="fa-solid fa-address-card"></i> {{user.role}}</p>
+            <h3 class="front_text-header">{{user?.username ?? ''}}</h3>
+            <p *ngIf="own" class="front_text-para"><i class="fa-solid fa-envelope"></i> {{user?.email ?? ''}}</p>
+            <p class="front_text-para"><i class="fa-solid fa-address-card"></i> {{user?.role ?? ''}}</p>
             <span class="front_text-hover">Hover Over Me!</span>
           </div>
         </div>
         <div class="back">
           <div class="social-media-wrapper">
             <div class="row socials">
-              <a href="{{user.socials.facebook}}" class="social-icon"><i class="fa-brands fa-facebook-square"></i></a> 
-              <a href="{{user.socials.github}}" class="social-icon"><i class="fa-brands fa-github-square"></i></a>
-              <a href="{{user.socials.linkedIn}}" class="social-icon"><i class="fa-brands fa-linkedin"></i></a>
-              <a href="{{user.socials.instagram}}" class="social-icon"><i class="fa-brands fa-instagram-square"></i></a>
+              <a href="{{user?.socials?.facebook ?? ''}}" class="social-icon"><i class="fa-brands fa-facebook-square"></i></a> 
+              <a href="{{user?.socials?.github ?? ''}}" class="social-icon"><i class="fa-brands fa-github-square"></i></a>
+              <a href="{{user?.socials?.linkedIn ?? ''}}" class="social-icon"><i class="fa-brands fa-linkedin"></i></a>
+              <a href="{{user?.socials?.instagram ?? ''}}" class="social-icon"><i class="fa-brands fa-instagram-square"></i></a>
             </div>
-            <button (click)="showEditForm = !showEditForm" type="button" class="social-icon toggleEditProf"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</button>
+            <button (click)="editFormShowHide()" type="button" class="social-icon toggleEditProf"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</button>
           </div>
           <a *ngIf="own" routerLink="editProfile" class="editOrif"></a>
         </div>

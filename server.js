@@ -1,22 +1,11 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var MongoClient = require('mongodb').MongoClient
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var app = express();
-var router = express.Router();
-
-MongoClient.connect(process.env.MONGODB_URI, (err, client) => {
-  const db = client.db(dbName);
-  db.collection(table).find().toArray((err, artifact) => {
-        if (err) throw err
-        artifact.forEach((value) => {
-        console.log(value.scriptname)
-    })
-    client.close()
-  })
-})
+const app = express();
+const router = express.Router();
+const mongoDBRouter = require("./mongodbService")
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -28,6 +17,7 @@ router.get('*', function(req, res, next) {
   res.sendFile('index.html', { root: "dist/Money-Matters/" });
 });
 
+app.use('/db', mongoDBRouter);
 app.use('/', router);
 
 module.exports = app;

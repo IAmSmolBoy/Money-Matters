@@ -1,23 +1,21 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Feedback } from '../models/feedback';
-import { feedbackList } from '../models/mock-feedback';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FeedbackService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getFeedbackInfo = (feedbackId: number): Feedback | null => !feedbackList.some(feedback => feedback.id === feedbackId) ? null :
-  feedbackList.filter(feedback => feedback.id === feedbackId)[0]
+  url: string = "/db/feedback"
 
-  getAllFeedbacks = (): Feedback[] => feedbackList
-
-  addFeedback = (newFeedback: Feedback) => feedbackList.push(newFeedback)
-
-  updateFeedback = (oldFeedbackIndex: number, newFeedback: Feedback) => feedbackList[oldFeedbackIndex] = newFeedback
-
-  deleteFeedback = (delFeedbackIndex: number) => feedbackList.splice(delFeedbackIndex, 1)
+  getAllFeedbacks = (): Observable<Feedback[]> => this.http.get<Feedback[]>(this.url)
+  getFeedbackInfo = (id: string): Observable<Feedback | null> => this.http.get<Feedback | null>(`${this.url}/${id}`)
+  addFeedback = (newFeedback: Feedback) => this.http.post(this.url, newFeedback)
+  updateFeedback = (id: string, newFeedback: Feedback) => this.http.put(`${this.url}/${id}`, newFeedback)
+  deleteFeedback = (id: string) => this.http.delete(`${this.url}/${id}`)
 
 }

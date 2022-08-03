@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { transactionList } from 'src/app/models/mock-transaction';
+// import { ObjectId } from 'mongodb';
 import { Transaction } from 'src/app/models/transaction';
 import { User } from 'src/app/models/user';
 import { TransactionService } from 'src/app/services/transaction.service';
@@ -18,32 +18,35 @@ export class ReportComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.today.toDateString())
+    this.us.getUserById(sessionStorage.getItem("userId") ?? "").subscribe(user => this.user = user)
+    this.ts.getUserTransactions(this.user?._id?.toString() ?? "").subscribe(transList => this.transactionList = transList)
   }
 
   //defining variables and assigning it to user data
-  user: User = this.us.getUserById(parseInt(sessionStorage.getItem("userId")!))!
+  user: User | null = null 
   budgetForm: FormGroup = this.fb.group({
-    budget: [this.user.budget, [Validators.required, Validators.min(0)]]
+    budget: [this.user?.budget ?? 0, [Validators.required, Validators.min(0)]]
   })
-  mapFunc = (trans: Transaction) => trans.amount
-  sum = (first: number, second: number) => first + second
-  expenses: number = transactionList.filter(trans => trans.amount < 0).map(this.mapFunc).reduce(this.sum)
-  earnings: number = transactionList.filter(trans => trans.amount > 0).map(this.mapFunc).reduce(this.sum)
-  total: number = transactionList.map(this.mapFunc).reduce(this.sum)
+  transactionList: Transaction[] = []
+  filterFunc = (fn: (value: Transaction) => boolean): Transaction[] => this.transactionList.filter(fn)
+  totalFunc = (transList: Transaction[]): number => transList.map(trans => trans.amount).reduce((first: number, second: number) => first + second)
+  expenses: number = this.totalFunc(this.filterFunc(trans => trans.amount < 0))
+  earnings: number = this.totalFunc(this.filterFunc(trans => trans.amount > 0))
+  total: number = this.totalFunc(this.transactionList)
 
   //functions for budget, setting transaction type and category and delete transaction function
   setTransactionType = (transType: boolean) => this.transactionType = transType
   budgetSubmit(): void {
-    const userIndex = this.us.getAllUsers().indexOf(this.user)
-    this.user.budget = this.budgetForm.value.budget
-    this.us.updateUser(userIndex, this.user)
+    if (this.user != null) {
+      this.user.budget = this.budgetForm.value.budget
+      this.us.updateUser(this.user._id?.toString() ?? "", this.user)
+    }
   }
-  deleteTransaction = (i: number) => this.ts.deleteTransaction(this.ts.getAllTransactions().indexOf(this.transactionList.splice(i, 1)[0]))
+  deleteTransaction = (i: number) => this.ts.deleteTransaction(this.transactionList[i].id?.toString() ?? "")
 
 
   //transaction form variables
   transactionType: boolean = true
-  transactionList: Transaction[] = this.ts.getUserTransactions(this.user.id)
   categoryList: { [key: string]: string[] } = {
     Earnt: [
       "Salary",
@@ -68,7 +71,7 @@ export class ReportComponent implements OnInit {
     description: [""],
   })
   editSelected: number = -1
-  oldTrans: Transaction = new Transaction(-1, -1, "", 0, new Date())
+  oldTrans: Transaction | null = null
   transactionAction: string = "Add"
 
   //transaction form functions
@@ -76,29 +79,29 @@ export class ReportComponent implements OnInit {
   transactionOnSubmit(): void {
     const formVals = this.transactionForm.value,
     newTransaction = new Transaction(
-      this.ts.generateId(),
-      this.user.id,
+      this.user!._id!,
       this.category,
       this.transactionType ?
       -formVals.amount :
       formVals.amount,
       new Date(formVals.date),
-      formVals.description
+      formVals.description,
     )
     this.transactionForm.reset()
     this.category = "Pick Your Category"
-    if (this.editSelected !== -1) {
+    if (this.editSelected !== -1 && this.oldTrans != null) {
       newTransaction.id = this.oldTrans.id
-      this.ts.updateTransaction(this.ts.getAllTransactions().indexOf(this.oldTrans), newTransaction)
+      this.ts.updateTransaction(this.oldTrans?.id?.toString() ?? "", newTransaction)
       this.transactionList.splice(this.editSelected, 1, newTransaction)
-      console.log(this.ts.getAllTransactions())
     }
     else {
       this.ts.addTransaction(newTransaction)
       this.transactionList.push(newTransaction)
     }
-    this.expenses = transactionList.filter(trans => trans.amount < 0).map(trans => trans.amount).reduce((total, trans) => total + trans)
-    this.earnings = transactionList.filter(trans => trans.amount > 0).map(trans => trans.amount).reduce((total, trans) => total + trans)
+
+    const getTotals = (fn: (trans: Transaction) => boolean) => this.transactionList.filter(fn).map(trans => trans.amount).reduce((total, trans) => total + trans)
+    this.expenses = getTotals(trans => trans.amount < 0)
+    this.earnings = getTotals(trans => trans.amount > 0)
   }
   editTransaction(i: number): void {
     const datePipe = new DatePipe("en-SG")

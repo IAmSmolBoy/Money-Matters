@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
-import { ReloadService } from 'src/app/services/reload.service';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 export class NavbarComponent implements OnInit {
 
   isCollapsed = true;
-  constructor(private reload: ReloadService, private us: UserService, private router: Router) {
+  constructor(private userAuth: UserAuthService, private us: UserService, private router: Router) {
 
   }
 
@@ -20,17 +20,16 @@ export class NavbarComponent implements OnInit {
   user: User | null = null
 
   ngOnInit(): void {
-    this.reload.subscription.subscribe((e) => {
-      this.signedIn = sessionStorage.getItem("userId") !== null
-      this.user = this.us.getUserById(parseInt(sessionStorage.getItem("userId") || ""))
+    this.userAuth.currUser.subscribe(user => {
+      this.signedIn = user !== null
+      this.user = user
     })
   }
 
   signOut(): void {
-    sessionStorage.removeItem("userId")
     this.signedIn = false
     this.router.navigate(["/"])
-    this.reload.subscription.next(null)
+    this.userAuth.currUser.next(null)
   }
 
 }

@@ -1,6 +1,6 @@
 <div class="container">
     <div *ngFor="let subForumItem of forumList | keyvalue; let i = index" class="subforum">
-        <div class="subforum-title">
+        <div *ngIf="subForumItem.value.length !== 0" class="subforum-title">
             <h1>{{subForumItem.key}}</h1>
         </div>
         <div *ngFor="let forumItem of subForumItem.value; let j = index">

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
-import { ReloadService } from 'src/app/services/reload.service';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -10,14 +10,12 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class FooterComponent implements OnInit {
 
-  constructor(private us: UserService, private reload: ReloadService) { }
+  constructor(private us: UserService, private ua: UserAuthService) { }
+
+  user: User | null = null
 
   ngOnInit(): void {
-    this.reload.subscription.subscribe((e) => {
-      this.user = this.us.getUserById(parseInt(sessionStorage.getItem("userId") || "-1"))
-    })
+    this.ua.currUser.subscribe(user => this.user = user)
   }
-
-  user: User | null = this.us.getUserById(parseInt(sessionStorage.getItem("userId") || "-1" ))
 
 }

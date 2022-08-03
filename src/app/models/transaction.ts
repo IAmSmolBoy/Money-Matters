@@ -2,14 +2,14 @@ import { ObjectId } from "mongodb"
 
 export class Transaction {
 
-    id: number
-    userId: number
+    id?: ObjectId | null
+    userId: ObjectId | null
     category: string
     amount: number
     date: Date
     description?: string
 
-    constructor(id: number, userId: number, category: string, amount: number, date: Date, description? : string,) {
+    constructor(userId: ObjectId | null, category: string, amount: number, date: Date, description? : string, id?: ObjectId | null,) {
         this.id = id
         this.userId = userId
         this.category = category
