@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "nodemon www",
+    "start": "node www",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
