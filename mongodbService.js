@@ -4,7 +4,6 @@ require("dotenv").config()
 
 const router = express.Router();
 var collections = {}
-router.get("/", () => ({result: "Oi"}))
 
 function getRoutes() {
     ["Transactions", "Users", "Feedback", "Comments"].forEach((value) => {
@@ -30,7 +29,7 @@ MongoClient.connect(process.env.MONGODB_URI, async (err, client) => {
     
     //custom routes
     router.get("/transactionsByUserId/:userId", async (req, res) => res.send(await collections["Transactions"].find({"userId": ObjectId(req.params.userId)}).toArray()))
-    router.get("/userByUsername/:username", async (req, res) => res.send(await collections["Users"].findOne({"username": req.params.username})))
+    router.post("/login", async (req, res) => res.send(await collections["Users"].findOne(req.body)))
     router.get("/commentsByFeedback/:feedbackId", async (req, res) => res.send(await collections["Comments"].find({"feedbackId": ObjectId(req.params.feedbackId)})))
 })
 

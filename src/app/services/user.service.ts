@@ -15,9 +15,12 @@ export class UserService {
 
   getAllUsers = (): Observable<User[]> => this.http.get<User[]>(this.url)
   getUserById = (id: string): Observable<User | null> => this.http.get<User | null>(`${this.url}/${id}`)
-  getUserByUsername = (username: string): Observable<User | null> => this.http.get<User | null>(`/db/userByUsername/${username}`)
   addUser = (newUser: User) => this.http.post<any>(this.url, newUser)
   updateUser = (id: string, newUser: User) => this.http.put(`${this.url}/${id}`, newUser)
   deleteUser = (id: string) => this.http.delete(`${this.url}/${id}`)
+  login = (username: string, password: string): Observable<User | null> => this.http.post<User | null>(`/db/login`, {
+    "username": username,
+    "password": password
+  })
 
 }
