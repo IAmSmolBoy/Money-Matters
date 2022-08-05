@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   login(): void {
     const loginVals = this.loginForm.value
     this.loginForm.reset()
-    this.us.getUserByUsername(loginVals.username).subscribe(user => {
+    this.us.login(loginVals.username, loginVals.password).subscribe(user => {
       console.log("c", user, loginVals.password, user?.password ?? "a", loginVals.password === (user?.password ?? ""))
       if (user !== null && loginVals.password === (user?.password ?? "")) {
         this.ua.currUser.next(user)
