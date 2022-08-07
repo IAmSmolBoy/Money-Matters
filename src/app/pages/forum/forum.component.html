@@ -1,26 +1,27 @@
 <div class="container">
-    <div *ngFor="let subForumItem of forumList | keyvalue; let i = index" class="subforum">
-        <div *ngIf="subForumItem.value.length !== 0" class="subforum-title">
-            <h1>{{subForumItem.key}}</h1>
-        </div>
-        <div *ngFor="let forumItem of subForumItem.value; let j = index">
-            <hr *ngIf="j !== 0" class="subforum-devider">
-            <div class="subforum-row">
-                <div class="subforum-icon subforum-column center">
-                    <i class="bi bi-chat-left-dots-fill"></i>
-                </div>
-                <div class="subforum-description subforum-column">
-                    <a class="forumTitle" [routerLink]="['/viewcomments', forumItem.id]">{{forumItem.subject}}</a>
-                    <p>{{i === 1 ? 'Question by: ' : 'Feedback by: '}}<a [routerLink]="['/profilepage', forumItem.userId]">{{userList[i][j]}}</a></p>
-                    
-                    <p>Description: {{forumItem.description}}</p>
-                </div>
-                <div class="subforum-stats subforum-column center">
-                    <span>{{commentNum[i][j]}} comments</span>
-                </div>
-            </div>
-        </div>
+  <div *ngFor="let subForumItem of forumList | keyvalue; let i = index" class="subforum">
+    <div class="subforum-title">
+      <h1>{{subForumItem.key}}</h1>
     </div>
+    <h3 *ngIf="subForumItem.value.length === 0" class="noFeedback">There is currently no feedback in this section</h3>
+    <div *ngFor="let forumItem of subForumItem.value; let j = index">
+      <hr *ngIf="j !== 0" class="subforum-devider">
+      <div class="subforum-row">
+        <div class="subforum-icon subforum-column center">
+          <i class="bi bi-chat-left-dots-fill"></i>
+        </div>
+        <div class="subforum-description subforum-column">
+          <a class="forumTitle" [routerLink]="['/viewcomments', forumItem.id]">{{forumItem.subject}}</a>
+          <p>{{i === 1 ? 'Question by: ' : 'Feedback by: '}}<a [routerLink]="['/profilepage', forumItem.userId]">{{userList[i][j]}}</a></p>
+          
+          <p>Description: {{forumItem.description}}</p>
+        </div>
+        <div class="subforum-stats subforum-column center">
+          <span>{{commentNum[i][j]}} comments</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div *ngIf="signedIn" class="feedbackFormContainer">
   <h1 class="feedbackFormTitle">GET IN TOUCH</h1>

@@ -36,7 +36,6 @@ li:hover, .active-link
   padding-bottom: .5rem;
   border-bottom: var(--border);
   white-space: nowrap;
-  margin: 0 1rem;
 }
 
 .navbar-nav {

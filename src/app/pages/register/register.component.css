@@ -1,11 +1,26 @@
 #background-container {
   background-repeat: no-repeat;
   background-size: cover;
-  height: calc(100vh - 267px);
+  min-height: calc(100vh - 187px);
   margin-top: 80px;
   width: 100vw;
   display: flex;
   justify-content: center;
+  background: linear-gradient(-45deg, #000000, #434343, #16222A, #3A6073);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+     background-position: 0% 50%;
+ }
+  50% {
+     background-position: 100% 50%;
+ }
+  100% {
+     background-position: 0% 50%;
+ }
 }
 
 #form-container-1 {
@@ -126,4 +141,10 @@
 
 .logintitle:hover {
   color: var(--primary-color);
+}
+
+.invalidForm {
+  margin-top: 1rem;
+  color: red;
+  text-align: start;
 }

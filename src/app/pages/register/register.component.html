@@ -8,23 +8,38 @@
       <div class="form-block">
         <label>E-Mail</label>
         <input formControlName="email" type="email" placeholder="Email Address">
+        <div *ngIf="showErr">
+          <div *ngIf="this.registerForm.get('email')?.hasError('required')" class="invalidForm"><h5>Please enter your email</h5></div>
+          <div *ngIf="this.registerForm.get('email')?.hasError('email')" class="invalidForm"><h5>Please enter a valid email</h5></div>
+          <div *ngIf="emailTaken" class="invalidForm"><h5>Email is taken</h5></div>
+        </div>
       </div>
       <div class="form-block">
         <label>Username</label>
         <input formControlName="username" type="text" placeholder="Username">
+        <div *ngIf="showErr">
+          <div *ngIf="this.registerForm.get('username')?.hasError('required')" class="invalidForm"><h5>Please enter your username</h5></div>
+          <div *ngIf="usernameTaken" class="invalidForm"><h5>Username is taken</h5></div>
+        </div>
       </div>
       <div formGroupName="passwords" class="passwords">
         <div class="form-block">
           <label>Password</label>
           <input formControlName="pass1" type="password" placeholder="Password">
+          <div *ngIf="showErr">
+            <div *ngIf="this.registerForm.get('passwords.pass1')?.hasError('required')" class="invalidForm"><h5>Please enter your password</h5></div>
+          </div>
         </div>
         <div class="form-block">
           <label>Confirm Password</label>
           <input formControlName="pass2" type="password" placeholder="Password">
+          <div *ngIf="showErr">
+            <div *ngIf="this.registerForm.get('passwords')?.hasError('notMatch')" class="invalidForm"><h5>Passwords must match</h5></div>
+          </div>
         </div>
       </div>
       <div class="row justify-content-center">
-        <input [disabled]="!registerForm.valid" class="registerbtn" type="submit" value="Register">
+        <input class="registerbtn" type="submit" value="Register">
       </div>
       <br>
       <p class="signUpText">Already have an account? <a class= "signUpText logintitle" [routerLink]="['/login']">Click here.</a></p>

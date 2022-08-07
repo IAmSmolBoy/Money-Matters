@@ -32,6 +32,7 @@ export class ForumComponent implements OnInit {
 
   ngOnInit(): void {
     this.fs.getAllFeedbacks().subscribe(feedbackList => {
+      console.log(feedbackList);
       this.feedbackList = feedbackList
 
       //filtering feedback and questions
@@ -48,18 +49,16 @@ export class ForumComponent implements OnInit {
       ))
 
       //getting feedback usernames
-      this.forumList.keys.forEach((element, i) => {
-        console.log(element)
-      });
-      const getUsernames = (section: string, i: number) =>
+      console.log(this.forumList.keys);
+      ["General Feedback & Concerns", "General Questions & Answers"].forEach((section, i) => {
         this.forumList[section].forEach(
           feedback => this.us.getUserById(feedback?.userId?.toString() ?? "").subscribe(
             user => this.userList[i].push(user?.username ?? "Deleted User")
           )
         )
-
-      getUsernames("General Feedback & Concerns", 0)
-      getUsernames("General Questions & Answers", 1)
+      });
+        
+      
 
       this.ua.currUser.subscribe(user => this.currUser = user)
     })

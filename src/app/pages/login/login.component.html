@@ -9,6 +9,7 @@
       <div class="form-block">
         <label>Username</label>
         <input formControlName="username" type="text" placeholder="Username">
+        div.showErr>div.
       </div>
       <div class="form-block">
         <label>Password</label>
@@ -18,6 +19,8 @@
         <input [disabled]="!loginForm.valid" class="loginbtn" type="submit" value="Login">
       </div>
       <p *ngIf="incorrectDetails" class="errorText">Incorrect username and password</p>
+      <br>
+      <p class="signUpText">Forgot your password? Click <a [routerLink]="['/forgetpassword/a']" class="signUpText registertitle">here</a></p>
       <br>
       <p class="signUpText">No Account? <a class="signUpText registertitle" [routerLink]="['/register']">Sign up now!</a></p>
     </form>

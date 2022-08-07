@@ -15,7 +15,15 @@ export class RegisterComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private us: UserService, private ua: UserAuthService, private router: Router) { }
 
+  userList: User[] = []
+  usernameTaken: boolean = false
+  emailTaken: boolean = false
+  showErr: boolean = false
+
   ngOnInit(): void {
+    this.us.getAllUsers().subscribe(users => {
+      this.userList = users
+    })
   }
 
   registerForm: FormGroup = this.fb.group({
@@ -28,20 +36,21 @@ export class RegisterComponent implements OnInit {
   })
 
   register(): void {
-    const registerVals = this.registerForm.value,
-    newUser = new User(registerVals.username, registerVals.email, registerVals.passwords.pass1, "User", 0)
-    this.us.addUser(newUser).subscribe(userId => {
-      newUser._id = userId["insertedId"]
-      newUser.pfp = "https://cdn.pixabay.com/photo/2017/11/10/05/48/user-2935527_960_720.png"
-      newUser.socials = {
-          facebook: "https://www.facebook.com/",
-          github: "https://github.com/",
-          linkedIn: "https://www.linkedin.com/",
-          instagram: "https://www.instagram.com/",
+    this.showErr = true
+    if (this.registerForm.valid) {
+      const registerVals = this.registerForm.value,
+      newUser = new User(registerVals.username, registerVals.email, registerVals.passwords.pass1, "User", 0)
+      this.usernameTaken = this.userList.some(user => user.username === registerVals.username)
+      this.emailTaken = this.userList.some(user => user.email === registerVals.email)
+      if (!this.usernameTaken && !this.emailTaken) {
+        this.us.addUser(newUser).subscribe(userId => {
+          newUser._id = userId["insertedId"]
+          this.ua.currUser.next(newUser)
+          localStorage.setItem("userId", userId["insertedId"])
+        })
+        this.router.navigate(["/"])
       }
-      this.ua.currUser.next(newUser)
-    })
-    this.router.navigate(["/"])
+    }
   }
 
 }
