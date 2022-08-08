@@ -9,12 +9,14 @@
       <div class="form-block">
         <label>Username</label>
         <input formControlName="username" type="text" placeholder="Username">
-        div.showErr>div.
+        <p *ngIf="submitted && loginForm.get('username')?.hasError('required')" class="errorText">Please enter your username</p>
       </div>
       <div class="form-block">
         <label>Password</label>
         <input formControlName="password" type="password" placeholder="Password">
+        <p *ngIf="submitted && loginForm.get('password')?.hasError('required')" class="errorText">Please enter your password</p>
       </div>
+      <p *ngIf="submitted && incorrectDetails" class="errorText">Your useraname or password was incorrect</p>
       <div class="row justify-content-center">
         <input [disabled]="!loginForm.valid" class="loginbtn" type="submit" value="Login">
       </div>

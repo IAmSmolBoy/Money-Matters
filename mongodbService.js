@@ -7,7 +7,8 @@ var collections = {}
 
 MongoClient.connect(process.env.MONGODB_URI, async (err, client) => {
     if (err) console.log(err)
-    (await client.db("MoneyMattersDB").collections()).forEach((collection) => {
+    const mongodbCollections = await client.db("MoneyMattersDB").collections()
+    mongodbCollections.forEach((collection) => {
         collections[collection.collectionName] = collection
     })
 
@@ -19,7 +20,10 @@ MongoClient.connect(process.env.MONGODB_URI, async (err, client) => {
 
         router.route(`/${colName.toLowerCase()}/:id`)
             .get(async (req, res) => res.json(await col.findOne({"_id": ObjectId(req.params.id)})))
-            .put(async (req, res) => res.json(await col.findOneAndUpdate({"_id": ObjectId(req.params.id)}, req.body)))
+            .put(async (req, res) => {
+                console.log(req.body)
+                return res.json(await col.findOneAndUpdate({"_id": ObjectId(req.params.id)}, {"$set": req.body}))
+            })
             .delete(async (req, res) => res.json(await col.deleteOne({"_id": ObjectId(req.params.id)})))
     }
     

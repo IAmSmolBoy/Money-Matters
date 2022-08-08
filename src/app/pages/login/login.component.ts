@@ -12,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginComponent implements OnInit {
 
   incorrectDetails: boolean = false
+  submitted: boolean = false
   
   constructor(private fb: FormBuilder, private us: UserService, private router: Router, private ua: UserAuthService) { }
 
@@ -24,15 +25,21 @@ export class LoginComponent implements OnInit {
   })
 
   login(): void {
+    this.submitted = true
     const loginVals = this.loginForm.value
-    this.loginForm.reset()
     this.us.login(loginVals.username, loginVals.password).subscribe(user => {
-      if (user !== null && loginVals.password === (user?.password ?? "")) {
+      console.log(user);
+      
+      if (user !== null) {
         this.ua.currUser.next(user)
         this.router.navigate(["/"])
+        this.loginForm.reset()
       }
-      else this.incorrectDetails = true
+      else {
+        this.incorrectDetails = true
+      }
     })
+    console.log(this.incorrectDetails, this.submitted);
     
   }
 

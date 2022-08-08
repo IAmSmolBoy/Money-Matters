@@ -96,8 +96,7 @@ export class ProfilepageComponent implements OnInit {
         github: formVals.github,
         linkedIn: formVals.linkedIn,
         instagram: formVals.instagram,
-      },
-      this.currUser?._id
+      }
     )
     this.us.updateUser(this.currUser?._id?.toString() ?? "", newUser).subscribe(res => console.log(res))
     this.user = newUser
