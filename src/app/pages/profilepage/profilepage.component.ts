@@ -99,7 +99,7 @@ export class ProfilepageComponent implements OnInit {
       },
       this.currUser?._id
     )
-    this.us.updateUser(this.currUser?._id?.toString() ?? "", newUser)
+    this.us.updateUser(this.currUser?._id?.toString() ?? "", newUser).subscribe(res => console.log(res))
     this.user = newUser
     this.showEditForm = false
   }
