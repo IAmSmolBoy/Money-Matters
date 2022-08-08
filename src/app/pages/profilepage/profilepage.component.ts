@@ -26,6 +26,17 @@ export class ProfilepageComponent implements OnInit {
       this.ua.currUser.subscribe(user => {
         this.currUser = user
         this.own = (this.currUser?._id ?? "") === (this.user?._id ?? "a")
+        if (this.own) {
+          this.editForm = this.fb.group({
+            username: [this.user?.username ?? "", [Validators.required]],
+            email: [this.user?.email ?? "", [Validators.required, Validators.email]],
+            password: [this.user?.password ?? "", [Validators.required]],
+            fb: [this.user?.socials.facebook ?? "https://facebook.com/"],
+            github: [this.user?.socials.github ?? "https://github.com/"],
+            linkedIn: [this.user?.socials.linkedIn ?? "https://linkedin.com/"],
+            ig: [this.user?.socials.instagram ?? "https://instagram.com/"],
+          })
+        }
       })
     })
     this.blockInterval = setInterval(() => {
