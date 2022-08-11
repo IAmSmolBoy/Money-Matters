@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -28,12 +29,11 @@ export class LoginComponent implements OnInit {
     this.submitted = true
     const loginVals = this.loginForm.value
     this.us.login(loginVals.username, loginVals.password).subscribe(user => {
-      console.log(user);
-      
       if (user !== null) {
-        this.ua.currUser.next(user)
+        localStorage.setItem("jwt", user.token ?? "")
+        delete user.token
+        this.ua.currUser.next(user as User)
         this.router.navigate(["/"])
-        localStorage.setItem("userId", user._id?.toString() ?? "")
         this.loginForm.reset()
       }
       else {

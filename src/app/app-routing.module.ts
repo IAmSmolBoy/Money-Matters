@@ -8,17 +8,18 @@ import { LoginComponent } from './pages/login/login.component';
 import { ProfilepageComponent } from './pages/profilepage/profilepage.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ReportComponent } from './pages/report/report.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {path: '', redirectTo: "home", pathMatch: "full"},
   {path: 'home', component: HomeComponent},
-  {path: 'report', component: ReportComponent},
-  {path: 'login',component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'profilepage/:id', component:ProfilepageComponent},
+  {path: 'report', component: ReportComponent, canActivate: [AuthGuard]},
+  {path: 'login',component: LoginComponent, canActivate: [AuthGuard]},
+  {path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
+  {path: 'profilepage/:id', component:ProfilepageComponent, canActivate: [AuthGuard]},
   {path: 'forum', component: ForumComponent},
   {path: 'viewcomments/:id',component: ForumPageComponent},
-  {path: 'forgetpassword/:token',component: ForgotpasswordComponent},
+  {path: 'forgetpassword/:token',component: ForgotpasswordComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

@@ -32,7 +32,7 @@ export class ProfilepageComponent implements OnInit {
           this.editForm = this.fb.group({
             username: [this.user?.username ?? "", [Validators.required]],
             email: [this.user?.email ?? "", [Validators.required, Validators.email]],
-            password: [this.user?.password ?? "", [Validators.required]],
+            password: ["", [Validators.required]],
             fb: [this.user?.socials.facebook ?? "https://facebook.com/"],
             github: [this.user?.socials.github ?? "https://github.com/"],
             linkedIn: [this.user?.socials.linkedIn ?? "https://linkedin.com/"],
@@ -78,7 +78,7 @@ export class ProfilepageComponent implements OnInit {
   editForm: FormGroup = this.fb.group({
     username: [this.user?.username ?? "", [Validators.required]],
     email: [this.user?.email ?? "", [Validators.required, Validators.email]],
-    password: [this.user?.password ?? "", [Validators.required]],
+    password: ["", [Validators.required]],
     fb: [this.user?.socials.facebook ?? "https://facebook.com/"],
     github: [this.user?.socials.github ?? "https://github.com/"],
     linkedIn: [this.user?.socials.linkedIn ?? "https://linkedin.com/"],
@@ -103,7 +103,7 @@ export class ProfilepageComponent implements OnInit {
     newUser = new User(
       formVals.username,
       formVals.email,
-      formVals.passowrd,
+      formVals.password,
       this.user?.role ?? "",
       this.user?.budget ?? 0,
       this.pfp,
@@ -115,6 +115,8 @@ export class ProfilepageComponent implements OnInit {
       }
     )
     this.us.updateUser(this.currUser?._id?.toString() ?? "", newUser).subscribe(res => console.log(res))
+    newUser._id = this.currUser?._id
+    this.ua.currUser.next(newUser)
     this.user = newUser
     this.showEditForm = false
   }

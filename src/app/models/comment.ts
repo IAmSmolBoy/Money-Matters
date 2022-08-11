@@ -3,11 +3,11 @@ import { ObjectId } from "mongodb"
 export class FeedbackComment {
 
     _id?: ObjectId
-    feedbackId: ObjectId
-    userId?: ObjectId
+    feedbackId: string
+    userId?: string
     content: string
 
-    constructor(feedbackId: ObjectId, content: string, userId?: ObjectId, id?: ObjectId) {
+    constructor(feedbackId: string, content: string, userId?: string, id?: ObjectId) {
         this._id = id
         this.userId = userId
         this.feedbackId = feedbackId

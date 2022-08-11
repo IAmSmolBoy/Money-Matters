@@ -28,9 +28,9 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup = this.fb.group({
     email: ["", [Validators.required, Validators.email]],
-    username: ["", [Validators.required]],
+    username: ["", [Validators.required, Validators.minLength(6), Validators.minLength(20)]],
     passwords: this.fb.group({
-      pass1: ["", [Validators.required]],
+      pass1: ["", [Validators.required, Validators.minLength(6), Validators.minLength(40)]],
       pass2: ["", [Validators.required]],
     }, { validators: [PassMatchValidator()] })
   })
@@ -44,9 +44,9 @@ export class RegisterComponent implements OnInit {
       this.emailTaken = this.userList.some(user => user.email === registerVals.email)
       if (!this.usernameTaken && !this.emailTaken) {
         this.us.addUser(newUser).subscribe(userId => {
-          newUser._id = userId["insertedId"]
+          newUser._id = userId["token"]
           this.ua.currUser.next(newUser)
-          localStorage.setItem("userId", userId["insertedId"])
+          localStorage.setItem("jwt", userId["token"])
         })
         this.router.navigate(["/"])
       }

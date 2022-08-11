@@ -110,7 +110,7 @@ export class ReportComponent implements OnInit {
   transactionOnSubmit(): void {
     const formVals = this.transactionForm.value,
     newTransaction = new Transaction(
-      this.user!._id!,
+      this.user!._id!.toString(),
       this.category,
       this.transactionType ?
       -formVals.amount :

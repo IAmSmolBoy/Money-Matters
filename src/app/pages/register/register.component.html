@@ -19,6 +19,7 @@
         <input formControlName="username" type="text" placeholder="Username">
         <div *ngIf="showErr">
           <div *ngIf="this.registerForm.get('username')?.hasError('required')" class="invalidForm"><h5>Please enter your username</h5></div>
+          <div *ngIf="this.registerForm.get('username')?.hasError('minlength') || this.registerForm.get('username')?.hasError('maxlength')" class="invalidForm"><h5>Username should be between 6 to 20 characters long</h5></div>
           <div *ngIf="usernameTaken" class="invalidForm"><h5>Username is taken</h5></div>
         </div>
       </div>
@@ -28,6 +29,7 @@
           <input formControlName="pass1" type="password" placeholder="Password">
           <div *ngIf="showErr">
             <div *ngIf="this.registerForm.get('passwords.pass1')?.hasError('required')" class="invalidForm"><h5>Please enter your password</h5></div>
+            <div *ngIf="this.registerForm.get('passwords.pass1')?.hasError('minlength') || this.registerForm.get('passwords.pass1')?.hasError('maxlength')" class="invalidForm"><h5>Password should be between 6 to 40 characters long</h5></div>
           </div>
         </div>
         <div class="form-block">

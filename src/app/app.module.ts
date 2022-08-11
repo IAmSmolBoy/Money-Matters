@@ -17,6 +17,7 @@ import { ForumPageComponent } from './pages/forum-page/forum-page.component';
 import { ProfilepageComponent } from './pages/profilepage/profilepage.component';
 import { BackgroundPageComponent } from './sharedpages/background-page/background-page.component';
 import { BgEffectComponent } from './sharedpages/bg-effect/bg-effect.component';
+import { AuthGuard } from './services/auth.guard';
 
 
 @NgModule({
@@ -42,7 +43,7 @@ import { BgEffectComponent } from './sharedpages/bg-effect/bg-effect.component';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,7 +3,7 @@
     <div class="subforum-title">
       <h1>{{subForumItem.key}}</h1>
     </div>
-    <h3 *ngIf="subForumItem.value.length === 0" class="noFeedback">There is currently no feedback in this section</h3>
+    <h3 *ngIf="subForumItem.value.length === 0" class="noFeedback">There is currently nothing in this section</h3>
     <div *ngFor="let forumItem of subForumItem.value; let j = index">
       <hr *ngIf="j !== 0" class="subforum-devider">
       <div class="subforum-row" [class]="{'admin': currUser?.role === 'admin', 'no-admin': currUser?.role !== 'admin'}">

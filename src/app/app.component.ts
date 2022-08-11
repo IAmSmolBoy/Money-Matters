@@ -8,11 +8,7 @@ import { UserService } from './services/user.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private ua: UserAuthService, private us: UserService) {  }
+  constructor() {  }
 
-  ngOnInit() {
-    const userId = localStorage.getItem("userId") ?? ""
-    console.log(userId)
-    if (userId !== "") this.us.getUserById(userId).subscribe(user => this.ua.currUser.next(user))
-  }
+  ngOnInit() {}
 }

@@ -61,9 +61,9 @@ export class ForumPageComponent implements OnInit {
   commentFormSubmit() {
     if (this.currUser && this.feedbackInfo) {
       const newComment = new FeedbackComment(
-        this.feedbackInfo._id!,
+        this.feedbackInfo._id!.toString(),
         this.commentForm.value.commentContent,
-        this.currUser?._id
+        this.currUser?._id?.toString()
       )
       this.cs.addComment(newComment)
       this.feedbackComments.push(newComment)

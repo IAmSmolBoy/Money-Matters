@@ -68,12 +68,29 @@ export class ForumComponent implements OnInit {
   feedback: Feedback | null = null
 
   editForm(feedback: Feedback): void {
-    this.form = this.fb.group({
-      phoneNumber: [feedback.contactNumber],
-      subject: [feedback.subject, [Validators.required]],
-      description: [feedback.description, [Validators.required]],
-    })
-    this.category = feedback.feedback
+    if (this.feedback === null) {
+      this.feedback = feedback
+      this.form = this.fb.group({
+        phoneNumber: [feedback.contactNumber],
+        subject: [feedback.subject, [Validators.required]],
+        description: [feedback.description, [Validators.required]],
+      })
+      this.category = feedback.feedback
+      document.getElementsByClassName("feedbackFormContainer")?.item(0)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest"
+      });
+    }
+    else {
+      this.feedback = null
+      this.category = true
+      this.form = this.fb.group({
+        phoneNumber: [""],
+        subject: ["", [Validators.required]],
+        description: ["", [Validators.required]],
+      })
+    }
   }
 
   deleteFeedback(feedbackId: string) {
@@ -92,7 +109,7 @@ export class ForumComponent implements OnInit {
       formVal.description,
       this.category,
       formVal.phoneNumber,
-      this.currUser?._id,
+      this.currUser?._id?.toString(),
     )
     if (this.feedback !== null) {
       this.fs.updateFeedback(this.feedback._id?.toString() ?? "", feedback).subscribe(response => {

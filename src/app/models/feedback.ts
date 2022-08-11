@@ -6,10 +6,10 @@ export class Feedback {
     subject: string
     description: string
     feedback: boolean
-    userId?: ObjectId
+    userId?: string
     contactNumber?: string
 
-    constructor(subject: string, description: string, feedback: boolean, contactNumber?: string, userId?: ObjectId, id?: ObjectId) {
+    constructor(subject: string, description: string, feedback: boolean, contactNumber?: string, userId?: string, id?: ObjectId) {
         this._id = id
         this.subject = subject 
         this.description = description 
