@@ -46,6 +46,7 @@ export class RegisterComponent implements OnInit {
         this.us.addUser(newUser).subscribe(userId => {
           newUser._id = userId["token"]
           this.ua.currUser.next(newUser)
+          this.ua.signedIn.next(true)
           localStorage.setItem("jwt", userId["token"])
         })
         this.router.navigate(["/"])
