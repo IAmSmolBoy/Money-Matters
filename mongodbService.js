@@ -59,8 +59,9 @@ MongoClient.connect(process.env.MONGODB_URI, async (err, client) => {
     //bcrpyt add and edit user credentials
     router.route(`/users`).post(async (req, res) => {
         req.body.password = bcrypt.hashSync(req.body.password, bcryptSaltRounds);
-        req.body.token = jwt.sign(req.body, process.env.JWTSECRET)
-        res.json(await collections.Users.insertOne(req.body))
+        const userId = await collections.Users.insertOne(req.body)
+        userId.token = jwt.sign(req.body, process.env.JWTSECRET)
+        res.json(userId)
     })
     router.route(`/users/:id`).put(async (req, res) => {
         const updates = req.body
