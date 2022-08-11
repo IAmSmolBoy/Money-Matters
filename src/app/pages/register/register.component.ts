@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
     email: ["", [Validators.required, Validators.email]],
     username: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
     passwords: this.fb.group({
-      pass1: ["", [Validators.required, Validators.minLength(6), Validators.minLength(40)]],
+      pass1: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(40)]],
       pass2: ["", [Validators.required]],
     }, { validators: [PassMatchValidator()] })
   })
