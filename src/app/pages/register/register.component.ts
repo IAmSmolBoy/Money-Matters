@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
     email: ["", [Validators.required, Validators.email]],
     username: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
     passwords: this.fb.group({
-      pass1: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(40)]],
+      pass1: ["", [Validators.required, Validators.minLength(6), Validators.minLength(40)]],
       pass2: ["", [Validators.required]],
     }, { validators: [PassMatchValidator()] })
   })
@@ -46,7 +46,6 @@ export class RegisterComponent implements OnInit {
         this.us.addUser(newUser).subscribe(userId => {
           newUser._id = userId["token"]
           this.ua.currUser.next(newUser)
-          this.ua.signedIn.next(true)
           localStorage.setItem("jwt", userId["token"])
         })
         this.router.navigate(["/"])

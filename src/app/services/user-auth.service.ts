@@ -14,11 +14,9 @@ export class UserAuthService {
         "token": localStorage.getItem("jwt")
       }).subscribe(user => {
         this.currUser.next(user)
-        this.signedIn.next(true)
       })
     }
   }
-  public signedIn: BehaviorSubject<boolean | null> = new BehaviorSubject<boolean | null>(false)
 
   public currUser: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null)
   

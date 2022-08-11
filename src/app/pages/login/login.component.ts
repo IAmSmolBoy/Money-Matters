@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("jwt", user.token ?? "")
         delete user.token
         this.ua.currUser.next(user as User)
-        this.ua.signedIn.next(true)
         this.router.navigate(["/"])
         this.loginForm.reset()
       }
