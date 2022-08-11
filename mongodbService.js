@@ -20,17 +20,14 @@ MongoClient.connect(process.env.MONGODB_URI, async (err, client) => {
 
         router.route(`/${colName.toLowerCase()}/:id`)
             .get(async (req, res) => res.json(await col.findOne({"_id": ObjectId(req.params.id)})))
-            .put(async (req, res) => {
-                console.log(req.body)
-                return res.json(await col.findOneAndUpdate({"_id": ObjectId(req.params.id)}, {"$set": req.body}))
-            })
+            .put(async (req, res) => res.json(await col.findOneAndUpdate({"_id": ObjectId(req.params.id)}, {"$set": req.body})))
             .delete(async (req, res) => res.json(await col.deleteOne({"_id": ObjectId(req.params.id)})))
     }
     
     //custom routes
-    router.get("/transactionsByUserId/:userId", async (req, res) => res.send(await collections["Transactions"].find({"userId": ObjectId(req.params.userId)}).toArray()))
+    router.get("/transactionsByUserId/:userId", async (req, res) => res.send(await collections["Transactions"].find({"userId": req.params.userId}).toArray()))
     router.post("/login", async (req, res) => res.send(await collections["Users"].findOne(req.body)))
-    router.get("/commentsByFeedback/:feedbackId", async (req, res) => res.send(await collections["Comments"].find({"feedbackId": ObjectId(req.params.feedbackId)})))
+    router.get("/commentsByFeedback/:feedbackId", async (req, res) => res.send(await collections["Comments"].find({"feedbackId": req.params.feedbackId})))
 })
 
 module.exports = router

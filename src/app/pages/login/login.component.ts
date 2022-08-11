@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
       if (user !== null) {
         this.ua.currUser.next(user)
         this.router.navigate(["/"])
+        localStorage.setItem("userId", user._id?.toString() ?? "")
         this.loginForm.reset()
       }
       else {

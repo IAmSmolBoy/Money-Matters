@@ -2,15 +2,15 @@ import { ObjectId } from "mongodb"
 
 export class Feedback {
 
-    id?: ObjectId | null
+    _id?: ObjectId
     subject: string
     description: string
     feedback: boolean
-    userId?: ObjectId | null
+    userId?: ObjectId
     contactNumber?: string
 
-    constructor(subject: string, description: string, feedback: boolean, userId: ObjectId | null, contactNumber?: string, id?: ObjectId | null) {
-        this.id = id
+    constructor(subject: string, description: string, feedback: boolean, contactNumber?: string, userId?: ObjectId, id?: ObjectId) {
+        this._id = id
         this.subject = subject 
         this.description = description 
         this.feedback = feedback

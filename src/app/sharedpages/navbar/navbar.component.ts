@@ -30,6 +30,7 @@ export class NavbarComponent implements OnInit {
     this.signedIn = false
     this.router.navigate(["/"])
     this.userAuth.currUser.next(null)
+    localStorage.clear()
   }
 
 }

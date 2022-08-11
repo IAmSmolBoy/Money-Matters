@@ -1,6 +1,7 @@
 *{
   box-sizing: border-box;
   color:#FEFEFE;
+  text-transform: none;
 }
 
 a{
@@ -38,7 +39,23 @@ h1{
 
 .subforum-row{
   display: grid;
+}
+
+.no-admin {
   grid-template-columns: 7% 80% 13%;
+
+}
+
+.admin {
+  grid-template-columns: 7% 70% 13% 10%;
+}
+
+.adminBtns {
+  margin: auto;
+  background: transparent;
+  outline: none;
+  border: none;
+
 }
 
 .subforum-column{
@@ -164,6 +181,100 @@ h1{
   color: white;
 }
 
-/* .noFeedback {
+/* Dropdown CSS */
+.module .trigger {
+  position: relative;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+  border-radius:22px;
+  width: max-content;
+  margin-top: 3px;
+  margin-bottom: 15px;
+}
 
-} */
+.module .trigger span {
+  font-weight: 100;
+  letter-spacing: 0px;
+  font-size: 13px;
+  position: relative;
+  background: white;
+  color: #555;
+  display: block;
+  min-width: 0;
+  width: max-content;
+  height: 28px;
+  padding: 5px 18px;
+  z-index: 1;
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 13px;
+  transition: 350ms border-radius 700ms, 700ms color 700ms, 350ms min-width 700ms;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.module .trigger ul.objects {
+  position: absolute;
+  list-style: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: white;
+  border-radius: 0 0 22px 22px;
+  border: 1px solid black;
+  font-size: 14px;
+  overflow: hidden;
+  transform: scaley(0);
+  transform-origin: top;
+  transition: 350ms transform 350ms;
+}
+
+.module .trigger ul.objects li {
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 44px;
+  padding: 0 20px;
+  z-index: 0;
+  opacity: 0;
+  transition: 350ms opacity 0ms;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
+  border-left: 0px solid #eee;
+  transition: 200ms border-left 0ms;
+}
+
+.module .trigger ul.objects li:last-of-type {
+  border-radius: 0 0 22px 22px;
+}
+
+.module .trigger ul.objects li:hover {
+  border-left: 10px solid var(--primary-color);
+  cursor: pointer;
+}
+
+.module .trigger:hover span {
+  min-width: 300px;
+  border-radius: 22px 22px 0 0;
+  transition: 350ms border-radius 0ms, 700ms color 700ms, 350ms min-width 100ms;
+  color: #cccccc;
+}
+
+.module .trigger:hover ul.objects {
+  transform: scaley(1);
+  transition: 350ms transform 350ms;
+}
+
+.module .trigger:hover ul.objects li {
+  opacity: 1;
+  transition: 350ms opacity 700ms;
+  color: black;
+}
+.fa-caret-down {
+  color: black;
+  margin-left: 1rem;
+}

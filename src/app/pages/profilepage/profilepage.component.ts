@@ -17,6 +17,7 @@ export class ProfilepageComponent implements OnInit {
 
   ngAfterViewInit() {
     this.text = (<HTMLElement>this.document.nativeElement).getElementsByClassName('front_text')[0]
+    this.pfpImage = (<HTMLElement>this.document.nativeElement).getElementsByClassName('front_face-photo')[0]
   }
 
   ngOnInit(): void {
@@ -26,6 +27,7 @@ export class ProfilepageComponent implements OnInit {
       this.ua.currUser.subscribe(user => {
         this.currUser = user
         this.own = (this.currUser?._id ?? "") === (this.user?._id ?? "a")
+        this.pfp = this.user?.pfp ?? ""
         if (this.own) {
           this.editForm = this.fb.group({
             username: [this.user?.username ?? "", [Validators.required]],
@@ -52,23 +54,26 @@ export class ProfilepageComponent implements OnInit {
 
   //to support hover animation
   text: any
+  pfpImage: any
   blockInterval: any
 
   onHover(): void {
     clearInterval(this.blockInterval)
     setTimeout(() => {
       this.text.style.display = "none"
+      this.pfpImage.style.display = "none"
     }, 600);
   }
 
   noHover(): void {
     this.blockInterval = setInterval(() => {
+      this.pfpImage.style.display = "block"
       this.text.style.display = "block"
     }, 10);
   }
 
   //for edit profile form
-  pfp: string = this.user?.pfp ?? ""
+  pfp: string = ""
   hideSocials: boolean = true
   editForm: FormGroup = this.fb.group({
     username: [this.user?.username ?? "", [Validators.required]],

@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Transaction } from 'src/app/models/transaction';
 import { User } from 'src/app/models/user';
 import { TransactionService } from 'src/app/services/transaction.service';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,12 +15,27 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ReportComponent implements OnInit {
 
-  constructor(private ts: TransactionService, private us: UserService, private fb: FormBuilder) { }
+  constructor(private ts: TransactionService, private us: UserService, private ua: UserAuthService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     console.log(this.today.toDateString())
-    this.us.getUserById(sessionStorage.getItem("userId") ?? "").subscribe(user => this.user = user)
-    this.ts.getUserTransactions(this.user?._id?.toString() ?? "").subscribe(transList => this.transactionList = transList)
+    this.ua.currUser.subscribe(user => {
+      this.user = user
+      if (user !== null) {
+        this.budgetForm = this.fb.group({
+          budget: [this.user?.budget ?? 0, [Validators.required, Validators.min(0)]]
+        })
+        this.ts.getUserTransactions(this.user?._id?.toString() ?? "").subscribe(transList => {
+          this.transactionList = transList.map(trans => {
+            const newTrans = trans
+            newTrans.date = new Date(newTrans.date)
+            return newTrans
+          })
+          console.log(transList)
+          this.getTotals()
+        })
+      }
+    })
   }
 
   //defining variables and assigning it to user data
@@ -28,21 +44,22 @@ export class ReportComponent implements OnInit {
     budget: [this.user?.budget ?? 0, [Validators.required, Validators.min(0)]]
   })
   transactionList: Transaction[] = []
-  filterFunc = (fn: (value: Transaction) => boolean): Transaction[] => this.transactionList.filter(fn)
-  totalFunc = (transList: Transaction[]): number => transList.map(trans => trans.amount).reduce((first: number, second: number) => first + second)
-  expenses: number = this.totalFunc(this.filterFunc(trans => trans.amount < 0))
-  earnings: number = this.totalFunc(this.filterFunc(trans => trans.amount > 0))
-  total: number = this.totalFunc(this.transactionList)
+  expenses: number = 0
+  earnings: number = 0
+  total: number = 0
 
   //functions for budget, setting transaction type and category and delete transaction function
   setTransactionType = (transType: boolean) => this.transactionType = transType
   budgetSubmit(): void {
     if (this.user != null) {
       this.user.budget = this.budgetForm.value.budget
-      this.us.updateUser(this.user._id?.toString() ?? "", this.user)
+      this.us.updateUser(this.user._id?.toString() ?? "", {"budget":  this.budgetForm.value.budget}).subscribe(result => console.log(result))
     }
   }
-  deleteTransaction = (i: number) => this.ts.deleteTransaction(this.transactionList[i].id?.toString() ?? "")
+  deleteTransaction = (i: number) => this.ts.deleteTransaction(this.transactionList[i]._id?.toString() ?? "").subscribe(response => {
+    this.transactionList.splice(i, 1)
+    this.getTotals()
+  })
 
 
   //transaction form variables
@@ -74,6 +91,20 @@ export class ReportComponent implements OnInit {
   oldTrans: Transaction | null = null
   transactionAction: string = "Add"
 
+  getTotals(): void {
+    console.log("a");
+    
+    //filter and reduce functions
+    const filterFunc = (fn: (value: Transaction) => boolean): Transaction[] => this.transactionList.filter(fn)
+    const totalFunc = (transList: Transaction[]): number => transList.length > 0 ?
+    transList.map(trans => trans.amount).reduce((first: number, second: number) => first + second) :
+    0
+
+    this.expenses = totalFunc(filterFunc(trans => trans.amount < 0))
+    this.earnings = totalFunc(filterFunc(trans => trans.amount > 0))
+    this.total = totalFunc(this.transactionList)
+  }
+
   //transaction form functions
   setCategory = (category: string) => this.category = category
   transactionOnSubmit(): void {
@@ -87,21 +118,22 @@ export class ReportComponent implements OnInit {
       new Date(formVals.date),
       formVals.description,
     )
+    console.log(newTransaction)
     this.transactionForm.reset()
     this.category = "Pick Your Category"
     if (this.editSelected !== -1 && this.oldTrans != null) {
-      newTransaction.id = this.oldTrans.id
-      this.ts.updateTransaction(this.oldTrans?.id?.toString() ?? "", newTransaction)
+      newTransaction._id = this.oldTrans._id
+      this.ts.updateTransaction(this.oldTrans?._id?.toString() ?? "", newTransaction).subscribe(result => console.log(result))
       this.transactionList.splice(this.editSelected, 1, newTransaction)
     }
     else {
-      this.ts.addTransaction(newTransaction)
+      this.ts.addTransaction(newTransaction).subscribe((result: any) => {
+        console.log(result)
+        newTransaction._id = result["insertedId"] ?? ""
+      })
       this.transactionList.push(newTransaction)
     }
-
-    const getTotals = (fn: (trans: Transaction) => boolean) => this.transactionList.filter(fn).map(trans => trans.amount).reduce((total, trans) => total + trans)
-    this.expenses = getTotals(trans => trans.amount < 0)
-    this.earnings = getTotals(trans => trans.amount > 0)
+    this.getTotals()
   }
   editTransaction(i: number): void {
     const datePipe = new DatePipe("en-SG")
@@ -120,6 +152,7 @@ export class ReportComponent implements OnInit {
       date: ["", [Validators.required]],
       description: [""],
     })
+    this.getTotals()
   }
 
 }

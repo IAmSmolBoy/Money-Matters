@@ -14,10 +14,10 @@
         <div class="back">
           <div class="social-media-wrapper">
             <div class="row socials">
-              <a href="{{user?.socials?.facebook ?? ''}}" class="social-icon"><i class="fa-brands fa-facebook-square"></i></a> 
-              <a href="{{user?.socials?.github ?? ''}}" class="social-icon"><i class="fa-brands fa-github-square"></i></a>
-              <a href="{{user?.socials?.linkedIn ?? ''}}" class="social-icon"><i class="fa-brands fa-linkedin"></i></a>
-              <a href="{{user?.socials?.instagram ?? ''}}" class="social-icon"><i class="fa-brands fa-instagram-square"></i></a>
+              <a target="_blank" href="{{user?.socials?.facebook ?? ''}}" class="social-icon"><i class="fa-brands fa-facebook-square"></i></a> 
+              <a target="_blank" href="{{user?.socials?.github ?? ''}}" class="social-icon"><i class="fa-brands fa-github-square"></i></a>
+              <a target="_blank" href="{{user?.socials?.linkedIn ?? ''}}" class="social-icon"><i class="fa-brands fa-linkedin"></i></a>
+              <a target="_blank" href="{{user?.socials?.instagram ?? ''}}" class="social-icon"><i class="fa-brands fa-instagram-square"></i></a>
             </div>
             <button (click)="editFormShowHide()" type="button" class="social-icon toggleEditProf"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</button>
           </div>

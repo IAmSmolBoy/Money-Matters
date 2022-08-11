@@ -6,12 +6,12 @@
     <h3 *ngIf="subForumItem.value.length === 0" class="noFeedback">There is currently no feedback in this section</h3>
     <div *ngFor="let forumItem of subForumItem.value; let j = index">
       <hr *ngIf="j !== 0" class="subforum-devider">
-      <div class="subforum-row">
+      <div class="subforum-row" [class]="{'admin': currUser?.role === 'admin', 'no-admin': currUser?.role !== 'admin'}">
         <div class="subforum-icon subforum-column center">
           <i class="bi bi-chat-left-dots-fill"></i>
         </div>
         <div class="subforum-description subforum-column">
-          <a class="forumTitle" [routerLink]="['/viewcomments', forumItem.id]">{{forumItem.subject}}</a>
+          <a class="forumTitle" [routerLink]="['/viewcomments', forumItem._id]">{{forumItem.subject}}</a>
           <p>{{i === 1 ? 'Question by: ' : 'Feedback by: '}}<a [routerLink]="['/profilepage', forumItem.userId]">{{userList[i][j]}}</a></p>
           
           <p>Description: {{forumItem.description}}</p>
@@ -19,11 +19,19 @@
         <div class="subforum-stats subforum-column center">
           <span>{{commentNum[i][j]}} comments</span>
         </div>
+        <div *ngIf="currUser?.role === 'admin'" class="subforum-admin subforum-column center">
+          <button (click)="editForm(forumItem)" class="adminBtns">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+          <button (click)="deleteFeedback(forumItem._id?.toString() ?? '')" class="adminBtns">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<div *ngIf="signedIn" class="feedbackFormContainer">
+<div *ngIf="currUser !== null" class="feedbackFormContainer">
   <h1 class="feedbackFormTitle">GET IN TOUCH</h1>
   <p class="feedbackFormDesc">Have any questions or suggestions? Post it in this forum</p>
   <form class="feedbackForm" [formGroup]="form" (ngSubmit)="feedbackSubmit()">
@@ -35,6 +43,21 @@
       <div class="column">
         <label class="inputLabels" for="number">Contact Number (Optional)</label>
         <input class="feedbackFormInputs" formControlName="phoneNumber" type="text" id="number" placeholder="Your phone number here">
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <label class="inputLabels" for="issue">Category</label>
+        <div class="module">
+          <div class="trigger">
+            <span *ngIf="category">General Feedback & Concerns <i class="fa-solid fa-caret-down"></i></span>
+            <span *ngIf="!category">General Questions & Answers <i class="fa-solid fa-caret-down"></i></span>
+            <ul class="objects">
+              <li class="categories" (click)="this.category = true">General Feedback & Concerns</li>
+              <li class="categories" (click)="this.category = false">General Questions & Answers</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
