@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     this.submitted = true
     const loginVals = this.loginForm.value
     this.us.login(loginVals.username, loginVals.password).subscribe(user => {
-      if (user !== null) {
+      if (user !== null && user.error !== "incorrect credentials") {
         localStorage.setItem("jwt", user.token ?? "")
         delete user.token
         this.ua.currUser.next(user as User)
@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
         this.incorrectDetails = true
       }
     })
-    console.log(this.incorrectDetails, this.submitted);
     
   }
 

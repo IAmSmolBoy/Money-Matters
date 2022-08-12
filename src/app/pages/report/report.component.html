@@ -68,8 +68,8 @@
   
         <div class="ml-auto mr-auto" id="totalAmount">
           <h2>total</h2>
-          <i [class]="{'text-red': total < 0, 'text-green': total > 0}" class="fa fa-credit-card-alt expense" aria-hidden="true"></i>
-          <h3 [class]="{'text-red': total < 0, 'text-green': total > 0}" id="totalMoney" class="moneyOutput">${{total}}</h3>
+          <i [class]="{'text-red': total < 0, 'text-green': total > 0, 'text-white': total === 0}" class="fa fa-credit-card-alt expense" aria-hidden="true"></i>
+          <h3 [class]="{'text-red': total < 0, 'text-green': total > 0, 'text-white': total === 0}" id="totalMoney" class="moneyOutput">${{total}}</h3>
         </div>
       </div>
   

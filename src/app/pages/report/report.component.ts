@@ -18,7 +18,6 @@ export class ReportComponent implements OnInit {
   constructor(private ts: TransactionService, private us: UserService, private ua: UserAuthService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    console.log(this.today.toDateString())
     this.ua.currUser.subscribe(user => {
       this.user = user
       if (user !== null) {
@@ -31,7 +30,6 @@ export class ReportComponent implements OnInit {
             newTrans.date = new Date(newTrans.date)
             return newTrans
           })
-          console.log(transList)
           this.getTotals()
         })
       }
@@ -49,11 +47,14 @@ export class ReportComponent implements OnInit {
   total: number = 0
 
   //functions for budget, setting transaction type and category and delete transaction function
-  setTransactionType = (transType: boolean) => this.transactionType = transType
+  setTransactionType(transType: boolean): void {
+    this.transactionType = transType
+    this.category = "Pick Your Category"
+  }
   budgetSubmit(): void {
     if (this.user != null) {
       this.user.budget = this.budgetForm.value.budget
-      this.us.updateUser(this.user._id?.toString() ?? "", {"budget":  this.budgetForm.value.budget}).subscribe(result => console.log(result))
+      this.us.updateUser(this.user._id?.toString() ?? "", {"budget":  this.budgetForm.value.budget}).subscribe(res => localStorage.setItem("jwt", res.token))
     }
   }
   deleteTransaction = (i: number) => this.ts.deleteTransaction(this.transactionList[i]._id?.toString() ?? "").subscribe(response => {
@@ -92,8 +93,6 @@ export class ReportComponent implements OnInit {
   transactionAction: string = "Add"
 
   getTotals(): void {
-    console.log("a");
-    
     //filter and reduce functions
     const filterFunc = (fn: (value: Transaction) => boolean): Transaction[] => this.transactionList.filter(fn)
     const totalFunc = (transList: Transaction[]): number => transList.length > 0 ?
@@ -118,20 +117,18 @@ export class ReportComponent implements OnInit {
       new Date(formVals.date),
       formVals.description,
     )
-    console.log(newTransaction)
     this.transactionForm.reset()
     this.category = "Pick Your Category"
     if (this.editSelected !== -1 && this.oldTrans != null) {
-      newTransaction._id = this.oldTrans._id
       this.ts.updateTransaction(this.oldTrans?._id?.toString() ?? "", newTransaction).subscribe(result => console.log(result))
+      newTransaction._id = this.oldTrans._id
       this.transactionList.splice(this.editSelected, 1, newTransaction)
     }
     else {
       this.ts.addTransaction(newTransaction).subscribe((result: any) => {
-        console.log(result)
         newTransaction._id = result["insertedId"] ?? ""
+        this.transactionList.push(newTransaction)
       })
-      this.transactionList.push(newTransaction)
     }
     this.getTotals()
   }

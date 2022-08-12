@@ -21,7 +21,6 @@ export class ProfilepageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.params.snapshot.paramMap.get("id"), "aa")
     this.us.getUserById(this.params.snapshot.paramMap.get("id") ?? "").subscribe(user => {
       this.user = user
       this.ua.currUser.subscribe(user => {
@@ -78,14 +77,13 @@ export class ProfilepageComponent implements OnInit {
   editForm: FormGroup = this.fb.group({
     username: [this.user?.username ?? "", [Validators.required]],
     email: [this.user?.email ?? "", [Validators.required, Validators.email]],
-    password: ["", [Validators.required]],
+    password: ["", []],
     fb: [this.user?.socials.facebook ?? "https://facebook.com/"],
     github: [this.user?.socials.github ?? "https://github.com/"],
     linkedIn: [this.user?.socials.linkedIn ?? "https://linkedin.com/"],
     ig: [this.user?.socials.instagram ?? "https://instagram.com/"],
   })
   editFormShowHide(): void {
-    console.log("Oi its work")
     this.showEditForm = !this.showEditForm
   }
 
@@ -103,18 +101,24 @@ export class ProfilepageComponent implements OnInit {
     newUser = new User(
       formVals.username,
       formVals.email,
-      formVals.password,
       this.user?.role ?? "",
       this.user?.budget ?? 0,
-      this.pfp,
       {
-        facebook: formVals.facebook,
-        github: formVals.github,
-        linkedIn: formVals.linkedIn,
-        instagram: formVals.instagram,
+        pfp: this.pfp,
+        socials: {
+          facebook: formVals.facebook,
+          github: formVals.github,
+          linkedIn: formVals.linkedIn,
+          instagram: formVals.instagram,
+        },
       }
     )
-    this.us.updateUser(this.currUser?._id?.toString() ?? "", newUser).subscribe(res => console.log(res))
+    if (formVals.password !== null && formVals.password !== "") {
+      newUser.password = formVals.password
+    }
+    this.us.updateUser(this.currUser?._id?.toString() ?? "", newUser).subscribe(res => {
+      localStorage.setItem("jwt", res.token)
+    })
     newUser._id = this.currUser?._id
     this.ua.currUser.next(newUser)
     this.user = newUser

@@ -16,7 +16,7 @@ export class UserService {
   getAllUsers = (): Observable<User[]> => this.http.get<User[]>(this.url)
   getUserById = (id: string): Observable<User | null> => this.http.get<User | null>(`${this.url}/${id}`)
   addUser = (newUser: User) => this.http.post<any>(this.url, newUser)
-  updateUser = (id: string, newUser: any) => this.http.put(`${this.url}/${id}`, newUser)
+  updateUser = (id: string, newUser: any): Observable<{[key: string]: any}> => this.http.put(`${this.url}/${id}`, newUser)
   deleteUser = (id: string) => this.http.delete(`${this.url}/${id}`)
 
   //login custom route

@@ -39,12 +39,12 @@ export class RegisterComponent implements OnInit {
     this.showErr = true
     if (this.registerForm.valid) {
       const registerVals = this.registerForm.value,
-      newUser = new User(registerVals.username, registerVals.email, registerVals.passwords.pass1, "User", 0)
+      newUser = new User(registerVals.username, registerVals.email, "User", 0, {password: registerVals.passwords.pass1})
       this.usernameTaken = this.userList.some(user => user.username === registerVals.username)
       this.emailTaken = this.userList.some(user => user.email === registerVals.email)
       if (!this.usernameTaken && !this.emailTaken) {
         this.us.addUser(newUser).subscribe(userId => {
-          newUser._id = userId["token"]
+          newUser._id = userId["insertedId"]
           this.ua.currUser.next(newUser)
           localStorage.setItem("jwt", userId["token"])
         })

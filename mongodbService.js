@@ -43,12 +43,14 @@ MongoClient.connect(process.env.MONGODB_URI, async (err, client) => {
     router.post("/login", async (req, res) => {
         try {
             const getUserByUsername = await collections.Users.findOne({"username": req.body.username})
-            getUserByUsername.token = jwt.sign(getUserByUsername, process.env.JWTSECRET)
-            res.json(
-                bcrypt.compareSync(req.body.password, getUserByUsername.password) ?
-                getUserByUsername :
-                "incorrect credentials"
-            )
+            if (getUserByUsername !== null && bcrypt.compareSync(req.body.password, getUserByUsername.password)) {
+                getUserByUsername.token = jwt.sign(getUserByUsername, process.env.JWTSECRET)
+                res.json(getUserByUsername)
+            }
+            else {
+                res.json({error: "incorrect credentials"})
+            }
+            
         } catch (error) {
             console.log(error)
             res.json(null)
@@ -65,10 +67,12 @@ MongoClient.connect(process.env.MONGODB_URI, async (err, client) => {
     })
     router.route(`/users/:id`).put(async (req, res) => {
         const updates = req.body
-        if (updates.password !== null) {
+        if (updates.password) {
             updates.password = bcrypt.hashSync(updates.password, bcryptSaltRounds);
         }
-        res.json(await collections.Users.findOneAndUpdate({"_id": ObjectId(req.params.id)}, {"$set": updates}))
+        const updateRes = await collections.Users.findOneAndUpdate({"_id": ObjectId(req.params.id)}, {"$set": updates})
+        updateRes.token = jwt.sign(updateRes.value, process.env.JWTSECRET)
+        res.json(updateRes)
     })
 })
 

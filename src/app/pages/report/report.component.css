@@ -202,6 +202,9 @@ textarea {
 .text-green {
   color: #82e166;
 }
+.text-white {
+  color: white;
+}
 
 /* EXPENSES DISPLAY */
 #expenses-container {

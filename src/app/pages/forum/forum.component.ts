@@ -47,7 +47,6 @@ export class ForumComponent implements OnInit {
 
   ngOnInit(): void {
     this.fs.getAllFeedbacks().subscribe(feedbackList => {
-      console.log(feedbackList);
       this.feedbackList = feedbackList
       
       this.updateForumList();
