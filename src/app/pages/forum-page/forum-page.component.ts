@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FeedbackComment } from 'src/app/models/comment';
 import { Feedback } from 'src/app/models/feedback';
@@ -26,7 +26,6 @@ export class ForumPageComponent implements OnInit {
     private ua: UserAuthService
   ) { }
 
-  feedbackId: string | null = null;
   feedbackInfo: Feedback | null = null;
   authorInfo: User | null = null;
   feedbackComments: FeedbackComment[] = [];
@@ -34,13 +33,15 @@ export class ForumPageComponent implements OnInit {
   currUser: User | null = null
 
   ngOnInit(): void {
-    this.feedbackId = this.route.snapshot.paramMap.get("id") ?? "";
+    const feedbackId = this.route.snapshot.paramMap.get("id") ?? "";
     
-    this.fs.getFeedbackInfo(this.feedbackId ?? "").subscribe(feedback => {
+    this.fs.getFeedbackInfo(feedbackId ?? "").subscribe(feedback => {
       this.feedbackInfo = feedback
-      if (this.feedbackInfo !== null) {
-        this.us.getUserById(this.feedbackInfo.userId?.toString() ?? "").subscribe(user => this.authorInfo = user)
-        this.cs.getComments(this.feedbackId ?? "").subscribe(comments => {
+      if (this.feedbackInfo) {
+        this.us.getUserById(this.feedbackInfo.userId?.toString() ?? "").subscribe(user => {
+          this.authorInfo = user
+        })
+        this.cs.getComments(feedbackId ?? "").subscribe(comments => {
           this.feedbackComments = comments ?? []
           this.feedbackComments.forEach(
             comment => this.us.getUserById(comment?.userId?.toString() ?? "").subscribe(
@@ -65,11 +66,40 @@ export class ForumPageComponent implements OnInit {
         this.commentForm.value.commentContent,
         this.currUser?._id?.toString()
       )
-      this.cs.addComment(newComment)
-      this.feedbackComments.push(newComment)
-      this.commentUsers.push(this.currUser)
-      this.commentForm.reset()
+      this.cs.addComment(newComment).subscribe(result => {
+        newComment._id = result.insertedId
+        this.feedbackComments.push(newComment)
+        this.commentUsers.push(this.currUser)
+        this.commentForm.reset()
+      })
     }
+  }
+
+  deleteComment(id: string, i: number) {
+    this.cs.deleteComment(id).subscribe(result => {
+      console.log(result)
+      this.feedbackComments.splice(i, 1)
+    })
+  }
+
+  //edit
+  editedComment: FeedbackComment | null = null
+  editComment: FormGroup = this.fb.group({
+    content: ["", Validators.required]
+  })
+
+  openEditForm(comment: FeedbackComment) {
+    this.editedComment = comment
+    this.editComment = this.fb.group({
+      content: [comment.content, Validators.required]
+    })
+  }
+
+  saveComment(i: number): void {
+    this.cs.updateComment(this.editedComment?._id?.toString() ?? "", {"content": this.editComment.value.content}).subscribe(result => {
+      this.feedbackComments.splice(i, 1, result.value)
+      this.editedComment = null
+    })
   }
 
 }

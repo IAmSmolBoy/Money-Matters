@@ -175,7 +175,10 @@
 .fa-brands:hover {
     top: -5px;
 }
- 
+.column {
+    display: flex;
+    flex-direction: column;
+}
 .fa-solid {
     position: relative;
     top: 0;
@@ -193,6 +196,7 @@
 .toggleEditProf {
     font-size: 1.3rem;
     background: transparent;
+    margin: auto;
 }
 
 

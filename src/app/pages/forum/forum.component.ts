@@ -33,7 +33,7 @@ export class ForumComponent implements OnInit {
     
     //getting comments
     [feedback, others].forEach((val, i) => val.forEach(
-      feedback => this.cs.getComments(feedback?._id?.toString() ?? "").subscribe(
+      feedback => this.cs.getComments(feedback._id?.toString() ?? "").subscribe(
         comments => this.commentNum[i].push(comments?.length ?? 0)
       )
     ))
@@ -119,6 +119,7 @@ export class ForumComponent implements OnInit {
     }
     else {
       this.fs.addFeedback(feedback).subscribe(response => {
+        feedback._id = response.insertedId
         this.feedbackList.push(feedback)
         this.updateForumList()
       })

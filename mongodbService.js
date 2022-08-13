@@ -22,22 +22,22 @@ MongoClient.connect(process.env.MONGODB_URI, async (err, client) => {
         const noIdRoute = router.route(`/${colName.toLowerCase()}`),
         idRoute = router.route(`/${colName.toLowerCase()}/:id`)
 
-        //R and D
+        //Read for all routes
         noIdRoute.get(async (req, res) => res.json(await col.find().toArray()))
         idRoute.get(async (req, res) => res.json(await col.findOne({"_id": ObjectId(req.params.id)})))
-            .delete(async (req, res) => res.json(await col.deleteOne({"_id": ObjectId(req.params.id)})))
 
         if (colName !== "Users") {
-            //C and U will not be applied for users
-            //user C and U will be below
+            //C, U and D will not be applied for users
+            //user C, U and D will be below
             noIdRoute.post(async (req, res) => res.json(await col.insertOne(req.body)))
             idRoute.put(async (req, res) => res.json(await col.findOneAndUpdate({"_id": ObjectId(req.params.id)}, {"$set": req.body})))
+                .delete(async (req, res) => res.json(await col.deleteOne({"_id": ObjectId(req.params.id)})))
         }
     }
     
     //custom routes
     router.get("/transactionsByUserId/:userId", async (req, res) => res.json(await collections["Transactions"].find({"userId": req.params.userId}).toArray()))
-    router.get("/commentsByFeedback/:feedbackId", async (req, res) => res.json(await collections["Comments"].find({"feedbackId": req.params.feedbackId})))
+    router.get("/commentsByFeedback/:feedbackId", async (req, res) => res.json(await collections["Comments"].find({"feedbackId": req.params.feedbackId}).toArray()))
 
     //user routes
     router.post("/login", async (req, res) => {
@@ -58,8 +58,8 @@ MongoClient.connect(process.env.MONGODB_URI, async (err, client) => {
     })
     router.post("/parseJWT", (req, res) => res.json(jwt.verify(req.body.token, process.env.JWTSECRET)))
 
-    //bcrpyt add and edit user credentials
-    router.route(`/users`).post(async (req, res) => {
+    //bcrpyt C, U and D user credentials
+    router.post(`/users`, async (req, res) => {
         req.body.password = bcrypt.hashSync(req.body.password, bcryptSaltRounds);
         const userId = await collections.Users.insertOne(req.body)
         userId.token = jwt.sign(req.body, process.env.JWTSECRET)
@@ -73,6 +73,19 @@ MongoClient.connect(process.env.MONGODB_URI, async (err, client) => {
         const updateRes = await collections.Users.findOneAndUpdate({"_id": ObjectId(req.params.id)}, {"$set": updates})
         updateRes.token = jwt.sign(updateRes.value, process.env.JWTSECRET)
         res.json(updateRes)
+    })
+    .delete(async (req, res) => {
+        try {
+            const deleteOptions = { userId: req.params.id }
+            await collections.Transactions.deleteMany(deleteOptions)
+            await collections.Feedback.deleteMany(deleteOptions)
+            await collections.Users.deleteOne({ _id: ObjectId(req.params.id) })
+            res.json("Success")
+        }
+        catch (err) {
+            console.log(err)
+            res.json("Failed")
+        }
     })
 })
 

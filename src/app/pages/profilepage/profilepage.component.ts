@@ -1,8 +1,10 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TimeInterval } from 'rxjs';
 import { User } from 'src/app/models/user';
+import { FeedbackService } from 'src/app/services/feedback.service';
+import { TransactionService } from 'src/app/services/transaction.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -13,7 +15,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProfilepageComponent implements OnInit {
 
-  constructor(private params: ActivatedRoute, private us: UserService, private document: ElementRef, private fb: FormBuilder, private ua: UserAuthService) { }
+  constructor(private params: ActivatedRoute, private us: UserService, private document: ElementRef, private fb: FormBuilder, private ua: UserAuthService,
+    private router: Router, private fs: FeedbackService, private ts: TransactionService) { }
 
   ngAfterViewInit() {
     this.text = (<HTMLElement>this.document.nativeElement).getElementsByClassName('front_text')[0]
@@ -123,6 +126,20 @@ export class ProfilepageComponent implements OnInit {
     this.ua.currUser.next(newUser)
     this.user = newUser
     this.showEditForm = false
+  }
+
+  deleteProfile(): void {
+    const userId = this.user?._id?.toString() ?? ""
+    this.us.deleteUser(userId).subscribe(result => {
+      if (result === "Success") {
+        this.ua.currUser.next(null)
+        localStorage.clear()
+        this.router.navigate(["/"])
+      }
+      else {
+        console.log(result)
+      }
+    })
   }
 
 }

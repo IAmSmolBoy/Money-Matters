@@ -3,21 +3,21 @@
         <!--Original thread-->
         <div class="topic-container">
             <h1 class="text">
-                {{feedbackInfo !== null ? feedbackInfo!.subject : "Title"}}
+                {{feedbackInfo?.subject ?? "Title"}}
             </h1>
             <div class="head">
                 <div class="username">
-                    Asked By <a class="usernameLink"
-                        [routerLink]="['/profilepage', authorInfo?._id?.toString() ?? '']">{{authorInfo !== null
-                        ? authorInfo!.username : "Username"}}</a>
-                    {{authorInfo !== null ? authorInfo!.role : "Role"}}
+                    <p class="author">Asked By <a class="usernameLink"
+                        [routerLink]="['/profilepage', authorInfo?._id?.toString() ?? '']">{{authorInfo!?.username ?? "Username"}}</a></p>
+                    
+                    <p class="role">Role: {{authorInfo?.role ?? "Role"}}</p>
                 </div>
             </div>
             <hr class="whiteLine">
             <div class="body feedbackSection">
                 <h1 class="sectionHeader">Description</h1>
                 <h3 class="text">
-                    {{feedbackInfo !== null ? feedbackInfo!.description : "Description"}}
+                    {{feedbackInfo?.description ?? "Description"}}
                 </h3>
             </div>
         </div>
@@ -31,12 +31,21 @@
                 <div class="authors">
                     <div class="username"><a class="usernameLink"
                         [routerLink]="['/profilepage', commentUsers[i]?._id?.toString() ?? '']">
-                        {{commentUsers[i]!.username}}
+                        {{commentUsers[i]?.username ?? ''}}
                     </a></div>
-                    <div>{{commentUsers[i]!.role}}</div>
+                    <div>{{commentUsers[i]?.role ?? ''}}</div>
                 </div>
                 <div class="content">
-                    {{comment.content}}
+                    <form [formGroup]="editComment" (ngSubmit)="saveComment(i)">
+                        <h3 *ngIf="editedComment?._id?.toString() !== comment._id?.toString()" class="feedbackSubject">{{comment.content}}</h3>
+                        <input *ngIf="editedComment?._id?.toString() === comment._id?.toString()" type="text" class="editCommentInput" formControlName="content">
+                        <div class="row">
+                            <button *ngIf="editedComment?._id?.toString() !== comment._id?.toString()" (click)="openEditForm(comment)" class="commentBtns"><i class="fa-solid fa-pen"></i></button>
+                            <button *ngIf="editedComment?._id?.toString() === comment._id?.toString()" [disabled]="!editComment.valid" type="submit" class="commentBtns"><i class="fa-solid fa-check"></i></button>
+                            <button (click)="deleteComment(comment._id?.toString() ?? '', i)" class="commentBtns"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                    </form>
+                    
                 </div>
             </div>
         </div>

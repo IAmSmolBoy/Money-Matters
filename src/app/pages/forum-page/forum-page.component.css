@@ -1,5 +1,3 @@
-
-
 .head {
   margin: 0px auto;
   display: flex;
@@ -60,6 +58,10 @@
   font-size: 20px;
 }
 
+.role {
+  margin: 0;
+}
+
 .feedbackSection {
   flex-direction: column;
 }
@@ -99,4 +101,26 @@
 
 .comment-area input:hover {
   border: solid 1px #000000;
+}
+
+.feedbackSubject, .editCommentInput {
+  position: absolute;
+}
+
+.row {
+  margin: auto;
+  margin-right: 0;
+  width: max-content;
+  height: max-content;
+}
+
+.commentBtns {
+  margin: auto;
+  background: transparent;
+  padding: 0;
+  color: white;
+}
+
+.editCommentInput {
+  height: 2.25rem
 }

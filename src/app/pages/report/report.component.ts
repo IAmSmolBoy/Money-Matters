@@ -120,17 +120,19 @@ export class ReportComponent implements OnInit {
     this.transactionForm.reset()
     this.category = "Pick Your Category"
     if (this.editSelected !== -1 && this.oldTrans != null) {
-      this.ts.updateTransaction(this.oldTrans?._id?.toString() ?? "", newTransaction).subscribe(result => console.log(result))
-      newTransaction._id = this.oldTrans._id
-      this.transactionList.splice(this.editSelected, 1, newTransaction)
-    }
-    else {
-      this.ts.addTransaction(newTransaction).subscribe((result: any) => {
-        newTransaction._id = result["insertedId"] ?? ""
-        this.transactionList.push(newTransaction)
+      this.ts.updateTransaction(this.oldTrans?._id?.toString() ?? "", newTransaction).subscribe(result => {
+        newTransaction._id = this.oldTrans?._id
+        this.transactionList.splice(this.editSelected, 1, newTransaction)
+        this.getTotals()
       })
     }
-    this.getTotals()
+    else {
+      this.ts.addTransaction(newTransaction).subscribe((result) => {
+        newTransaction._id = result["insertedId"] ?? ""
+        this.transactionList.push(newTransaction)
+        this.getTotals()
+      })
+    }
   }
   editTransaction(i: number): void {
     const datePipe = new DatePipe("en-SG")

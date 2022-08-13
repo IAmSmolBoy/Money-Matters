@@ -19,7 +19,10 @@
               <a target="_blank" href="{{user?.socials?.linkedIn ?? ''}}" class="social-icon"><i class="fa-brands fa-linkedin"></i></a>
               <a target="_blank" href="{{user?.socials?.instagram ?? ''}}" class="social-icon"><i class="fa-brands fa-instagram-square"></i></a>
             </div>
-            <button (click)="editFormShowHide()" type="button" class="social-icon toggleEditProf"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</button>
+            <div class="column">
+              <button *ngIf="own" (click)="editFormShowHide()" type="button" class="social-icon toggleEditProf"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</button>
+              <button *ngIf="own" (click)="deleteProfile()" type="button" class="social-icon toggleEditProf"><i class="fa-solid fa-trash-can"></i> Delete Profile</button>
+            </div>
           </div>
           <a *ngIf="own" routerLink="editProfile" class="editOrif"></a>
         </div>

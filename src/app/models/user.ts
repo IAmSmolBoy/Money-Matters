@@ -1,8 +1,5 @@
 import { ObjectId } from "mongodb"
-
-interface Socials {
-    [key: string]: string
-}
+import { dictionary } from "./interfaces"
 
 export class User {
 
@@ -13,9 +10,9 @@ export class User {
     role: string
     budget: number
     pfp: string
-    socials: Socials
+    socials: dictionary
 
-    constructor(username: string, email: string, role: string, budget: number, para: {pfp?: string, socials?: Socials, password?: string, id?: ObjectId}) {
+    constructor(username: string, email: string, role: string, budget: number, para: {pfp?: string, socials?: dictionary, password?: string, id?: ObjectId}) {
         this._id = para.id
         this.username = username 
         this.email = email 
