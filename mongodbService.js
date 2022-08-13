@@ -70,20 +70,20 @@ MongoClient.connect(process.env.MONGODB_URI, async (err, client) => {
                     pass: "M0n3yM@ttersfweb",
                 },
             }),
-            result = await transporter.sendMail({
-                from: 'moneymattersfweb@outlook.com', 
-                to: req.body.email,
-                subject: "Reset Money Matters password",
-                text: `You will be given 10min to reset your password here: http://localhost:3000/forgetpassword/${token}`,
-                html: `<b>You will be given 10min to reset your password <a href='http://localhost:3000/forgetpassword/${token}'>here</a></b>`,
-            });
             // result = await transporter.sendMail({
             //     from: 'moneymattersfweb@outlook.com', 
             //     to: req.body.email,
             //     subject: "Reset Money Matters password",
-            //     text: `You will be given 10min to reset your password here: https://money-matters-fweb.herokuapp.com//forgetpassword/${token}`,
-            //     html: `<b>You will be given 10min to reset your password <a href='https://money-matters-fweb.herokuapp.com//forgetpassword/${token}'>here</a></b>`,
+            //     text: `You will be given 10min to reset your password here: http://localhost:3000/forgetpassword/${token}`,
+            //     html: `<b>You will be given 10min to reset your password <a href='http://localhost:3000/forgetpassword/${token}'>here</a></b>`,
             // });
+            result = await transporter.sendMail({
+                from: 'moneymattersfweb@outlook.com', 
+                to: req.body.email,
+                subject: "Reset Money Matters password",
+                text: `You will be given 10min to reset your password here: https://money-matters-fweb.herokuapp.com//forgetpassword/${token}`,
+                html: `<b>You will be given 10min to reset your password <a href='https://money-matters-fweb.herokuapp.com//forgetpassword/${token}'>here</a></b>`,
+            });
             console.log(result)
             res.json("The email has been sent")
         } catch (err) {
