@@ -2,17 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../models/user';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserAuthService {
 
-  constructor(private http: HttpClient) {
-    if (localStorage.getItem("jwt")) {
-      this.http.post<User | null>(`/db/parseJWT`, {
-        "token": localStorage.getItem("jwt")
-      }).subscribe(user => {
+  constructor( private us: UserService) {
+    const jwt = localStorage.getItem("jwt")
+    if (jwt) {
+      this.us.parseJWT(jwt).subscribe(user => {
         this.currUser.next(user)
       })
     }

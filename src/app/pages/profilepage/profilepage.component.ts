@@ -120,7 +120,7 @@ export class ProfilepageComponent implements OnInit {
       newUser.password = formVals.password
     }
     this.us.updateUser(this.currUser?._id?.toString() ?? "", newUser).subscribe(res => {
-      localStorage.setItem("jwt", res.token)
+      localStorage.setItem("jwt", res?.token)
     })
     newUser._id = this.currUser?._id
     this.ua.currUser.next(newUser)

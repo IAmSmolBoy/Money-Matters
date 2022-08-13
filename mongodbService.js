@@ -2,6 +2,7 @@ const express = require("express");
 const { ObjectId, MongoClient } = require("mongodb");
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken")
+const nm = require("nodemailer")
 require("dotenv").config()
 
 const router = express.Router();
@@ -10,6 +11,7 @@ var collections = {}
 const bcryptSaltRounds = 10
 
 MongoClient.connect(process.env.MONGODB_URI, async (err, client) => {
+
     if (err) console.log(err)
     const mongodbCollections = await client.db("MoneyMattersDB").collections()
     mongodbCollections.forEach((collection) => {
@@ -55,6 +57,27 @@ MongoClient.connect(process.env.MONGODB_URI, async (err, client) => {
             console.log(error)
             res.json(null)
         }
+    })
+    router.post("/resetpassword", async (req, res) => {
+        const token = jwt.sign(await collections.Users.findOne({ "email": req.body.email }), process.env.JWTSECRET, { expiresIn: 600 }),
+        transporter = nm.createTransport({
+            host: "smtp-mail.outlook.com",
+            port: 587,
+            secure: false,
+            auth: {
+                user: "moneymattersfweb@outlook.com",
+                pass: "M0n3yM@ttersfweb",
+            },
+        }),
+        result = await transporter.sendMail({
+            from: 'moneymattersfweb@outlook.com', 
+            to: req.body.email,
+            subject: "Reset Money Matters password",
+            text: `You will be given 10min to reset your password here: http://localhost:3000/forgetpassword/${token}`,
+            html: `<b>You will be given 10min to reset your password <a href='http://localhost:3000/forgetpassword/${token}'>here</a></b>`,
+        });
+        console.log(result)
+        res.json("sent")
     })
     router.post("/parseJWT", (req, res) => res.json(jwt.verify(req.body.token, process.env.JWTSECRET)))
 

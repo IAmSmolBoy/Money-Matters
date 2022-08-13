@@ -19,6 +19,7 @@ const routes: Routes = [
   {path: 'profilepage/:id', component:ProfilepageComponent, canActivate: [AuthGuard]},
   {path: 'forum', component: ForumComponent},
   {path: 'viewcomments/:id',component: ForumPageComponent},
+  {path: 'forgetpassword',component: ForgotpasswordComponent, canActivate: [AuthGuard]},
   {path: 'forgetpassword/:token',component: ForgotpasswordComponent, canActivate: [AuthGuard]},
 ];
 

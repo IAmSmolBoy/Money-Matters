@@ -17,13 +17,19 @@ export class UserService {
   getAllUsers = (): Observable<User[]> => this.http.get<User[]>(this.url)
   getUserById = (id: string): Observable<User | null> => this.http.get<User | null>(`${this.url}/${id}`)
   addUser = (newUser: User) => this.http.post<any>(this.url, newUser)
-  updateUser = (id: string, newUser: any): Observable<dictionary> => this.http.put(`${this.url}/${id}`, newUser)
+  updateUser = (id: string, newUser: dictionary | User): Observable<dictionary | null> => this.http.put<dictionary | null>(`${this.url}/${id}`, newUser)
   deleteUser = (id: string) => this.http.delete(`${this.url}/${id}`)
 
-  //login custom route
+  //login and reset password custom route
   login = (username: string, password: string): Observable<dictionary | null> => this.http.post<dictionary | null>(`/db/login`, {
     "username": username,
     "password": password
+  })
+  parseJWT = (jwt: string): Observable<User> => this.http.post<User>(`/db/parseJWT`, {
+    "token": jwt
+  })
+  resetPass = (email: string): Observable<string> => this.http.post<string>("/db/resetpassword", {
+    email: email
   })
 
 }

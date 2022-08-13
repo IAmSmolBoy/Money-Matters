@@ -54,7 +54,7 @@ export class ReportComponent implements OnInit {
   budgetSubmit(): void {
     if (this.user != null) {
       this.user.budget = this.budgetForm.value.budget
-      this.us.updateUser(this.user._id?.toString() ?? "", {"budget":  this.budgetForm.value.budget}).subscribe(res => localStorage.setItem("jwt", res.token))
+      this.us.updateUser(this.user._id?.toString() ?? "", {"budget":  this.budgetForm.value.budget}).subscribe(res => localStorage.setItem("jwt", res?.token))
     }
   }
   deleteTransaction = (i: number) => this.ts.deleteTransaction(this.transactionList[i]._id?.toString() ?? "").subscribe(response => {
