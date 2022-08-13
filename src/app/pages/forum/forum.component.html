@@ -6,7 +6,7 @@
     <h3 *ngIf="subForumItem.value.length === 0" class="noFeedback">There is currently nothing in this section</h3>
     <div *ngFor="let forumItem of subForumItem.value; let j = index">
       <hr *ngIf="j !== 0" class="subforum-devider">
-      <div class="subforum-row" [class]="{'admin': currUser?.role === 'admin' || currUser?._id?.toString() === forumItem.userId, 'no-admin': currUser?.role !== 'admin'}">
+      <div class="subforum-row" [class]="{'admin': currUser?.role === 'Admin' || currUser?._id?.toString() === forumItem.userId, 'no-admin': currUser?.role !== 'admin'}">
         <div class="subforum-icon subforum-column center">
           <i class="bi bi-chat-left-dots-fill"></i>
         </div>
@@ -19,7 +19,7 @@
         <div class="subforum-stats subforum-column center">
           <span>{{commentNum[i][j]}} comments</span>
         </div>
-        <div *ngIf="currUser?.role === 'admin' || currUser?._id?.toString() === forumItem.userId" class="subforum-admin subforum-column center">
+        <div *ngIf="currUser?.role === 'Admin' || currUser?._id?.toString() === forumItem.userId" class="subforum-admin subforum-column center">
           <button (click)="editForm(forumItem)" class="adminBtns">
             <i class="fa-solid fa-pen"></i>
           </button>
