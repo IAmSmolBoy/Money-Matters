@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgModel, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PassMatchValidator } from 'src/app/custom-validators/passMatchValidator.validator';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
@@ -12,11 +13,12 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ForgotpasswordComponent implements OnInit {
 
-  constructor(private params: ActivatedRoute, private us: UserService, private fb: FormBuilder, private router: Router) {}
+  constructor(private params: ActivatedRoute, private us: UserService, private fb: FormBuilder, private router: Router, private ms: NgbModal) {}
 
   user: User | null = null
   reset: boolean = false
   showErr: boolean = false
+  result: string = ""
 
   sendEmailForm: FormGroup = this.fb.group({
     email: ["", [Validators.required, Validators.email]]
@@ -38,9 +40,10 @@ export class ForgotpasswordComponent implements OnInit {
     }
   }
 
-  sendEmailSubmit(): void {
+  sendEmailSubmit(modal: any): void {
     this.us.resetPass(this.sendEmailForm.value.email).subscribe(result => {
-      console.log(result)
+      this.ms.open(modal)
+      this.result = result
     })
   }
   
@@ -50,6 +53,7 @@ export class ForgotpasswordComponent implements OnInit {
     if (this.user) {
       this.us.updateUser(this.user._id?.toString() ?? "", { password: this.resetPassForm.value.pass1 }).subscribe(result => {
         console.log(result, "a")
+        localStorage.setItem("jwt", result?.token)
         this.router.navigate(["/login"])
       })
     }

@@ -59,25 +59,37 @@ MongoClient.connect(process.env.MONGODB_URI, async (err, client) => {
         }
     })
     router.post("/resetpassword", async (req, res) => {
-        const token = jwt.sign(await collections.Users.findOne({ "email": req.body.email }), process.env.JWTSECRET, { expiresIn: 600 }),
-        transporter = nm.createTransport({
-            host: "smtp-mail.outlook.com",
-            port: 587,
-            secure: false,
-            auth: {
-                user: "moneymattersfweb@outlook.com",
-                pass: "M0n3yM@ttersfweb",
-            },
-        }),
-        result = await transporter.sendMail({
-            from: 'moneymattersfweb@outlook.com', 
-            to: req.body.email,
-            subject: "Reset Money Matters password",
-            text: `You will be given 10min to reset your password here: http://localhost:3000/forgetpassword/${token}`,
-            html: `<b>You will be given 10min to reset your password <a href='http://localhost:3000/forgetpassword/${token}'>here</a></b>`,
-        });
-        console.log(result)
-        res.json("sent")
+        try {
+            const token = jwt.sign(await collections.Users.findOne({ "email": req.body.email }), process.env.JWTSECRET, { expiresIn: 600 }),
+            transporter = nm.createTransport({
+                host: "smtp-mail.outlook.com",
+                port: 587,
+                secure: false,
+                auth: {
+                    user: "moneymattersfweb@outlook.com",
+                    pass: "M0n3yM@ttersfweb",
+                },
+            }),
+            result = await transporter.sendMail({
+                from: 'moneymattersfweb@outlook.com', 
+                to: req.body.email,
+                subject: "Reset Money Matters password",
+                text: `You will be given 10min to reset your password here: http://localhost:3000/forgetpassword/${token}`,
+                html: `<b>You will be given 10min to reset your password <a href='http://localhost:3000/forgetpassword/${token}'>here</a></b>`,
+            });
+            // result = await transporter.sendMail({
+            //     from: 'moneymattersfweb@outlook.com', 
+            //     to: req.body.email,
+            //     subject: "Reset Money Matters password",
+            //     text: `You will be given 10min to reset your password here: https://money-matters-fweb.herokuapp.com//forgetpassword/${token}`,
+            //     html: `<b>You will be given 10min to reset your password <a href='https://money-matters-fweb.herokuapp.com//forgetpassword/${token}'>here</a></b>`,
+            // });
+            console.log(result)
+            res.json("The email has been sent")
+        } catch (err) {
+            console.log(err)
+            res.json("An error has occured whilst sending the email")
+        }
     })
     router.post("/parseJWT", (req, res) => res.json(jwt.verify(req.body.token, process.env.JWTSECRET)))
 
